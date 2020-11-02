@@ -26,6 +26,18 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Town> Towns { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<PatientDoctor> PatientDoctors { get; set; }
+
+        public DbSet<Consultation> Consultations { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -47,6 +59,21 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<PatientDoctor>(entity =>
+            {
+                entity.HasKey(e => new { e.DoctorId, e.PatientId });
+
+                entity.HasOne(d => d.Doctor)
+                    .WithMany(p => p.Patients)
+                    .HasForeignKey(d => d.DoctorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.Patient)
+                    .WithMany(p => p.Doctors)
+                    .HasForeignKey(d => d.PatientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
