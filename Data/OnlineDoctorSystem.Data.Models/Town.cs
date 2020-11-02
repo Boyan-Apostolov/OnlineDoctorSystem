@@ -8,6 +8,6 @@ namespace OnlineDoctorSystem.Data.Models
 {
     public class Town : BaseDeletableModel<int>
     {
-        public string TownName { get; set; }
+        public string Name { get; set; }
     }
 }

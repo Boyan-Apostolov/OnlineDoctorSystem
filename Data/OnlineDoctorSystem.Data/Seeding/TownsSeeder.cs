@@ -46,7 +46,7 @@ namespace OnlineDoctorSystem.Data.Seeding
             };
             foreach (var townName in townNames)
             {
-                await dbContext.Towns.AddAsync(new Town() { TownName = townName });
+                await dbContext.Towns.AddAsync(new Town() { Name = townName });
             }
         }
     }

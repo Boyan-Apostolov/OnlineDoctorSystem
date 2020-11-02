@@ -19,10 +19,12 @@ namespace OnlineDoctorSystem.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(IDeletableEntityRepository<Doctor> doctorsRepository)
+        public HomeController(IDeletableEntityRepository<Doctor> doctorsRepository,ApplicationDbContext db)
         {
             this.doctorsRepository = doctorsRepository;
+            _db = db;
         }
 
         public IActionResult Index()

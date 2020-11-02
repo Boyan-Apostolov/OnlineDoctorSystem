@@ -18,8 +18,6 @@ namespace OnlineDoctorSystem.Web.ViewModels.Home
 
         public Town Town { get; set; }
 
-        public string TownName => this.Town.TownName;
-
         public string Url => $"/Doctors/Details/{this.Name.Replace(' ', '-')}";
     }
 }
