@@ -23,6 +23,8 @@ namespace OnlineDoctorSystem.Data.Models
 
         public string Phone { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public Town Town { get; set; }
 
         public DateTime BirthDate { get; set; }

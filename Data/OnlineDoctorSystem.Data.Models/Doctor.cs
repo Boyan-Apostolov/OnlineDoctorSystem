@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OnlineDoctorSystem.Data.Common.Models;
 using OnlineDoctorSystem.Data.Models.Enums;
 
@@ -27,6 +28,8 @@ namespace OnlineDoctorSystem.Data.Models
         public Town Town { get; set; }
 
         public string Phone { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public DateTime BirthDate { get; set; }
 
