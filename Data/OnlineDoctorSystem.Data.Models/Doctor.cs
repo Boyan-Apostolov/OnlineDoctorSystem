@@ -51,12 +51,7 @@ namespace OnlineDoctorSystem.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public double AverageRating => this.Reviews
-            .Average(s =>
-                s.DoctorAttitudeReview +
-                s.OverallReview +
-                s.WaitingTimeReview);
-
+        public double AverageRating { get; set; }
 
         public string Education { get; set; }
 

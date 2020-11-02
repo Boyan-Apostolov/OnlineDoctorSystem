@@ -10,6 +10,11 @@ namespace OnlineDoctorSystem.Data.Migrations
                 name: "ImageUrl",
                 table: "Patients",
                 nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ImageUrl",
+                table: "Doctors",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

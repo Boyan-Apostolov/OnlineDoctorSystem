@@ -7,15 +7,15 @@ namespace OnlineDoctorSystem.Data.Models.Enums
     public enum DoctorSpecialty
     {
         None = 0,
-        AkusherGinekolog = 1,
-        Endokrinolog = 2,
-        Pediatar = 3,
-        UNG = 4,
-        Nevrolog = 5,
-        Gastroenterolog = 6,
-        Oftalmolog = 7,
-        Ortoped = 8,
-        Kardiolog = 9,
-        Stomatolog = 10
+        Акушер_Генеколог = 1,
+        Енгокринолог = 2,
+        Педиатър = 3,
+        УНГ = 4,
+        Невролог = 5,
+        Гастроентерелог = 6,
+        Офталмолог = 7,
+        Ортопед = 8,
+        Кардиолог = 9,
+        Стоматолог = 10
     }
 }

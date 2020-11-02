@@ -6,6 +6,6 @@ namespace OnlineDoctorSystem.Web.ViewModels.Home
 {
     public class IndexViewModel
     {
-        private IEnumerable<IndexDoctorViewModel> Doctors { get; set; }
+        public IEnumerable<IndexDoctorViewModel> Doctors { get; set; }
     }
 }

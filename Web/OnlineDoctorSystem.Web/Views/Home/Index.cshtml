@@ -1,9 +1,23 @@
 ﻿@using OnlineDoctorSystem.Common
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = $"Добре дошли в ОнлайнДоктор-Системата!";
 }
+@model OnlineDoctorSystem.Web.ViewModels.Home.IndexViewModel
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+
+    @foreach (var doctor in @Model.Doctors)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@doctor.ImageUrl" alt="@doctor.Name снимка">
+            <div class="card-body">
+                <h5 class="card-title">Д-р @doctor.Name</h5>
+                <p class="card-text">@doctor.AverageRating / 5</p>
+                <p class="card-text">@doctor.Town - @doctor.Specialty</p>
+                <a href="@doctor.Url" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+            </div>
+        </div>
+    }
+
 </div>

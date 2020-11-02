@@ -1,16 +1,46 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using System;
+using System.Linq;
+using OnlineDoctorSystem.Data;
+using OnlineDoctorSystem.Data.Models;
+using OnlineDoctorSystem.Data.Models.Enums;
+using OnlineDoctorSystem.Web.ViewModels;
+using OnlineDoctorSystem.Web.ViewModels.Home;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Diagnostics;
 
-    using OnlineDoctorSystem.Web.ViewModels;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public HomeController(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var doctors = this.dbContext.Doctors
+                .Select(x => new IndexDoctorViewModel()
+                {
+                    Name = x.Name,
+                    Town = x.Town.TownName,
+                    AverageRating = "4",
+                    ImageUrl = x.ImageUrl,
+                    Specialty = x.Specialty.ToString(),
+                })
+                .ToList();
+            var viewModel = new IndexViewModel()
+            {
+                Doctors = doctors
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
