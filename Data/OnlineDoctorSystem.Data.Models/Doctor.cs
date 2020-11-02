@@ -12,6 +12,7 @@ namespace OnlineDoctorSystem.Data.Models
     {
         public Doctor()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Consultations = new HashSet<Consultation>();
             this.Patients = new HashSet<PatientDoctor>();
             this.Reviews = new HashSet<Review>();

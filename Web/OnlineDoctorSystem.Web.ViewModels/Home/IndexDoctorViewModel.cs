@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OnlineDoctorSystem.Data.Models;
+using OnlineDoctorSystem.Services.Mapping;
 
 namespace OnlineDoctorSystem.Web.ViewModels.Home
 {
-    public class IndexDoctorViewModel
+    public class IndexDoctorViewModel : IMapFrom<Doctor>
     {
         public string Name { get; set; }
 
@@ -14,7 +16,9 @@ namespace OnlineDoctorSystem.Web.ViewModels.Home
 
         public string Specialty { get; set; }
 
-        public string Town { get; set; }
+        public Town Town { get; set; }
+
+        public string TownName => this.Town.TownName;
 
         public string Url => $"/Doctors/Details/{this.Name.Replace(' ', '-')}";
     }

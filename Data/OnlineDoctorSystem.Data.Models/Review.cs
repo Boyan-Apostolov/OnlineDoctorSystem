@@ -7,6 +7,10 @@ namespace OnlineDoctorSystem.Data.Models
 {
     public class Review : BaseDeletableModel<string>
     {
+        public Review()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
         public double OverallReview { get; set; }
 
         public double WaitingTimeReview { get; set; }

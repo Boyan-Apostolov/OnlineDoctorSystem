@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using OnlineDoctorSystem.Data;
+using OnlineDoctorSystem.Data.Common.Repositories;
 using OnlineDoctorSystem.Data.Models;
 using OnlineDoctorSystem.Data.Models.Enums;
+using OnlineDoctorSystem.Services.Mapping;
 using OnlineDoctorSystem.Web.ViewModels;
 using OnlineDoctorSystem.Web.ViewModels.Home;
 
@@ -16,29 +18,21 @@ namespace OnlineDoctorSystem.Web.Controllers
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
 
-        public HomeController(ApplicationDbContext dbContext)
+        public HomeController(IDeletableEntityRepository<Doctor> doctorsRepository)
         {
-            this.dbContext = dbContext;
+            this.doctorsRepository = doctorsRepository;
         }
 
         public IActionResult Index()
         {
-            var doctors = this.dbContext.Doctors
-                .Select(x => new IndexDoctorViewModel()
-                {
-                    Name = x.Name,
-                    Town = x.Town.TownName,
-                    AverageRating = "4",
-                    ImageUrl = x.ImageUrl,
-                    Specialty = x.Specialty.ToString(),
-                })
+            var doctors = this.doctorsRepository.All()
+                .To<IndexDoctorViewModel>()
                 .ToList();
-            var viewModel = new IndexViewModel()
-            {
-                Doctors = doctors
-            };
+
+            var viewModel = new IndexViewModel();
+            viewModel.Doctors = doctors;
 
             return this.View(viewModel);
         }

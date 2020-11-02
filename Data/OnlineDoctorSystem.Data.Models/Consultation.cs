@@ -7,6 +7,10 @@ namespace OnlineDoctorSystem.Data.Models
 {
     public class Consultation : BaseDeletableModel<string>
     {
+        public Consultation()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
         public DateTime Date { get; set; }
 
         public string PatientId { get; set; }
