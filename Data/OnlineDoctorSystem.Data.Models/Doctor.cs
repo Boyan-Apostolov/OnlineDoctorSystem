@@ -52,8 +52,6 @@ namespace OnlineDoctorSystem.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public double AverageRating { get; set; }
-
         public string Education { get; set; }
 
         public string Qualifications { get; set; }
@@ -63,5 +61,19 @@ namespace OnlineDoctorSystem.Data.Models
         public virtual ICollection<PatientDoctor> Patients { get; set; }
 
         public ICollection<Consultation> Consultations { get; set; }
+
+        public double AverageRating()
+        {
+            if (this.Reviews.Any())
+            {
+                return this.Reviews.Average(x => x.DoctorAttitudeReview +
+                                                 x.OverallReview +
+                                                 x.WaitingTimeReview);
+
+            }
+
+            return 0;
+        }
+
     }
 }

@@ -1,41 +1,33 @@
-﻿using System;
-using System.Linq;
-using OnlineDoctorSystem.Data;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Data.Models.Enums;
-using OnlineDoctorSystem.Services.Mapping;
-using OnlineDoctorSystem.Web.ViewModels;
-using OnlineDoctorSystem.Web.ViewModels.Home;
+﻿using OnlineDoctorSystem.Services.Data.Doctors;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Diagnostics;
-
-    using OnlineDoctorSystem.Web.ViewModels.Home;
+    using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Data;
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
-        private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
-        private readonly ApplicationDbContext _db;
+        private readonly IDoctorsService doctorsService;
 
-        public HomeController(IDeletableEntityRepository<Doctor> doctorsRepository,ApplicationDbContext db)
+        public HomeController(IDoctorsService doctorsService)
         {
-            this.doctorsRepository = doctorsRepository;
-            _db = db;
+            this.doctorsService = doctorsService;
         }
 
         public IActionResult Index()
         {
-            var doctors = this.doctorsRepository.All()
-                .To<IndexDoctorViewModel>()
-                .ToList();
-
-            var viewModel = new IndexViewModel();
-            viewModel.Doctors = doctors;
-
+            var viewModel = new IndexViewModel()
+            {
+                Doctors = this.doctorsService.GetAll<IndexDoctorViewModel>(),
+            };
             return this.View(viewModel);
         }
 
