@@ -7,6 +7,9 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+
+    <!--my custom bootstrap theme-->
+    <link href="~/lib/bootstrap/dist/css/sb-admin-2.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -34,14 +37,14 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
