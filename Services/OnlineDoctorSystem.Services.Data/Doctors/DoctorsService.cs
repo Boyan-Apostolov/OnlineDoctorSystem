@@ -28,5 +28,13 @@
 
             return query.To<T>().ToList();
         }
+
+        public T GetDoctorById<T>(string id)
+        {
+            var doctor = this.doctorsRepository.All().Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+            return doctor;
+        }
     }
 }

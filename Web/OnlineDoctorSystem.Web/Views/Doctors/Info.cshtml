@@ -1,0 +1,88 @@
+﻿@model OnlineDoctorSystem.Web.ViewModels.Doctors.DoctorViewModel
+@{
+    this.ViewData["Title"] = Model.Name;
+}
+
+<div class="justify-content-center">
+    <div class="col-md-10 col-lg-6">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src=@Model.ImageUrl alt="Д-р @Model.Name" class="img-fluid">
+            </div>
+            <div class="col-sm-8">
+                <div class="d-flex flex-column">
+                    <h1 class="text-black-50">@Model.Name</h1>
+                    <h2 class="lead text-muted">@Model.Specialty</h2>
+                    <div class="d-inline-block">
+                        @if (Model.IsWorkingWithNZOK)
+                        {
+                            <span class="badge badge-info" title="Работи с НЗОК">
+                                <img src="/images/nzok.png" width="25px" height="25px" />
+                                <span>Работи с НЗОК</span>
+                            </span>
+                        }
+                        @if (Model.IsWorkingWithChildren)
+                        {
+                            <span class="badge badge-warning text-center d-inline" title="Работи с деца">
+                                <i class="fas fa-child"></i>
+                                <span>Работи с деца</span>
+                            </span>
+                        }
+                    </div>
+                    <h4 class="d-inline">@Model.Town.Name - <small class="text-muted">@Model.YearsOfPractice години опит</small></h4>
+                    <a href="" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="col-md-10 col-lg-6 order-2 order-lg-1">
+    <div class="row">
+
+        <aside class="col-lg-12 col-xl-4 d-none d-lg-block">
+            <div class="text-center">
+                Рейтинг
+                <div class="text-center">
+                    @for (int i = 0; i < Math.Round(Model.AverageRating); i++)
+                    {
+                        <i class="fas fa-star btn-outline-warning"></i>
+                    }
+                </div>
+                <a href="#" class="btn btn-outline-info" data-scrollto="reviews" data-offset="60" rel="nofollow">
+                    @Model.Reviews.Count оценки
+                </a>
+            </div>
+            <br>
+        </aside>
+        <div class="col-lg-10 col-xl-7">
+            <p>@Model.SmallInfo</p>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="row">
+
+    <div class="col-md-12 col-lg-11">
+
+        <div>
+            <h5>Образование</h5>
+            <p>
+                @Model.Education
+            </p>
+            <h5>Квалификации</h5>
+            <p>
+                @Model.Qualifications
+            </p>
+            <h5>Биография</h5>
+            <p>
+                @Model.Biography
+            </p>
+        </div>
+
+
+        <section id="reviews" class="doctor-reviews">
+
+        </section>
+    </div>
+</div>

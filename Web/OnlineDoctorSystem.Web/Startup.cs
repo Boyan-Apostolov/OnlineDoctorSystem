@@ -106,6 +106,7 @@ namespace OnlineDoctorSystem.Web
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("doctorInfo", "Doctors/Info/{id:guid}", new {controller = "Doctors", action = "Info" });
                         endpoints.MapRazorPages();
                     });
         }

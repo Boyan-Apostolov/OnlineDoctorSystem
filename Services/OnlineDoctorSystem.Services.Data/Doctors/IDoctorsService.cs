@@ -5,5 +5,7 @@
     public interface IDoctorsService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
+
+        T GetDoctorById<T>(string id);
     }
 }

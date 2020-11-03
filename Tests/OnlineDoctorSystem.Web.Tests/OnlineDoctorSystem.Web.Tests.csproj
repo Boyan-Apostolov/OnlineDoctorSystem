@@ -31,4 +31,8 @@
     <ProjectReference Include="..\..\Web\OnlineDoctorSystem.Web\OnlineDoctorSystem.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Doctors\" />
+  </ItemGroup>
+
 </Project>

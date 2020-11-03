@@ -1,7 +1,7 @@
-﻿using OnlineDoctorSystem.Services.Data.Doctors;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using OnlineDoctorSystem.Services.Data.Doctors;
+
     using System.Diagnostics;
     using System.Linq;
 
