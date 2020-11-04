@@ -33,5 +33,9 @@ namespace OnlineDoctorSystem.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual Doctor Doctor { get; set; }
+
+        public virtual Patient Patient { get; set; }
     }
 }

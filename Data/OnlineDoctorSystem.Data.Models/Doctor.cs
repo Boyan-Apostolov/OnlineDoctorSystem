@@ -60,15 +60,16 @@ namespace OnlineDoctorSystem.Data.Models
 
         public virtual ICollection<PatientDoctor> Patients { get; set; }
 
-        public ICollection<Consultation> Consultations { get; set; }
+        public virtual ICollection<Consultation> Consultations { get; set; }
 
         public double AverageRating()
         {
             if (this.Reviews.Any())
             {
-                return this.Reviews.Average(x => x.DoctorAttitudeReview +
-                                                 x.OverallReview +
-                                                 x.WaitingTimeReview);
+                return (
+                    this.Reviews.Average(x => x.DoctorAttitudeReview) +
+                    this.Reviews.Average(x => x.OverallReview) +
+                    this.Reviews.Average(x => x.WaitingTimeReview)) / 3;
 
             }
 

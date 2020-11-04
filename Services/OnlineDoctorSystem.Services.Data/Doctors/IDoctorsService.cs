@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Data.Models;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
 
