@@ -1,4 +1,5 @@
 ﻿using OnlineDoctorSystem.Services.Data.Doctors;
+using OnlineDoctorSystem.Services.Data.Towns;
 
 namespace OnlineDoctorSystem.Web
 {
@@ -65,7 +66,10 @@ namespace OnlineDoctorSystem.Web
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            //
             services.AddTransient<IDoctorsService, DoctorsService>();
+            services.AddTransient<ITownsService, TownsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

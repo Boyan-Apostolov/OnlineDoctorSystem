@@ -1,13 +1,142 @@
 ﻿@using OnlineDoctorSystem.Common
 @using OnlineDoctorSystem.Data
 @{
-    this.ViewData["Title"] = $"Добре дошли в ОнлайнДоктор-Системата!";
+    this.ViewData["Title"] = $"ОнлайнДоктор-Системата";
 }
-@model OnlineDoctorSystem.Web.ViewModels.Home.IndexViewModel
-<div class="text-center">
-    <h1 class="display-4">@this.ViewData["Title"]</h1>
+@model OnlineDoctorSystem.Web.ViewModels.Home.TownsIndexViewModels
+
+<div class="row justify-content-center">
+
+    <div class="col-sm-10 col-md-8 col-xl-6" id="home-search">
+        <h1>Намерете лекар и резервирайте час за преглед онлайн!</h1>
+        <div class="" id="search-doctor">
+            <br/>
+            <h4>Търси доктор:</h4>
+            <br/>
+            <di>
+                <form method="get">
+                    <div>
+                        <div class="form-group">
+                            <select name="region_id" id="region_id" class="form-control form-control-lg">
+                                <option value="" selected="">По населено място...</option>
+                                @foreach (var town in @Model.Towns)
+                                {
+                                    <option value="@town.Id">@town.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+
+                            <select name="specialty_id" id="specialty_id" class="form-control form-control-lg">
+
+                                <option value="" selected="">По специалност...</option>
+                                <option value="2">Алерголог</option>
+                                <option value="52">Ангиолог</option>
+                                <option value="56">Анестезиолог</option>
+                                <option value="75">Аюрведа</option>
+                                <option value="58">Боуен терапевт</option>
+                                <option value="69">Вирусолог</option>
+                                <option value="16">Вътрешни болести</option>
+                                <option value="3">Гастроентеролог</option>
+                                <option value="30">Гръден хирург</option>
+                                <option value="4">Дерматолог</option>
+                                <option value="49">Детски гастроентеролог</option>
+                                <option value="36">Детски ендокринолог</option>
+                                <option value="48">Детски кардиолог</option>
+                                <option value="23">Детски невролог</option>
+                                <option value="31">Детски нефролог</option>
+                                <option value="39">Детски психиатър</option>
+                                <option value="33">Детски пулмолог</option>
+                                <option value="51">Детски ревматолог</option>
+                                <option value="65">Детски хематолог</option>
+                                <option value="35">Детски хирург</option>
+                                <option value="32">Диетолог</option>
+                                <option value="6">Ендокринолог</option>
+                                <option value="5">Естетичен дерматолог</option>
+                                <option value="7">Зъболекар (Стоматолог)</option>
+                                <option value="64">Изследване</option>
+                                <option value="68">Имунолог</option>
+                                <option value="55">Инфекциозни болести</option>
+                                <option value="8">Кардиолог</option>
+                                <option value="53">Кардиохирург</option>
+                                <option value="57">Кинезитерапевт</option>
+                                <option value="24">Клинична генетика</option>
+                                <option value="70">Клинична лаборатория</option>
+                                <option value="54">Лицево-челюстен хирург</option>
+                                <option value="38">Логопед</option>
+                                <option value="50">Мамолог</option>
+                                <option value="67">Микробиолог</option>
+                                <option value="10">Невролог</option>
+                                <option value="37">Неврохирург</option>
+                                <option value="40">Неонатолог</option>
+                                <option value="11">Нефролог</option>
+                                <option value="43">Образна диагностика</option>
+                                <option value="9">Общопрактикуващ лекар</option>
+                                <option value="60">Озонотерапевт</option>
+                                <option value="42">Онколог</option>
+                                <option value="76">Орален хирург</option>
+                                <option value="61">Ортодонт</option>
+                                <option value="12">Ортопед</option>
+                                <option value="19">Отоневролог</option>
+                                <option value="13">Офталмолог (Очен лекар)</option>
+                                <option value="59">Паразитолог</option>
+                                <option value="14">Педиатър</option>
+                                <option value="45">Пластичен хирург</option>
+                                <option value="25">Профилактични прегледи</option>
+                                <option value="28">Психиатър</option>
+                                <option value="34">Психолог</option>
+                                <option value="46">Психотерапевт</option>
+                                <option value="15">Пулмолог (Белодробни болести)</option>
+                                <option value="44">Ревматолог</option>
+                                <option value="66">Репродуктивна медицина</option>
+                                <option value="74">Рехабилитатор</option>
+                                <option value="47">Спортна медицина</option>
+                                <option value="26">Съдов хирург</option>
+                                <option value="73">Токсиколог</option>
+                                <option value="17">УНГ</option>
+                                <option value="20">Уролог</option>
+                                <option value="22">Физиотерапевт</option>
+                                <option value="27">Хематолог (Клинична хематология)</option>
+                                <option value="71">Хематолог (Трансфузионна хематология)</option>
+                                <option value="21">Хирург</option>
+                                <option value="18">Хомеопат</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" data-toggle="tooltip" data-trigger="focus" data-placement="bottom" placeholder="По име на лекар..." name="name" id="doc_name" class="form-control  form-control-lg" value="" data-original-title="Напишете името на кирилица">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-outline-warning text-white">
+                            <i class="fas fa-search-plus">Търси</i>
+                        </button>
+                    </div>
+                </form>
+            </di>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row justify-content-end">
+            <div class="col-xl-6">
+                <div>
+                    <img class="img-fluid" src="https://superdoc.bg/img/superdoc-hero.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="text-center">
+            <h2>Какво е @this.ViewData["Title"]?</h2>
+            <p>
+                @this.ViewData["Title"] Ви помага да намерите различни специалисти, да прочетете мнения на други пациенти и да резервирате час за преглед онлайн – в удобно за Вас време и място.
+                <a href="#">Научи повече</a>
+            </p>
+        </div>
+    </div>
 </div>
-@foreach (var doctor in @Model.Doctors)
+
+@*<!--@foreach (var doctor in @Model.Doctors)
 {
     <div class="card text-center d-inline-block col-md-3">
         <img class="card-img-top mx-auto" src="@doctor.ImageUrl" style="height: 250px" alt="@doctor.Name снимка">
@@ -42,3 +171,4 @@
         </div>
     </div>
 }
+    *@
