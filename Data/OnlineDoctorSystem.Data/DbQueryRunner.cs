@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using OnlineDoctorSystem.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

@@ -1,8 +1,8 @@
 ﻿namespace OnlineDoctorSystem.Data.Configurations
 {
-    using OnlineDoctorSystem.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using OnlineDoctorSystem.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

@@ -1,18 +1,10 @@
-﻿using OnlineDoctorSystem.Services.Data.Specialties;
-using OnlineDoctorSystem.Services.Data.Towns;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
-    using OnlineDoctorSystem.Services.Data.Doctors;
-
     using System.Diagnostics;
-    using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
-    using OnlineDoctorSystem.Data;
-    using OnlineDoctorSystem.Data.Common.Repositories;
-    using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Services.Data.Specialties;
+    using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Web.ViewModels;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
@@ -21,7 +13,7 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly ITownsService townsService;
         private readonly ISpecialtiesService specialtiesService;
 
-        public HomeController(ITownsService townsService,ISpecialtiesService specialtiesService)
+        public HomeController(ITownsService townsService, ISpecialtiesService specialtiesService)
         {
             this.townsService = townsService;
             this.specialtiesService = specialtiesService;

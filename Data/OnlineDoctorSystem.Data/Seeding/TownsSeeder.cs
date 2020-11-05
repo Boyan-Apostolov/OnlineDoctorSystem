@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
-using OnlineDoctorSystem.Data.Models;
-
-namespace OnlineDoctorSystem.Data.Seeding
+﻿namespace OnlineDoctorSystem.Data.Seeding
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Models;
+
     public class TownsSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -44,7 +43,7 @@ namespace OnlineDoctorSystem.Data.Seeding
                     "Търговище",
                     "Хасково",
                     "Шумен",
-                    "Ямбол"
+                    "Ямбол",
                 };
 
             foreach (var townName in townNames)

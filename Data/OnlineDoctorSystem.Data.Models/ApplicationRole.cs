@@ -1,11 +1,9 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
     using System;
 
-    using OnlineDoctorSystem.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using OnlineDoctorSystem.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

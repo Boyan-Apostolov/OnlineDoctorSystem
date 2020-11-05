@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Data.Common.Models;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Common.Models;
+
     public class Review : BaseDeletableModel<string>
     {
         public Review()
         {
             this.Id = Guid.NewGuid().ToString();
         }
+
         public double OverallReview { get; set; }
 
         public double WaitingTimeReview { get; set; }

@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using OnlineDoctorSystem.Common;
-    using OnlineDoctorSystem.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using OnlineDoctorSystem.Common;
+    using OnlineDoctorSystem.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

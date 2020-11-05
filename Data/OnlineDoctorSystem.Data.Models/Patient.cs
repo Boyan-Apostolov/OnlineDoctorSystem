@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Data.Common.Models;
-using OnlineDoctorSystem.Data.Models.Enums;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Common.Models;
+    using OnlineDoctorSystem.Data.Models.Enums;
+
     public class Patient : BaseDeletableModel<string>
     {
         public Patient()
@@ -14,6 +15,7 @@ namespace OnlineDoctorSystem.Data.Models
             this.Consultations = new HashSet<Consultation>();
             this.Doctors = new HashSet<PatientDoctor>();
         }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OnlineDoctorSystem.Data.Common.Models;
-using OnlineDoctorSystem.Data.Models.Enums;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
+    using OnlineDoctorSystem.Data.Common.Models;
+    using OnlineDoctorSystem.Data.Models.Enums;
+
     public class Doctor : BaseDeletableModel<string>
     {
         public Doctor()
@@ -70,11 +71,9 @@ namespace OnlineDoctorSystem.Data.Models
                     this.Reviews.Average(x => x.DoctorAttitudeReview) +
                     this.Reviews.Average(x => x.OverallReview) +
                     this.Reviews.Average(x => x.WaitingTimeReview)) / 3;
-
             }
 
             return 0;
         }
-
     }
 }

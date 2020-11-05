@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OnlineDoctorSystem.Data.Common.Models;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Services.Data.Towns
+﻿namespace OnlineDoctorSystem.Services.Data.Towns
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Common.Models;
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class TownsService : ITownsService
     {
         private readonly IDeletableEntityRepository<Town> townsRepository;

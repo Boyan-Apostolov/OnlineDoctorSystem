@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
-using OnlineDoctorSystem.Data.Models;
-using System.Linq;
-
-namespace OnlineDoctorSystem.Data.Seeding
+﻿namespace OnlineDoctorSystem.Data.Seeding
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore.Internal;
+    using OnlineDoctorSystem.Data.Models;
+
     public class SpecialtiesSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -92,7 +93,7 @@ namespace OnlineDoctorSystem.Data.Seeding
             };
             foreach (var specialty in specialties)
             {
-                await dbContext.Specialties.AddAsync(new Specialty() {Name = specialty});
+                await dbContext.Specialties.AddAsync(new Specialty() { Name = specialty });
             }
         }
     }

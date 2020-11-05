@@ -4,9 +4,8 @@ namespace OnlineDoctorSystem.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using OnlineDoctorSystem.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using OnlineDoctorSystem.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

@@ -1,8 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Specialties;
-using OnlineDoctorSystem.Services.Data.Towns;
-
-namespace OnlineDoctorSystem.Web
+﻿namespace OnlineDoctorSystem.Web
 {
     using System.Reflection;
 
@@ -21,6 +17,9 @@ namespace OnlineDoctorSystem.Web
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Data.Seeding;
     using OnlineDoctorSystem.Services.Data;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Specialties;
+    using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels;
@@ -68,7 +67,6 @@ namespace OnlineDoctorSystem.Web
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
 
-            //
             services.AddTransient<IDoctorsService, DoctorsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ISpecialtiesService, SpecialtiesService>();
@@ -112,7 +110,7 @@ namespace OnlineDoctorSystem.Web
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("doctorInfo", "Doctors/Info/{id:guid}", new {controller = "Doctors", action = "Info" });
+                        endpoints.MapControllerRoute("doctorInfo", "Doctors/Info/{id:guid}", new { controller = "Doctors", action = "Info" });
                         endpoints.MapRazorPages();
                     });
         }

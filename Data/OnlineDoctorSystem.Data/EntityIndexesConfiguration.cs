@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using OnlineDoctorSystem.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

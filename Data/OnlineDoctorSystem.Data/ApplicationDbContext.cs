@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using OnlineDoctorSystem.Data.Common.Models;
-    using OnlineDoctorSystem.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data.Common.Models;
+    using OnlineDoctorSystem.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {

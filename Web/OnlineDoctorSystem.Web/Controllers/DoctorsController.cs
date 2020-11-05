@@ -1,9 +1,4 @@
-﻿using OnlineDoctorSystem.Data;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Data.Models.Enums;
-using OnlineDoctorSystem.Web.ViewModels.Review;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -11,15 +6,19 @@ namespace OnlineDoctorSystem.Web.Controllers
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Data;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
+    using OnlineDoctorSystem.Web.ViewModels.Review;
 
     public class DoctorsController : Controller
     {
         private readonly IDoctorsService doctorsService;
         private readonly ApplicationDbContext dbContext;
 
-        public DoctorsController(IDoctorsService doctorsService,ApplicationDbContext dbContext)
+        public DoctorsController(IDoctorsService doctorsService, ApplicationDbContext dbContext)
         {
             this.doctorsService = doctorsService;
             this.dbContext = dbContext;
@@ -47,7 +46,7 @@ namespace OnlineDoctorSystem.Web.Controllers
                 BirthDate = DateTime.UtcNow,
                 Gender = Gender.Male,
                 YearsOfPractice = 3,
-                ImageUrl = "https://homewoodfamilyaz.org/wp-content/uploads/2015/07/male-doctor-3.png"
+                ImageUrl = "https://homewoodfamilyaz.org/wp-content/uploads/2015/07/male-doctor-3.png",
             });
             this.dbContext.Doctors.AddAsync(new Doctor()
             {
@@ -62,10 +61,10 @@ namespace OnlineDoctorSystem.Web.Controllers
                 YearsOfPractice = 3,
                 IsWorkingWithChildren = true,
                 IsWorkingWithNZOK = true,
-                ImageUrl = "https://thumbs.dreamstime.com/b/beautiful-young-female-doctor-9182291.jpg"
+                ImageUrl = "https://thumbs.dreamstime.com/b/beautiful-young-female-doctor-9182291.jpg",
             });
             this.dbContext.SaveChanges();
-            return Content("OK");
+            return this.Content("OK");
         }
 
         public IActionResult AddReview()
@@ -76,7 +75,7 @@ namespace OnlineDoctorSystem.Web.Controllers
                 DoctorAttitudeReview = 3.5,
                 OverallReview = 4.5,
                 WaitingTimeReview = 2.5,
-                ReviewText = "Много добре се отнесе с нас, всичко беше много бързо, но той се справи отлично"
+                ReviewText = "Много добре се отнесе с нас, всичко беше много бързо, но той се справи отлично",
             });
             this.dbContext.SaveChanges();
             return this.Content("OK");

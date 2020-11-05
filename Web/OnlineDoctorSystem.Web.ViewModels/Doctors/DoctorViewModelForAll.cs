@@ -25,7 +25,7 @@
         public bool IsWorkingWithNZOK { get; set; }
 
         public bool IsWorkingWithChildren { get; set; }
-        
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Doctor, DoctorViewModelForAll>()
