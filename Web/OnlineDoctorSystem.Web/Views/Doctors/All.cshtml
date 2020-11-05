@@ -1,0 +1,39 @@
+﻿@{
+    this.ViewData["Title"] = $"Всички доктори";
+}
+@model OnlineDoctorSystem.Web.ViewModels.Doctors.AllDoctorViewModel
+@foreach (var doctor in @Model.Doctors)
+{
+    <div class="card text-center d-inline-block col-md-3">
+        <img class="card-img-top mx-auto" src="@doctor.ImageUrl" style="height: 250px" alt="@doctor.Name снимка">
+        <div class="card-body">
+            <h5 class="card-title">Д-р @doctor.Name</h5>
+            <p class="card-text">@doctor.Town.Name - @doctor.Specialty.Name</p>
+
+            @for (int i = 0; i < Math.Round(@doctor.AverageRating); i++)
+            {
+                <i class="fas fa-star btn-outline-warning"></i>
+            }
+
+            <div>
+                @if (doctor.IsWorkingWithNZOK)
+                {
+                    <span class="badge badge-info" style="width: 125px; height: 30px;" title="Работи с НЗОК">
+                        <img src="/images/nzok.png" width="25px" height="25px" />
+                        <span>Работи с НЗОК</span>
+                    </span>
+                }
+                @if (doctor.IsWorkingWithChildren)
+                {
+                    <span class="badge badge-warning text-center  d-inline" title="Работи с деца">
+                        <i class="fas fa-child"></i>
+                        <span>Работи с деца</span>
+                    </span>
+                }
+
+            </div>
+
+            <a href="@doctor.Url" style="margin-top: 5px" class="btn btn-success btn-outline-warning text-white">Преглед</a>
+        </div>
+    </div>
+}

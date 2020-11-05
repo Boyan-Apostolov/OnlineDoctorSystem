@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -15,35 +16,37 @@ namespace OnlineDoctorSystem.Data.Seeding
             {
                 return;
             }
-            var townNames = new string[]
-            {
-                "Благоевград",
-                "Бургас",
-                "Варна",
-                "Велико Търново",
-                "Враца",
-                "Габрово",
-                "Добрич",
-                "Кърджали",
-                "Кюстендил",
-                "Монтана",
-                "Пазарджик",
-                "Перник",
-                "Плевен",
-                "Пловдив",
-                "Разград",
-                "Русе",
-                "Силистра",
-                "Сливен",
-                "Смолян",
-                "София град",
-                "София област",
-                "Стара Загора",
-                "Търговище",
-                "Хасково",
-                "Шумен",
-                "Ямбол"
-            };
+
+            var townNames = new List<string>
+                {
+                    "Благоевград",
+                    "Бургас",
+                    "Варна",
+                    "Велико Търново",
+                    "Враца",
+                    "Габрово",
+                    "Добрич",
+                    "Кърджали",
+                    "Кюстендил",
+                    "Монтана",
+                    "Пазарджик",
+                    "Перник",
+                    "Плевен",
+                    "Пловдив",
+                    "Разград",
+                    "Русе",
+                    "Силистра",
+                    "Сливен",
+                    "Смолян",
+                    "София град",
+                    "София област",
+                    "Стара Загора",
+                    "Търговище",
+                    "Хасково",
+                    "Шумен",
+                    "Ямбол"
+                };
+
             foreach (var townName in townNames)
             {
                 await dbContext.Towns.AddAsync(new Town() { Name = townName });

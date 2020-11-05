@@ -1,5 +1,6 @@
 ﻿using OnlineDoctorSystem.Data;
 using OnlineDoctorSystem.Data.Models;
+using OnlineDoctorSystem.Data.Models.Enums;
 using OnlineDoctorSystem.Web.ViewModels.Review;
 
 namespace OnlineDoctorSystem.Web.Controllers
@@ -24,9 +25,52 @@ namespace OnlineDoctorSystem.Web.Controllers
             this.dbContext = dbContext;
         }
 
-        public IActionResult Add()
+        public IActionResult All()
         {
-            var doctor = this.dbContext.Doctors.FirstOrDefault(x => x.Id == "a");
+            var viewModel = new AllDoctorViewModel()
+            {
+                Doctors = this.doctorsService.GetAll<DoctorViewModelForAll>(),
+            };
+            return this.View(viewModel);
+        }
+
+        public IActionResult AddDoctor()
+        {
+            this.dbContext.Doctors.AddAsync(new Doctor()
+            {
+                Name = "Иван Георгиев",
+                Town = this.dbContext.Towns.Skip(2).First(),
+                Email = "ivan@abv.bg",
+                PasswordHash = "1233456",
+                Specialty = this.dbContext.Specialties.Skip(3).First(),
+                Phone = "0998765432",
+                BirthDate = DateTime.UtcNow,
+                Gender = Gender.Male,
+                YearsOfPractice = 3,
+                ImageUrl = "https://homewoodfamilyaz.org/wp-content/uploads/2015/07/male-doctor-3.png"
+            });
+            this.dbContext.Doctors.AddAsync(new Doctor()
+            {
+                Name = "Милена Иванова",
+                Town = this.dbContext.Towns.Skip(3).First(),
+                Email = "mimi@abv.bg",
+                PasswordHash = "1233456",
+                Specialty = this.dbContext.Specialties.Skip(5).First(),
+                Phone = "09942354642",
+                BirthDate = DateTime.UtcNow,
+                Gender = Gender.Female,
+                YearsOfPractice = 3,
+                IsWorkingWithChildren = true,
+                IsWorkingWithNZOK = true,
+                ImageUrl = "https://thumbs.dreamstime.com/b/beautiful-young-female-doctor-9182291.jpg"
+            });
+            this.dbContext.SaveChanges();
+            return Content("OK");
+        }
+
+        public IActionResult AddReview()
+        {
+            var doctor = this.dbContext.Doctors.Skip(1).First();
             doctor.Reviews.Add(new Review()
             {
                 DoctorAttitudeReview = 3.5,

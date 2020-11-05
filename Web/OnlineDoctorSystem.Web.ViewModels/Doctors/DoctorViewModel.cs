@@ -13,7 +13,7 @@
 
         public string Name { get; set; }
 
-        public string Specialty { get; set; }
+        public Specialty Specialty { get; set; }
 
         public Town Town { get; set; }
 

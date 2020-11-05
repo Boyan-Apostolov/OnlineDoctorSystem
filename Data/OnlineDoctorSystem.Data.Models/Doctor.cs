@@ -24,7 +24,7 @@ namespace OnlineDoctorSystem.Data.Models
 
         public string PasswordHash { get; set; }
 
-        public DoctorSpecialty Specialty { get; set; }
+        public Specialty Specialty { get; set; }
 
         public Town Town { get; set; }
 

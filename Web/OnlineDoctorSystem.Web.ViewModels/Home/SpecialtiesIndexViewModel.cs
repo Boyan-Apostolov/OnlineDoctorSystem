@@ -6,8 +6,10 @@ using OnlineDoctorSystem.Services.Mapping;
 
 namespace OnlineDoctorSystem.Web.ViewModels.Home
 {
-    public class TownsIndexViewModels
+    public class SpecialtiesIndexViewModel : IMapFrom<Specialty>
     {
-        public IEnumerable<TownsIndexViewModel> Towns { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

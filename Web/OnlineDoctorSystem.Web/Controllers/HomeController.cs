@@ -1,4 +1,5 @@
-﻿using OnlineDoctorSystem.Services.Data.Towns;
+﻿using OnlineDoctorSystem.Services.Data.Specialties;
+using OnlineDoctorSystem.Services.Data.Towns;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -17,25 +18,21 @@ namespace OnlineDoctorSystem.Web.Controllers
 
     public class HomeController : BaseController
     {
-        private readonly IDoctorsService doctorsService;
         private readonly ITownsService townsService;
+        private readonly ISpecialtiesService specialtiesService;
 
-        public HomeController(IDoctorsService doctorsService, ITownsService townsService)
+        public HomeController(ITownsService townsService,ISpecialtiesService specialtiesService)
         {
-            this.doctorsService = doctorsService;
             this.townsService = townsService;
+            this.specialtiesService = specialtiesService;
         }
 
         public IActionResult Index()
         {
-            //var viewModel = new IndexViewModel()
-            //{
-            //    Doctors = this.doctorsService.GetAll<IndexDoctorViewModel>(),
-            //};
-
-            var viewModel = new TownsIndexViewModels()
+            var viewModel = new IndexViewModel()
             {
                 Towns = this.townsService.GetAllTowns<TownsIndexViewModel>(),
+                Specialties = this.specialtiesService.GetAllSpecialties<SpecialtiesIndexViewModel>(),
             };
             return this.View(viewModel);
         }
