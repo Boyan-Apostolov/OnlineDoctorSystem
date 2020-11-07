@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Services.Data.Towns;
+using OnlineDoctorSystem.Web.ViewModels.Users;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -17,11 +20,24 @@
     {
         private readonly IDoctorsService doctorsService;
         private readonly ApplicationDbContext dbContext;
+        private readonly ITownsService townsService;
 
-        public DoctorsController(IDoctorsService doctorsService, ApplicationDbContext dbContext)
+        public DoctorsController(IDoctorsService doctorsService, ApplicationDbContext dbContext, ITownsService townsService)
         {
             this.doctorsService = doctorsService;
             this.dbContext = dbContext;
+            this.townsService = townsService;
+        }
+
+        public IActionResult Alls()
+        {
+            return this.View();
+        } 
+
+        [HttpPost]
+        public IActionResult Alls(PatientRegister model)
+        {
+            return null;
         }
 
         public IActionResult All()

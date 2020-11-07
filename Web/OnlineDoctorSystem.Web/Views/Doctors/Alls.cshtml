@@ -1,0 +1,117 @@
+﻿@using OnlineDoctorSystem.Data.Models
+@using OnlineDoctorSystem.Data.Models.Enums
+@using OnlineDoctorSystem.Services.Data.Towns
+@using OnlineDoctorSystem.Web.ViewModels.Home
+@model OnlineDoctorSystem.Web.ViewModels.Users.PatientRegister
+@*
+      <form method="post">
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control-user"/>
+            <span asp-validation-for="FirstName"></span>
+        </div>
+    </form>
+
+*@
+@inject ITownsService TownsService
+<body class="bg-gradient-success">
+
+    <div class="container bg-gradient-success">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-12 bg-gradient-light">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Създаване на акаунт</h1>
+                            </div>
+                            <form method="post" enctype="multipart/form-data">
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="FirstName" class="form-control"placeholder="Име">
+                                        <span asp-validation-for="FirstName"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input asp-for="LastName" class="form-control"placeholder="Фамилия">
+                                        <span asp-validation-for="LastName"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input asp-for="Phone" class="form-control" placeholder="Мобилен телефон">
+                                        <span asp-validation-for="Phone"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control">
+                                        </select>
+                                        <span asp-validation-for="Gender"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input asp-for="BirthDate" class="form-control" type="text" placeholder="Дата на раждане" onfocus="(this.type='date')">
+                                        <span asp-validation-for="BirthDate"></span>
+                                        </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <select asp-for="TownId" class="form-control form-control">
+                                            <option value="" selected="">Избери населено място...</option>
+                                            @foreach (var town in TownsService.GetAllTowns<TownsIndexViewModel>())
+                                            {
+                                                <option value="@town.Id">@town.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input asp-for="Email" class="form-control" placeholder="Имейл">
+                                    <span asp-validation-for="Email"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="Парола">
+                                        <span asp-validation-for="Password"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Повтори паролата">
+                                        <span asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Регистрация
+                                </button>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="#">Забравена парола?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="#">Вече имате акаунт? Влизане!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
+
