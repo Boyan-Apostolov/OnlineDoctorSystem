@@ -36,13 +36,13 @@
     </header>
 
     <div class="container">
-        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
+        <partial name="_CookieConsentPartial" />
     </div>
 
-    <footer class="border-top footer text-muted bg-gradient-light">
+    <footer class="border-top footer text-black-50">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName
         </div>
