@@ -25,5 +25,10 @@
             var towns = querry.To<T>().ToList();
             return towns;
         }
+
+        public Town GetTownById(int id)
+        {
+            return this.townsRepository.GetByIdWithDeletedAsync(id).Result;
+        }
     }
 }

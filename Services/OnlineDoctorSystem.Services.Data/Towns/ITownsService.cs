@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Towns
+﻿using OnlineDoctorSystem.Data.Models;
+
+namespace OnlineDoctorSystem.Services.Data.Towns
 {
     using System;
     using System.Collections.Generic;
@@ -7,5 +9,7 @@
     public interface ITownsService
     {
         IEnumerable<T> GetAllTowns<T>();
+
+        Town GetTownById(int id);
     }
 }

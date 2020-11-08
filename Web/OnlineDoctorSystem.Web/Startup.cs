@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using OnlineDoctorSystem.Services.Data.Patients;
+
+namespace OnlineDoctorSystem.Web
 {
     using System.Reflection;
 
@@ -20,6 +22,7 @@
     using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Services.Data.Users;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels;
@@ -70,6 +73,8 @@
             services.AddTransient<IDoctorsService, DoctorsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ISpecialtiesService, SpecialtiesService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IPatientsService, PatientsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
