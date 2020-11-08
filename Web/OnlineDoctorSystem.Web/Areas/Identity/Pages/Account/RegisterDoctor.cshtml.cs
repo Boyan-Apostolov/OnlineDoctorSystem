@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using OnlineDoctorSystem.Common;
+using OnlineDoctorSystem.Services.Data.Doctors;
 using OnlineDoctorSystem.Services.Data.Patients;
+using OnlineDoctorSystem.Services.Data.Specialties;
 using OnlineDoctorSystem.Services.Data.Towns;
 using OnlineDoctorSystem.Services.Data.Users;
 
@@ -29,25 +31,27 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
     using OnlineDoctorSystem.Data.Models.Enums;
 
     [AllowAnonymous]
-    public class RegisterPatient : PageModel
+    public class RegisterDoctor : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<RegisterPatient> logger;
+        private readonly ILogger<RegisterDoctor> logger;
         private readonly IEmailSender emailSender;
         private readonly IUsersService usersService;
         private readonly ITownsService townsService;
-        private readonly IPatientsService patientsService;
+        private readonly IDoctorsService doctorsService;
+        private readonly ISpecialtiesService specialtiesService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public RegisterPatient(
+        public RegisterDoctor(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterPatient> logger,
+            ILogger<RegisterDoctor> logger,
             IEmailSender emailSender,
             IUsersService usersService,
             ITownsService townsService,
-            IPatientsService patientsService,
+            IDoctorsService doctorsService,
+            ISpecialtiesService specialtiesService,
             IWebHostEnvironment webHostEnvironment)
         {
             this.userManager = userManager;
@@ -56,7 +60,8 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             this.emailSender = emailSender;
             this.usersService = usersService;
             this.townsService = townsService;
-            this.patientsService = patientsService;
+            this.doctorsService = doctorsService;
+            this.specialtiesService = specialtiesService;
             this.webHostEnvironment = webHostEnvironment;
         }
 
@@ -83,15 +88,52 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             [Phone]
             public string Phone { get; set; }
 
+            [Required]
             public int TownId { get; set; }
 
             [Required]
             [DataType(DataType.Date)]
-
             public DateTime BirthDate { get; set; }
 
             [Required]
             public Gender Gender { get; set; }
+
+            [Required]
+            public int SpecialtyId { get; set; }
+
+            [Required]
+            [Range(0, int.MaxValue, ErrorMessage = "Опитът трябва да е по голям от 0")]
+            public double YearsOfPractice { get; set; }
+
+            [Required]
+            public bool IsWorkingWithNZOK { get; set; }
+
+            [Required]
+            public bool IsWorkingWithChildren { get; set; }
+
+            [Required]
+            [MinLength(30)]
+            [MaxLength(200)]
+            [DataType(DataType.MultilineText, ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
+            public string SmallInfo { get; set; }
+
+            [Required]
+            [MinLength(30)]
+            [MaxLength(200)]
+            [DataType(DataType.MultilineText, ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
+            public string Education { get; set; }
+
+            [Required]
+            [MinLength(30)]
+            [MaxLength(200)]
+            [DataType(DataType.MultilineText, ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
+            public string Qualifications { get; set; }
+
+            [Required]
+            [MinLength(30)]
+            [MaxLength(200)]
+            [DataType(DataType.MultilineText,ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
+            public string Biography { get; set; }
 
             [Required]
             [EmailAddress]
@@ -119,7 +161,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/Patients/ThankYou");
+            returnUrl = returnUrl ?? Url.Content("~/Doctors/ThankYou");
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (!(this.Input.Image.FileName.EndsWith(".jpg")
@@ -137,17 +179,24 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
-                var patient = new Patient()
+                var doctor = new Doctor()
                 {
-                    FirstName = this.Input.FirstName,
-                    LastName = this.Input.LastName,
+                    Name = $"{this.Input.FirstName} {this.Input.LastName}",
                     Email = this.Input.Email,
                     Phone = this.Input.Phone,
                     Town = this.townsService.GetTownById(this.Input.TownId),
                     BirthDate = this.Input.BirthDate,
                     Gender = this.Input.Gender,
+                    Specialty = this.specialtiesService.GetSpecialtyById(this.Input.SpecialtyId),
                     User = user,
-                    ImageUrl = $"/images/{user.Id}.png",
+                    YearsOfPractice = this.Input.YearsOfPractice,
+                    SmallInfo = this.Input.SmallInfo,
+                    Education = this.Input.Education,
+                    Qualifications = this.Input.Qualifications,
+                    Biography = this.Input.Biography,
+                    IsWorkingWithChildren = this.Input.IsWorkingWithChildren,
+                    IsWorkingWithNZOK = this.Input.IsWorkingWithNZOK,
+                    ImageUrl = $"/images/users{user.Id}.png",
                 };
 
                 await using (FileStream fs = new FileStream(
@@ -155,8 +204,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                 {
                     await this.Input.Image.CopyToAsync(fs);
                 }
-
-                await this.patientsService.AddPatientToDb(patient);
+                await this.doctorsService.AddDoctorToDb(doctor);
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
 
                 if (result.Succeeded)
@@ -168,7 +216,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     var callbackUrl = this.Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new 
+                        values: new
                         {
                             area = "Identity",
                             userId = user.Id,
@@ -186,7 +234,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await this.usersService.AddUserToRole(user.UserName, GlobalConstants.PatientRoleName);
+                        await this.usersService.AddUserToRole(user.UserName, GlobalConstants.DoctorRoleName);
 
                         await this.signInManager.SignInAsync(user, isPersistent: false);
 

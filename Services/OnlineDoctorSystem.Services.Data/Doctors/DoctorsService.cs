@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using System.Threading.Tasks;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System;
     using System.Collections.Generic;
@@ -36,6 +38,11 @@
                 .To<T>()
                 .FirstOrDefault();
             return doctor;
+        }
+
+        public async Task AddDoctorToDb(Doctor doctor)
+        {
+            await this.doctorsRepository.AddAsync(doctor);
         }
     }
 }

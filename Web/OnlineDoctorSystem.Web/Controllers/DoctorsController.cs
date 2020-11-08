@@ -1,4 +1,5 @@
-﻿using OnlineDoctorSystem.Services.Data.Towns;
+﻿using Microsoft.AspNetCore.Hosting;
+using OnlineDoctorSystem.Services.Data.Towns;
 using OnlineDoctorSystem.Web.ViewModels.Users;
 
 namespace OnlineDoctorSystem.Web.Controllers
@@ -21,18 +22,24 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly IDoctorsService doctorsService;
         private readonly ApplicationDbContext dbContext;
         private readonly ITownsService townsService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DoctorsController(IDoctorsService doctorsService, ApplicationDbContext dbContext, ITownsService townsService)
+        public DoctorsController(
+            IDoctorsService doctorsService,
+            ApplicationDbContext dbContext,
+            ITownsService townsService,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.doctorsService = doctorsService;
             this.dbContext = dbContext;
             this.townsService = townsService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Alls()
+        public IActionResult ThankYou()
         {
             return this.View();
-        } 
+        }
 
         [HttpPost]
         public IActionResult Alls(PatientRegister model)
@@ -49,41 +56,9 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult AddDoctor()
-        {
-            this.dbContext.Doctors.AddAsync(new Doctor()
-            {
-                Name = "Иван Георгиев",
-                Town = this.dbContext.Towns.Skip(2).First(),
-                Email = "ivan@abv.bg",
-                Specialty = this.dbContext.Specialties.Skip(3).First(),
-                Phone = "0998765432",
-                BirthDate = DateTime.UtcNow,
-                Gender = Gender.Male,
-                YearsOfPractice = 3,
-                ImageUrl = "https://homewoodfamilyaz.org/wp-content/uploads/2015/07/male-doctor-3.png",
-            });
-            this.dbContext.Doctors.AddAsync(new Doctor()
-            {
-                Name = "Милена Иванова",
-                Town = this.dbContext.Towns.Skip(3).First(),
-                Email = "mimi@abv.bg",
-                Specialty = this.dbContext.Specialties.Skip(5).First(),
-                Phone = "09942354642",
-                BirthDate = DateTime.UtcNow,
-                Gender = Gender.Female,
-                YearsOfPractice = 3,
-                IsWorkingWithChildren = true,
-                IsWorkingWithNZOK = true,
-                ImageUrl = "https://thumbs.dreamstime.com/b/beautiful-young-female-doctor-9182291.jpg",
-            });
-            this.dbContext.SaveChanges();
-            return this.Content("OK");
-        }
-
         public IActionResult AddReview()
         {
-            var doctor = this.dbContext.Doctors.Skip(1).First();
+            var doctor = this.dbContext.Doctors.First();
             doctor.Reviews.Add(new Review()
             {
                 DoctorAttitudeReview = 3.5,
@@ -107,6 +82,11 @@ namespace OnlineDoctorSystem.Web.Controllers
             var reviews = doctor.Reviews;
             this.ViewData["DoctorName"] = doctor.Name;
             return this.View(reviews);
+        }
+
+        public IActionResult Image(string path)
+        {
+            return this.PhysicalFile(this.webHostEnvironment.WebRootPath + "/wwwroot" + path, "image/png");
         }
     }
 }

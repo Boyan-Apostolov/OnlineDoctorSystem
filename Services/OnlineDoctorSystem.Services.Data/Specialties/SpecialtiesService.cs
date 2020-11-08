@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Specialties
+﻿using System.Threading.Tasks;
+
+namespace OnlineDoctorSystem.Services.Data.Specialties
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +26,11 @@
             IQueryable<Specialty> query = this.specialtyRepository.All();
             var specialties = query.To<T>().ToList();
             return specialties;
+        }
+
+        public Specialty GetSpecialtyById(int id)
+        {
+            return this.specialtyRepository.GetByIdWithDeletedAsync(id).Result;
         }
     }
 }

@@ -1,14 +1,16 @@
 ﻿@page
-@model RegisterPatient
+@model RegisterDoctor
 @{
     ViewData["Title"] = "Създаване на акаунт";
 }
 
 @using OnlineDoctorSystem.Data.Models
 @using OnlineDoctorSystem.Data.Models.Enums
+@using OnlineDoctorSystem.Services.Data.Specialties
 @using OnlineDoctorSystem.Services.Data.Towns
 @using OnlineDoctorSystem.Web.ViewModels.Home
 @inject ITownsService TownsService
+@inject ISpecialtiesService SpecialtiesService
 
 <body class="bg-gradient-success">
     <div class="container">
@@ -42,6 +44,7 @@
                                         <span asp-validation-for="Input.Gender"></span>
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <div class="col-sm-6">
                                         <input asp-for="Input.BirthDate" class="form-control" type="text" placeholder="Дата на раждане" onfocus="(this.type='date')">
@@ -53,6 +56,21 @@
                                             @foreach (var town in TownsService.GetAllTowns<TownsIndexViewModel>())
                                             {
                                                 <option value="@town.Id">@town.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Input.YearsOfPractice" type="number" min="0" class="form-control" placeholder="Години сраж">
+                                        <span asp-validation-for="Input.YearsOfPractice"></span>
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <select asp-for="Input.SpecialtyId" class="form-control form-control">
+                                            <option value="" selected="">Избери своята специалност...</option>
+                                            @foreach (var specialty in SpecialtiesService.GetAllSpecialties<SpecialtiesIndexViewModel>())
+                                            {
+                                                <option value="@specialty.Id">@specialty.Name</option>
                                             }
                                         </select>
                                     </div>
@@ -71,6 +89,35 @@
                                         <span asp-validation-for="Input.ConfirmPassword"></span>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <textarea asp-for="Input.SmallInfo" class="form-control" placeholder="Разкажете ни накратко за себе се"></textarea>
+                                    <span asp-validation-for="Input.SmallInfo"></span>
+                                </div>
+                                <div class="form-group">
+                                    <textarea asp-for="Input.Education" class="form-control" placeholder="Какво образование имате?"></textarea>
+                                    <span asp-validation-for="Input.Education"></span>
+                                </div>
+                                <div class="form-group">
+                                    <textarea asp-for="Input.Qualifications" class="form-control" placeholder="Имате ли някакви придобити квалификации?"></textarea>
+                                    <span asp-validation-for="Input.Qualifications"></span>
+                                </div>
+                                <div class="form-group">
+                                    <textarea asp-for="Input.Biography" class="form-control" placeholder="Разкажете за предишни работни позиции"></textarea>
+                                    <span asp-validation-for="Input.Biography"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label asp-for="Input.IsWorkingWithNZOK">Работите ли с деца ?</label>
+                                        <input asp-for="Input.IsWorkingWithChildren" class="form-control">
+                                        <span asp-validation-for="Input.IsWorkingWithChildren"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label asp-for="Input.IsWorkingWithNZOK">Работите ли с НЗОК ?</label>
+                                        <input asp-for="Input.IsWorkingWithNZOK" class="form-control">
+                                        <span asp-validation-for="Input.IsWorkingWithNZOK"></span>
+                                    </div>
+                                </div>
+
                                 <div>
                                     <div class="form-group float-left">
                                         <div class="btn btn-light">
@@ -80,9 +127,7 @@
                                         <span asp-validation-for="Input.Image"></span>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Регистрация
-                                </button>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Регистрация</button>
                             </form>
                             <hr>
                             <div class="text-center">

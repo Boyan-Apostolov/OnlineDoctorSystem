@@ -47,8 +47,6 @@
 
         public string SmallInfo { get; set; }
 
-        public string WorkingHours { get; set; }
-
         public virtual ICollection<Review> Reviews { get; set; }
 
         public string Education { get; set; }

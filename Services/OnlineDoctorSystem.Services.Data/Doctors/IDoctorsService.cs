@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using System.Threading.Tasks;
+using OnlineDoctorSystem.Data.Models;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
 
@@ -7,5 +10,7 @@
         IEnumerable<T> GetAll<T>(int? count = null);
 
         T GetDoctorById<T>(string id);
+
+        Task AddDoctorToDb(Doctor doctor);
     }
 }
