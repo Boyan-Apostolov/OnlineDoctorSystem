@@ -1,10 +1,16 @@
 ﻿using System.IO;
+using System.Net.Mime;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Services.Data.Patients;
 using OnlineDoctorSystem.Services.Data.Towns;
 using OnlineDoctorSystem.Services.Data.Users;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 {
@@ -39,6 +45,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
         private readonly ITownsService townsService;
         private readonly IPatientsService patientsService;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IConfiguration configuration;
 
         public RegisterPatient(
             UserManager<ApplicationUser> userManager,
@@ -48,7 +55,8 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             IUsersService usersService,
             ITownsService townsService,
             IPatientsService patientsService,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -58,6 +66,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             this.townsService = townsService;
             this.patientsService = patientsService;
             this.webHostEnvironment = webHostEnvironment;
+            this.configuration = configuration;
         }
 
         [BindProperty]
@@ -136,6 +145,40 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 
             if (this.ModelState.IsValid)
             {
+
+                var cloudinaryAccount = this.configuration.GetSection("Cloudinary");
+                CloudinaryDotNet.Account account = new CloudinaryDotNet.Account(
+                    cloudinaryAccount["Cloud_Name"],
+                    cloudinaryAccount["API_Key"],
+                    cloudinaryAccount["API_Secret"]);
+
+                var cloudinary = new Cloudinary(account);
+
+                var file = this.Input.Image;
+
+                var uploadResult = new ImageUploadResult();
+
+                var imageUrl = "";
+
+                if (file != null)
+                {
+                    if (file.Length > 0)
+                    {
+                        using (var stream = file.OpenReadStream())
+                        {
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                File = new FileDescription(file.Name, stream),
+                                Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
+                            };
+
+                            uploadResult = cloudinary.Upload(uploadParams);
+                        }
+                    }
+
+                    imageUrl = uploadResult.Uri.ToString();
+                }
+
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
                 var patient = new Patient()
                 {
@@ -147,14 +190,14 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     BirthDate = this.Input.BirthDate,
                     Gender = this.Input.Gender,
                     User = user,
-                    ImageUrl = $"/images/{user.Id}.png",
+                    ImageUrl = imageUrl,
                 };
 
-                await using (FileStream fs = new FileStream(
-                    this.webHostEnvironment.WebRootPath + $"/images/users/{user.Id}.png", FileMode.Create))
-                {
-                    await this.Input.Image.CopyToAsync(fs);
-                }
+                //string path = this.webHostEnvironment.WebRootPath;
+                //using var image = Image.Load(this.Input.Image.OpenReadStream());
+                //image.Mutate(x => x.Resize(256, 256));
+                //image.Save(path + $"/images/users/{user.Id}.png");
+
 
                 await this.patientsService.AddPatientToDb(patient);
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
@@ -168,7 +211,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     var callbackUrl = this.Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new 
+                        values: new
                         {
                             area = "Identity",
                             userId = user.Id,
