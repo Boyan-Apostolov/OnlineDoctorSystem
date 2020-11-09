@@ -1,17 +1,12 @@
 ﻿using System.IO;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Services.Data.Doctors;
 using OnlineDoctorSystem.Services.Data.Patients;
 using OnlineDoctorSystem.Services.Data.Specialties;
 using OnlineDoctorSystem.Services.Data.Towns;
 using OnlineDoctorSystem.Services.Data.Users;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
 
 namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 {
@@ -47,7 +42,6 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
         private readonly IDoctorsService doctorsService;
         private readonly ISpecialtiesService specialtiesService;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IConfiguration configuration;
 
         public RegisterDoctor(
             UserManager<ApplicationUser> userManager,
@@ -58,8 +52,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             ITownsService townsService,
             IDoctorsService doctorsService,
             ISpecialtiesService specialtiesService,
-            IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration)
+            IWebHostEnvironment webHostEnvironment)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -70,7 +63,6 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             this.doctorsService = doctorsService;
             this.specialtiesService = specialtiesService;
             this.webHostEnvironment = webHostEnvironment;
-            this.configuration = configuration;
         }
 
         [BindProperty]
@@ -186,39 +178,6 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 
             if (this.ModelState.IsValid)
             {
-                var cloudinaryAccount = this.configuration.GetSection("Cloudinary");
-                CloudinaryDotNet.Account account = new CloudinaryDotNet.Account(
-                    cloudinaryAccount["Cloud_Name"],
-                    cloudinaryAccount["API_Key"],
-                    cloudinaryAccount["API_Secret"]);
-
-                var cloudinary = new Cloudinary(account);
-
-                var file = this.Input.Image;
-
-                var uploadResult = new ImageUploadResult();
-
-                var imageUrl = "";
-
-                if (file != null)
-                {
-                    if (file.Length > 0)
-                    {
-                        using (var stream = file.OpenReadStream())
-                        {
-                            var uploadParams = new ImageUploadParams()
-                            {
-                                File = new FileDescription(file.Name, stream),
-                                Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
-                            };
-
-                            uploadResult = cloudinary.Upload(uploadParams);
-                        }
-                    }
-
-                    imageUrl = uploadResult.Uri.ToString();
-                }
-
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
                 var doctor = new Doctor()
                 {
@@ -237,9 +196,14 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     Biography = this.Input.Biography,
                     IsWorkingWithChildren = this.Input.IsWorkingWithChildren,
                     IsWorkingWithNZOK = this.Input.IsWorkingWithNZOK,
-                    ImageUrl = imageUrl,
+                    ImageUrl = $"/images/users{user.Id}.png",
                 };
 
+                await using (FileStream fs = new FileStream(
+                    this.webHostEnvironment.WebRootPath + $"/images/users/{user.Id}.png", FileMode.Create))
+                {
+                    await this.Input.Image.CopyToAsync(fs);
+                }
                 await this.doctorsService.AddDoctorToDb(doctor);
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
 

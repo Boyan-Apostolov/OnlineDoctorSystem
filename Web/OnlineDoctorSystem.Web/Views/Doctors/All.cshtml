@@ -7,15 +7,7 @@
     <div class="card text-center d-inline-block col-md-3">
         <img class="card-img-top mx-auto" src="@doctor.ImageUrl" style="height: 250px" alt="@doctor.Name снимка">
         <div class="card-body">
-            @if (@doctor.Name.Length >= 15)
-            {
-                <h5 class="card-title">Д-р @doctor.Name</h5>
-            }
-            else
-            {
-                <h4 class="card-title">Д-р @doctor.Name</h4>
-            }
-
+            <h5 class="card-title">Д-р @doctor.Name</h5>
             <p class="card-text">@doctor.Town.Name - @doctor.Specialty.Name</p>
 
             @for (int i = 0; i < Math.Round(@doctor.AverageRating); i++)
@@ -26,7 +18,7 @@
             <div>
                 @if (doctor.IsWorkingWithNZOK)
                 {
-                    <span class="badge badge-info" style="width: 125px; height: auto;" title="Работи с НЗОК">
+                    <span class="badge badge-info" style="width: 125px; height: 30px;" title="Работи с НЗОК">
                         <img src="/images/nzok.png" width="25px" height="25px" />
                         <span>Работи с НЗОК</span>
                     </span>
