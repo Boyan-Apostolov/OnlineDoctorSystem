@@ -41,6 +41,16 @@ namespace OnlineDoctorSystem.Web.Controllers
         {
             return this.View();
         }
+        [HttpGet("/Doctors/AddConsultation/{id}")]
+        public IActionResult AddConsultation(string id)
+        {
+            return this.View();
+        }
+
+        public IActionResult AddConsultation()
+        {
+            return this.View();
+        }
 
         public IActionResult All()
         {

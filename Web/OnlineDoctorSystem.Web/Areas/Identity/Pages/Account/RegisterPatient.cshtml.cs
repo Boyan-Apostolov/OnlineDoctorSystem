@@ -78,17 +78,17 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Името е задължително")]
             [MinLength(3, ErrorMessage = "Името трябва да се състои от минимум 3 символа")]
             [MaxLength(30, ErrorMessage = "Името трябва да се състои от максимум 30 символа")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Фамилията е задължителна")]
             [MinLength(3, ErrorMessage = "Фамилията трябва да се състои от минимум 3 символа")]
             [MaxLength(30, ErrorMessage = "Фамилията трябва да се състои от максимум 30 символа")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Телефона е задължителен")]
             [Phone]
             public string Phone { get; set; }
 
@@ -102,7 +102,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             [Required]
             public Gender Gender { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Полето е задължително")]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -115,7 +115,7 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
             [Required]
             public string ConfirmPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Снимката е задължително")]
             [DataType(DataType.ImageUrl)]
             public IFormFile Image { get; set; }
         }
