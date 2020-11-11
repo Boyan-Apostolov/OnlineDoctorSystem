@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using OnlineDoctorSystem.Web.ViewModels.Home;
 
 namespace OnlineDoctorSystem.Services.Data.Doctors
 {
@@ -43,6 +44,28 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
         public async Task AddDoctorToDb(Doctor doctor)
         {
             await this.doctorsRepository.AddAsync(doctor);
+        }
+
+        public IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model)
+        {
+            IQueryable<Doctor> doctors = this.doctorsRepository.All();
+
+            if (model.DoctorName != null)
+            {
+                doctors = doctors.Where(x => x.Name.Contains(model.DoctorName));
+            }
+
+            if (model.TownId.HasValue)
+            {
+                doctors = doctors.Where(x => x.Town.Id == model.TownId.Value);
+            }
+
+            if (model.SpecialtyId.HasValue)
+            {
+                doctors = doctors.Where(x => x.Specialty.Id == model.SpecialtyId.Value);
+            }
+
+            return doctors.To<T>().ToList();
         }
     }
 }

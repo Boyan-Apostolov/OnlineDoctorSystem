@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using OnlineDoctorSystem.Services.Data.Towns;
+using OnlineDoctorSystem.Web.ViewModels.Home;
 using OnlineDoctorSystem.Web.ViewModels.Users;
 
 namespace OnlineDoctorSystem.Web.Controllers
@@ -41,17 +42,21 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.View();
         }
 
-        [HttpPost]
-        public IActionResult Alls(PatientRegister model)
-        {
-            return null;
-        }
-
         public IActionResult All()
         {
             var viewModel = new AllDoctorViewModel()
             {
                 Doctors = this.doctorsService.GetAll<DoctorViewModelForAll>(),
+            };
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult All(IndexViewModel model)
+        {
+            var viewModel = new AllDoctorViewModel()
+            {
+                Doctors = this.doctorsService.GetFilteredDoctors<DoctorViewModelForAll>(model),
             };
             return this.View(viewModel);
         }

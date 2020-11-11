@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Services.Data.Doctors;
+using OnlineDoctorSystem.Web.ViewModels.Doctors;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Diagnostics;
 
@@ -13,7 +16,8 @@
         private readonly ITownsService townsService;
         private readonly ISpecialtiesService specialtiesService;
 
-        public HomeController(ITownsService townsService, ISpecialtiesService specialtiesService)
+        public HomeController(ITownsService townsService,
+            ISpecialtiesService specialtiesService)
         {
             this.townsService = townsService;
             this.specialtiesService = specialtiesService;

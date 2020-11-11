@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data.Common\OnlineDoctorSystem.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\OnlineDoctorSystem.Web.ViewModels\OnlineDoctorSystem.Web.ViewModels.csproj" />
     <ProjectReference Include="..\OnlineDoctorSystem.Services.Mapping\OnlineDoctorSystem.Services.Mapping.csproj" />
   </ItemGroup>
 
