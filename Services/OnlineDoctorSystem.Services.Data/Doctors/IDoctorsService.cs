@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using OnlineDoctorSystem.Data.Models;
-
-namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
-    using OnlineDoctorSystem.Web.ViewModels.Home;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public interface IDoctorsService
     {
@@ -12,8 +12,12 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
 
         T GetDoctorById<T>(string id);
 
+        Doctor GetDoctorById(string id);
+
         Task AddDoctorToDb(Doctor doctor);
 
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
+
+        void AddConsultation(Consultation consultation);
     }
 }

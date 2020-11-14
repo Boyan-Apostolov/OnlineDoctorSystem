@@ -1,16 +1,15 @@
-﻿using System.Threading.Tasks;
-using OnlineDoctorSystem.Web.ViewModels.Home;
-
-namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class DoctorsService : IDoctorsService
     {
@@ -39,6 +38,21 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
                 .To<T>()
                 .FirstOrDefault();
             return doctor;
+        }
+
+        public Doctor GetDoctorById(string id)
+        {
+            var doctor = this.doctorsRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+            return doctor;
+        }
+
+        public void AddConsultation(Consultation consultation)
+        {
+            var doctor = this.doctorsRepository.All().FirstOrDefault(x => x.Id == consultation.DoctorId);
+            doctor.Consultations.Add(consultation);
+            this.doctorsRepository.SaveChangesAsync();
         }
 
         public async Task AddDoctorToDb(Doctor doctor)

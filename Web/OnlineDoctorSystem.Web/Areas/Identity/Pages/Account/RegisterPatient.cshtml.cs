@@ -1,38 +1,37 @@
-﻿using System.IO;
-using System.Net.Mime;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using OnlineDoctorSystem.Common;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Data.Towns;
-using OnlineDoctorSystem.Services.Data.Users;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-
-namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
+﻿namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
+    using System.Net.Mime;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Services.Data.Users;
+    using SixLabors.ImageSharp;
+    using SixLabors.ImageSharp.Processing;
 
     [AllowAnonymous]
     public class RegisterPatient : PageModel
@@ -178,8 +177,8 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 
                     imageUrl = uploadResult.Uri.ToString();
                 }
-
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
+
                 var patient = new Patient()
                 {
                     FirstName = this.Input.FirstName,
@@ -189,19 +188,11 @@ namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
                     Town = this.townsService.GetTownById(this.Input.TownId),
                     BirthDate = this.Input.BirthDate,
                     Gender = this.Input.Gender,
-                    User = user,
+                    UserId = user.Id,
                     ImageUrl = imageUrl,
                 };
-
-                //string path = this.webHostEnvironment.WebRootPath;
-                //using var image = Image.Load(this.Input.Image.OpenReadStream());
-                //image.Mutate(x => x.Resize(256, 256));
-                //image.Save(path + $"/images/users/{user.Id}.png");
-
-
                 await this.patientsService.AddPatientToDb(patient);
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
-
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");

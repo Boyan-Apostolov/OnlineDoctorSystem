@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Text;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Home
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Home
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Security.Principal;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class IndexViewModel
     {
         public int? TownId { get; set; }

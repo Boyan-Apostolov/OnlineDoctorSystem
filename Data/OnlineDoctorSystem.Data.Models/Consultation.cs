@@ -13,6 +13,10 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public TimeSpan StartTime { get; set; }
+        
+        public TimeSpan EndTime { get; set; }
+
         public DateTime Date { get; set; }
 
         public string PatientId { get; set; }
@@ -24,5 +28,7 @@
         public Doctor Doctor { get; set; }
 
         public bool IsActive { get; set; }
+
+        public string Description { get; set; }
     }
 }

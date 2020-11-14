@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using OnlineDoctorSystem.Data.Common.Repositories;
-
-namespace OnlineDoctorSystem.Services.Data.Users
+﻿namespace OnlineDoctorSystem.Services.Data.Users
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
+    using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
 
     public class UsersService : IUsersService

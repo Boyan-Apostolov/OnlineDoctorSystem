@@ -1,4 +1,4 @@
-﻿using OnlineDoctorSystem.Web.ViewModels.Utilities;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace OnlineDoctorSystem.Web.ViewModels.Consultaions
 {
@@ -7,9 +7,12 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultaions
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
+
     public class AddConsultationViewModel
     {
         public string DoctorId { get; set; }
+
+        public string PatientName { get; set; }
 
         [Required(ErrorMessage = "Моля въведете дата на консултацията")]
         [DataType(DataType.Date)]
@@ -17,13 +20,16 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultaions
 
         [Required(ErrorMessage = "Моля въведете начален час на консултацията")]
         [DataType(DataType.Date)]
-        [StartEndTimeValidation]
-        public TimeSpan StartTime { get; set; }
+        public TimeSpan? StartTime { get; set; }
 
         [Required(ErrorMessage = "Моля въведете краен час")]
         [DataType(DataType.Date)]
-        [StartEndTimeValidation]
-        public TimeSpan EndTime { get; set; }
+        public TimeSpan? EndTime { get; set; }
+
+        [Required(ErrorMessage = "Моля въведете заявката си.")]
+        [MaxLength(200)]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
 
         public DateTime ReceivedOn => DateTime.UtcNow;
 

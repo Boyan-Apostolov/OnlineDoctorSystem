@@ -1,39 +1,38 @@
-﻿using System.IO;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using OnlineDoctorSystem.Common;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Data.Specialties;
-using OnlineDoctorSystem.Services.Data.Towns;
-using OnlineDoctorSystem.Services.Data.Users;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-
-namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
+﻿namespace OnlineDoctorSystem.Web.Areas.Identity.Pages.Account
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Data.Specialties;
+    using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Services.Data.Users;
+    using SixLabors.ImageSharp;
+    using SixLabors.ImageSharp.Processing;
 
     [AllowAnonymous]
     public class RegisterDoctor : PageModel

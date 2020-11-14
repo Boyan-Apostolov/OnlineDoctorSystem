@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-
-namespace OnlineDoctorSystem.Services.Data.Specialties
+﻿namespace OnlineDoctorSystem.Services.Data.Specialties
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
 
     using AutoMapper.Configuration;
     using OnlineDoctorSystem.Data.Common.Repositories;

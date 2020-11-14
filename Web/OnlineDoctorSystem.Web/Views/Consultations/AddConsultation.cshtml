@@ -6,21 +6,29 @@
 <div class="">
     <div class="row container" style="padding-top: 100px; padding-bottom: 100px;">
         <div class="col-sm-12">
-            <form class="" method="post">
-                <h1 class="offset-sm-2">Запазване на час за Д-р {DoctorName}</h1>
+            <form class="" method="post" asp-controller="Consultations" asp-action="AddConsultation">
+                <h1 class="offset-sm-2">Запазване на час за Д-р @this.TempData["doctorName"]</h1>
 
                 <div class="form-group">
                     <label asp-for="Date" class="col-sm-4 offset-sm-4 align-content-center">Въведете дата</label>
                     <input asp-for="Date" class="col-sm-4 offset-sm-4 align-content-center form-control">
+                    <span asp-validation-for="Date"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="StartTime" type="time" class="col-sm-4 offset-sm-4 align-content-center">Въведете начално време</label>
-                    <input asp-for="StartTime" type="time" class=" col-sm-4 offset-sm-4 align-content-center form-control">
+                    <label asp-for="StartTime" class="col-sm-4 offset-sm-4 align-content-center">Въведете начално време</label>
+                    <input asp-for="StartTime" type="time" class="col-sm-4 offset-sm-4 align-content-center form-control" />
+                    <span asp-validation-for="StartTime"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="EndTime" class="col-sm-4 offset-sm-4 align-content-center">Въведете крайно време</label>
                     <input asp-for="EndTime" type="time" class="col-sm-4 offset-sm-4 align-content-center form-control">
-                    <input type="hidden" value="@ViewData["doctorId"]" asp-for="DoctorId">
+                    <span asp-validation-for="EndTime"></span>
+                    <input type="hidden" value="@TempData["doctorId"]" asp-for="DoctorId">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="col-sm-4 offset-sm-4 align-content-center">Въведете заява за посещението</label>
+                    <textarea asp-for="Description" class="col-sm-4 offset-sm-4 align-content-center form-control"></textarea>
+                    <span asp-validation-for="Description"></span>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success col-sm-4 offset-sm-4 " type="submit">Уговаряне на дата и час</button>

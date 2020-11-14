@@ -1,22 +1,22 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using OnlineDoctorSystem.Services.Data.Towns;
-using OnlineDoctorSystem.Web.ViewModels.Home;
-using OnlineDoctorSystem.Web.ViewModels.Users;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Data;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Web.ViewModels.Consultaions;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
     using OnlineDoctorSystem.Web.ViewModels.Review;
+    using OnlineDoctorSystem.Web.ViewModels.Users;
 
     public class DoctorsController : Controller
     {
@@ -41,16 +41,8 @@ namespace OnlineDoctorSystem.Web.Controllers
         {
             return this.View();
         }
-        [HttpGet("/Doctors/AddConsultation/{id}")]
-        public IActionResult AddConsultation(string id)
-        {
-            return this.View();
-        }
 
-        public IActionResult AddConsultation()
-        {
-            return this.View();
-        }
+        
 
         public IActionResult All()
         {
@@ -71,6 +63,11 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.View(viewModel);
         }
 
+        public IActionResult GetConsultations()
+        {
+            var doctor = this.doctorsService.GetDoctorById("c9271075-5f44-4295-80be-badf62c5d4b0");
+            return this.View(doctor.Consultations);
+        }
         public IActionResult AddReview()
         {
             var doctor = this.dbContext.Doctors.First();
