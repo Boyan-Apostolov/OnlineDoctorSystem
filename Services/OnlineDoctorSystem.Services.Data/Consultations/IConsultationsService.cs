@@ -10,6 +10,6 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
     {
         bool CheckIfTimeIsTaken(AddConsultationViewModel model);
 
-        Task AddConsultation(AddConsultationViewModel model);
+        Task AddConsultation(AddConsultationViewModel model, string patientId);
     }
 }

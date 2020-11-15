@@ -10,5 +10,7 @@
     public interface IPatientsService
     {
         Task AddPatientToDb(string userId, Patient patient);
+
+        string GetPatientIdByEmail(string email);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineDoctorSystem.Data.Common.Repositories;
@@ -21,6 +22,11 @@ namespace OnlineDoctorSystem.Services.Data.Patients
             patient.UserId = userId;
             await this.patientRepository.AddAsync(patient);
             await this.patientRepository.SaveChangesAsync();
+        }
+
+        public string GetPatientIdByEmail(string email)
+        {
+            return this.patientRepository.All().FirstOrDefault(x => x.User.Email == email).Id;
         }
     }
 }

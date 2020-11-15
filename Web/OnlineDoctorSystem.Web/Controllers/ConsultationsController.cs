@@ -1,4 +1,5 @@
 ﻿using OnlineDoctorSystem.Services.Data.Consultations;
+using OnlineDoctorSystem.Services.Data.Patients;
 using OnlineDoctorSystem.Web.ViewModels.Consultaions;
 
 namespace OnlineDoctorSystem.Web.Controllers
@@ -16,12 +17,15 @@ namespace OnlineDoctorSystem.Web.Controllers
     {
         private readonly IDoctorsService doctorsService;
         private readonly IConsultationsService consultationsService;
+        private readonly IPatientsService patientsService;
 
         public ConsultationsController(IDoctorsService doctorsService,
-            IConsultationsService consultationsService)
+            IConsultationsService consultationsService,
+            IPatientsService patientsService)
         {
             this.doctorsService = doctorsService;
             this.consultationsService = consultationsService;
+            this.patientsService = patientsService;
         }
 
         public IActionResult AddConsultation(string id)
@@ -35,8 +39,13 @@ namespace OnlineDoctorSystem.Web.Controllers
         [HttpPost]
         public IActionResult AddConsultation(AddConsultationViewModel model)
         {
-            model.PatientName = this.User.Identity.Name;
-            this.consultationsService.AddConsultation(model);
+            var patientId = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name);
+            this.consultationsService.AddConsultation(model, patientId);
+            return this.RedirectToAction("SuccessfullyBooked");
+        }
+
+        public IActionResult SuccessfullyBooked()
+        {
             return this.View();
         }
     }

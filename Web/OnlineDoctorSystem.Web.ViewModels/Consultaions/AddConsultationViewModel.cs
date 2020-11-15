@@ -12,8 +12,6 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultaions
     {
         public string DoctorId { get; set; }
 
-        public string PatientName { get; set; }
-
         [Required(ErrorMessage = "Моля въведете дата на консултацията")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

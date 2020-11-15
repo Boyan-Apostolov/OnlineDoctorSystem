@@ -52,6 +52,12 @@ namespace OnlineDoctorSystem.Data.Migrations
                 table: "Doctors",
                 type: "nvarchar(max)",
                 nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Email",
+                table: "Patients",
+                type: "nvarchar(max)",
+                nullable: true);
         }
     }
 }
