@@ -14,7 +14,7 @@
 
         Doctor GetDoctorById(string id);
 
-        Task AddDoctorToDb(Doctor doctor);
+        Task CreateDoctorAsync(string userId, Doctor doctor);
 
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
 

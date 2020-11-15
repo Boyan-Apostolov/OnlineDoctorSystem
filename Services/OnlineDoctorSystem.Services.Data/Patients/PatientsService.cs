@@ -18,18 +18,8 @@ namespace OnlineDoctorSystem.Services.Data.Patients
 
         public async Task AddPatientToDb(string userId, Patient patient)
         {
-            var patientToAdd = new Patient()
-            {
-                FirstName = patient.FirstName,
-                LastName = patient.LastName,
-                Phone = patient.Phone,
-                ImageUrl = patient.ImageUrl,
-                Town = patient.Town,
-                BirthDate = patient.BirthDate,
-                Gender = patient.Gender,
-                UserId = userId,
-            };
-            await this.patientRepository.AddAsync(patientToAdd);
+            patient.UserId = userId;
+            await this.patientRepository.AddAsync(patient);
             await this.patientRepository.SaveChangesAsync();
         }
     }

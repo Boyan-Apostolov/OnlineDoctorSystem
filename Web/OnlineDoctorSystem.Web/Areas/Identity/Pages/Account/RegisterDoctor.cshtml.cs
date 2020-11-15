@@ -139,7 +139,7 @@
             [Required(ErrorMessage = "Полето е задължително")]
             [MinLength(30)]
             [MaxLength(200)]
-            [DataType(DataType.MultilineText,ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
+            [DataType(DataType.MultilineText, ErrorMessage = "Полето трябва да съдържа минимум 30 символа.")]
             public string Biography { get; set; }
 
             [Required(ErrorMessage = "Полето е задължително")]
@@ -219,6 +219,7 @@
                 }
 
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
+
                 var doctor = new Doctor()
                 {
                     Name = $"{this.Input.FirstName} {this.Input.LastName}",
@@ -227,7 +228,6 @@
                     BirthDate = this.Input.BirthDate,
                     Gender = this.Input.Gender,
                     Specialty = this.specialtiesService.GetSpecialtyById(this.Input.SpecialtyId),
-                    User = user,
                     YearsOfPractice = this.Input.YearsOfPractice,
                     SmallInfo = this.Input.SmallInfo,
                     Education = this.Input.Education,
@@ -238,7 +238,7 @@
                     ImageUrl = imageUrl,
                 };
 
-                await this.doctorsService.AddDoctorToDb(doctor);
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
 
                 if (result.Succeeded)
@@ -271,7 +271,7 @@
                         await this.usersService.AddUserToRole(user.UserName, GlobalConstants.DoctorRoleName);
 
                         await this.signInManager.SignInAsync(user, isPersistent: false);
-
+                        await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
                         return this.LocalRedirect(returnUrl);
                     }
                 }

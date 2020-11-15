@@ -48,8 +48,9 @@
             return doctor;
         }
 
-        public async Task AddDoctorToDb(Doctor doctor)
+        public async Task CreateDoctorAsync(string userId, Doctor doctor)
         {
+            doctor.UserId = userId;
             await this.doctorsRepository.AddAsync(doctor);
             await this.doctorsRepository.SaveChangesAsync();
         }
