@@ -183,7 +183,6 @@
                 {
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
-                    Email = this.Input.Email,
                     Phone = this.Input.Phone,
                     Town = this.townsService.GetTownById(this.Input.TownId),
                     BirthDate = this.Input.BirthDate,
@@ -191,7 +190,6 @@
                     UserId = user.Id,
                     ImageUrl = imageUrl,
                 };
-                await this.patientsService.AddPatientToDb(patient);
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -223,7 +221,7 @@
                         await this.usersService.AddUserToRole(user.UserName, GlobalConstants.PatientRoleName);
 
                         await this.signInManager.SignInAsync(user, isPersistent: false);
-
+                        await this.patientsService.AddPatientToDb(user.Id, patient);
                         return this.LocalRedirect(returnUrl);
                     }
                 }

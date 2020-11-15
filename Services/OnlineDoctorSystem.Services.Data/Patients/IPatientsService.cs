@@ -9,6 +9,6 @@
 
     public interface IPatientsService
     {
-        Task AddPatientToDb(Patient patient);
+        Task AddPatientToDb(string userId, Patient patient);
     }
 }

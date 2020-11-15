@@ -222,7 +222,6 @@
                 var doctor = new Doctor()
                 {
                     Name = $"{this.Input.FirstName} {this.Input.LastName}",
-                    Email = this.Input.Email,
                     Phone = this.Input.Phone,
                     Town = this.townsService.GetTownById(this.Input.TownId),
                     BirthDate = this.Input.BirthDate,

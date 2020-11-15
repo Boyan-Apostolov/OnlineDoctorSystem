@@ -16,9 +16,21 @@ namespace OnlineDoctorSystem.Services.Data.Patients
             this.patientRepository = patientRepository;
         }
 
-        public async Task AddPatientToDb(Patient patient)
+        public async Task AddPatientToDb(string userId, Patient patient)
         {
-            await this.patientRepository.AddAsync(patient);
+            var patientToAdd = new Patient()
+            {
+                FirstName = patient.FirstName,
+                LastName = patient.LastName,
+                Phone = patient.Phone,
+                ImageUrl = patient.ImageUrl,
+                Town = patient.Town,
+                BirthDate = patient.BirthDate,
+                Gender = patient.Gender,
+                UserId = userId,
+            };
+            await this.patientRepository.AddAsync(patientToAdd);
+            await this.patientRepository.SaveChangesAsync();
         }
     }
 }

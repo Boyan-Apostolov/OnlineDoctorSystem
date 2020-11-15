@@ -18,6 +18,5 @@
 
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
 
-        void AddConsultation(Consultation consultation);
     }
 }

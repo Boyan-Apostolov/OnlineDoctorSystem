@@ -48,16 +48,10 @@
             return doctor;
         }
 
-        public void AddConsultation(Consultation consultation)
-        {
-            var doctor = this.doctorsRepository.All().FirstOrDefault(x => x.Id == consultation.DoctorId);
-            doctor.Consultations.Add(consultation);
-            this.doctorsRepository.SaveChangesAsync();
-        }
-
         public async Task AddDoctorToDb(Doctor doctor)
         {
             await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model)

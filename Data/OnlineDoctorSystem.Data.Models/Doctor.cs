@@ -21,8 +21,6 @@
 
         public string Name { get; set; }
 
-        public string Email { get; set; }
-
         public Specialty Specialty { get; set; }
 
         public Town Town { get; set; }

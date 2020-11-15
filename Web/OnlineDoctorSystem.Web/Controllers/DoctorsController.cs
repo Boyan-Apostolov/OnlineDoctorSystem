@@ -42,8 +42,6 @@
             return this.View();
         }
 
-        
-
         public IActionResult All()
         {
             var viewModel = new AllDoctorViewModel()
@@ -61,12 +59,6 @@
                 Doctors = this.doctorsService.GetFilteredDoctors<DoctorViewModelForAll>(model),
             };
             return this.View(viewModel);
-        }
-
-        public IActionResult GetConsultations()
-        {
-            var doctor = this.doctorsService.GetDoctorById("c9271075-5f44-4295-80be-badf62c5d4b0");
-            return this.View(doctor.Consultations);
         }
         public IActionResult AddReview()
         {

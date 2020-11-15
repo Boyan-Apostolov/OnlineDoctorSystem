@@ -33,8 +33,8 @@ namespace OnlineDoctorSystem.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public string DoctorId { get; set; }
+        public virtual Doctor Doctor { get; set; }
 
-        public string PatientId { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }
