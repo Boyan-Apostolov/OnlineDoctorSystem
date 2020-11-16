@@ -93,7 +93,7 @@
 
             public int TownId { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Рождената дата е задължителна")]
             [DataType(DataType.Date)]
 
             public DateTime BirthDate { get; set; }
