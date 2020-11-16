@@ -1,35 +1,39 @@
-﻿@model ICollection<OnlineDoctorSystem.Data.Models.Review>
+﻿@model OnlineDoctorSystem.Web.ViewModels.Doctors.DoctorReviewsViewModel
 @{
-    this.ViewData["Title"] = this.ViewData["DoctorName"];
+    this.ViewData["Title"] = @Model.DoctorName;
 }
 
-@if (Model.Count == 0)
+@if (Model.Reviews.Count == 0)
 {
-    <h1>Д-р @this.ViewData["DoctorName"] няма никакви отзиви към момента</h1>
+<h1 class="text-center">Д-р @Model.DoctorName няма никакви отзиви към момента</h1>
 }
-@foreach (var review in Model)
+else
 {
-    <h4> <i class="far fa-calendar-check"></i> @review.CreatedOn.ToShortDateString()</h4>
-    <h3>Общ отзив:</h3>
-    @for (int i = 0; i < Math.Round(review.OverallReview); i++)
+<h1>Отзиви на д-р @Model.DoctorName</h1>
+    @foreach (var review in Model.Reviews)
     {
-        <i class="fas fa-star btn-outline-warning"></i>
+        <h4> <i class="far fa-calendar-check"></i> @review.CreatedOn.ToShortDateString()</h4>
+        <h3>Общ отзив:</h3>
+        @for (int i = 0; i < Math.Round(review.OverallReview); i++)
+        {
+            <i class="fas fa-star btn-outline-warning"></i>
+        }
+        <br />
+        <h3>Време за чакане:</h3>
+        @for (int i = 0; i < Math.Round(review.WaitingTimeReview); i++)
+        {
+            <i class="fas fa-star btn-outline-warning"></i>
+        }
+        <br />
+        <h3>Отношение към пациентите:</h3>
+        @for (int i = 0; i < Math.Round(review.DoctorAttitudeReview); i++)
+        {
+            <i class="fas fa-star btn-outline-warning"></i>
+        }
+        <br />
+        <h3>Обратна връзка:</h3>
+        <h2>"@review.ReviewText"</h2>
+        <hr />
     }
-    <br />
-    <h3>Време за чакане:</h3>
-    @for (int i = 0; i < Math.Round(review.WaitingTimeReview); i++)
-    {
-        <i class="fas fa-star btn-outline-warning"></i>
-    }
-    <br />
-    <h3>Отношение към пациентите:</h3>
-    @for (int i = 0; i < Math.Round(review.DoctorAttitudeReview); i++)
-    {
-        <i class="fas fa-star btn-outline-warning"></i>
-    }
-    <br />
-    <h3>Обратна връзка:</h3>
-    <h2>"@review.ReviewText"</h2>
+}
 
-    <hr />
-}

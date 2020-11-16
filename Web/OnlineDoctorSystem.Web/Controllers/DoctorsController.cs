@@ -21,19 +21,13 @@
     public class DoctorsController : Controller
     {
         private readonly IDoctorsService doctorsService;
-        private readonly ApplicationDbContext dbContext;
-        private readonly ITownsService townsService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public DoctorsController(
             IDoctorsService doctorsService,
-            ApplicationDbContext dbContext,
-            ITownsService townsService,
             IWebHostEnvironment webHostEnvironment)
         {
             this.doctorsService = doctorsService;
-            this.dbContext = dbContext;
-            this.townsService = townsService;
             this.webHostEnvironment = webHostEnvironment;
         }
 
@@ -60,19 +54,6 @@
             };
             return this.View(viewModel);
         }
-        public IActionResult AddReview()
-        {
-            var doctor = this.dbContext.Doctors.First();
-            doctor.Reviews.Add(new Review()
-            {
-                DoctorAttitudeReview = 3.5,
-                OverallReview = 4.5,
-                WaitingTimeReview = 2.5,
-                ReviewText = "Много добре се отнесе с нас, всичко беше много бързо, но той се справи отлично",
-            });
-            this.dbContext.SaveChanges();
-            return this.Content("OK");
-        }
 
         public IActionResult Info(string id)
         {
@@ -83,9 +64,8 @@
         public IActionResult Reviews(string id)
         {
             var doctor = this.doctorsService.GetDoctorById<DoctorViewModel>(id);
-            var reviews = doctor.Reviews;
-            this.ViewData["DoctorName"] = doctor.Name;
-            return this.View(reviews);
+            var viewModel = new DoctorReviewsViewModel() { DoctorName = doctor.Name, Reviews = doctor.Reviews};
+            return this.View(viewModel);
         }
 
         public IActionResult Image(string path)
