@@ -1,0 +1,25 @@
+﻿@model OnlineDoctorSystem.Web.ViewModels.Consultations.AllConsultationsViewModel
+
+@{
+    this.ViewData["Title"] = "Моите консултации";
+}
+<table class="table table-striped table-hover table-sm text-center">
+    <tr>
+        <th>Дата</th>
+        <th>Начален час</th>
+        <th>Краен час</th>
+        <th>Описание</th>
+        <th>Анулиране</th>
+    </tr>
+    @foreach (var consultation in Model.Consultations)
+    {
+        <tr>
+            <th>@consultation.Date.ToShortDateString()</th>
+            <th>@consultation.StartTime</th>
+            <th>@consultation.EndTime</th>
+            <th>@consultation.Description</th>
+            <th><button class="btn btn-danger">АНУЛИРАНЕ</button></th>
+        </tr>
+
+    }
+</table>

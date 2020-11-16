@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using System.Collections.Generic;
+using OnlineDoctorSystem.Services.Mapping;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Linq;
@@ -22,7 +25,7 @@
 
         public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
         {
-            if (model.StartTime > model.EndTime || model.StartTime == model.EndTime || model.Date < DateTime.UtcNow)
+            if (model.StartTime > model.EndTime || model.StartTime == model.EndTime || model.Date <= DateTime.Now)
             {
                 return false;
             }
@@ -30,7 +33,7 @@
             return true;
         }
 
-        public bool AddConsultation(AddConsultationViewModel model,string patientId)
+        public bool AddConsultation(AddConsultationViewModel model, string patientId)
         {
             if (!CheckIfTimeIsCorrect(model))
             {
@@ -46,6 +49,7 @@
                 EndTime = (TimeSpan)model.EndTime,
                 PatientId = patientId,
                 DoctorId = doctor.Id,
+                IsActive = true
             };
 
             // These are not awaited due to saving problems
@@ -55,6 +59,18 @@
             doctor.Consultations.Add(consultation);
             this.doctorRepository.SaveChangesAsync();
             return true;
+        }
+
+        public IEnumerable<T> GetDoctorsConsultations<T>(string doctorId)
+        {
+            var consultations = this.consultationsRepository.All().Where(x => x.DoctorId == doctorId && x.IsActive);
+            return consultations.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetPatientsConsultations<T>(string patientId)
+        {
+            var consultations = this.consultationsRepository.All().Where(x => x.PatientId == patientId && x.IsActive);
+            return consultations.To<T>().ToList();
         }
     }
 }

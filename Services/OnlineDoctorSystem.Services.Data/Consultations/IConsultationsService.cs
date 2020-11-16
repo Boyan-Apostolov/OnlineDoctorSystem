@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using System.Collections.Generic;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
 
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
@@ -8,5 +10,9 @@
         bool CheckIfTimeIsCorrect(AddConsultationViewModel model);
 
         bool AddConsultation(AddConsultationViewModel model, string patientId);
+
+        IEnumerable<T> GetDoctorsConsultations<T>(string doctorId);
+
+        IEnumerable<T> GetPatientsConsultations<T>(string patientId);
     }
 }

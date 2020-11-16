@@ -54,5 +54,25 @@
             var viewModel = new SuccessfullyBookedViewModel() { Date = model.Date, DoctorName = doctorName };
             return this.View(viewModel);
         }
+
+        public IActionResult GetDoctorConsultations(string doctorId)
+        {
+            var viewModel = new AllConsultationsViewModel()
+            {
+                Consultations = this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctorId),
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult GetPatientConsultations(string patientId)
+        {
+            var viewModel = new AllConsultationsViewModel()
+            {
+                Consultations = this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patientId),
+            };
+
+            return this.View(viewModel);
+        }
     }
 }
