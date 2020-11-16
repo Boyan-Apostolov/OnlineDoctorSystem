@@ -1,10 +1,7 @@
-﻿using OnlineDoctorSystem.Data.Common.Models;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+
+    using OnlineDoctorSystem.Data.Common.Models;
 
     public class PatientDoctor :BaseDeletableModel<int>
     {

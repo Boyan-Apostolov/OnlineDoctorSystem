@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineDoctorSystem.Web.ViewModels.Consultaions;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
+
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
+
     public interface IConsultationsService
     {
-        bool CheckIfTimeIsTaken(AddConsultationViewModel model);
+        bool CheckIfTimeIsCorrect(AddConsultationViewModel model);
 
-        Task AddConsultation(AddConsultationViewModel model, string patientId);
+        bool AddConsultation(AddConsultationViewModel model, string patientId);
     }
 }

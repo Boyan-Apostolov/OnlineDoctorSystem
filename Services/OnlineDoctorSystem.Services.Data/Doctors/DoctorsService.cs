@@ -1,9 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Common.Repositories;
@@ -33,19 +31,25 @@
 
         public T GetDoctorById<T>(string id)
         {
-            var doctor = this.doctorsRepository.All()
+            return this.doctorsRepository.All()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
-            return doctor;
         }
 
         public Doctor GetDoctorById(string id)
         {
+            return this.doctorsRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public string GetDoctorNameById(string id)
+        {
             var doctor = this.doctorsRepository
                 .All()
                 .FirstOrDefault(x => x.Id == id);
-            return doctor;
+            return doctor.Name;
         }
 
         public async Task CreateDoctorAsync(string userId, Doctor doctor)

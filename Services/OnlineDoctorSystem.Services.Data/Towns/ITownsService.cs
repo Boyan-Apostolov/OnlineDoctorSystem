@@ -1,8 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Towns
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using OnlineDoctorSystem.Data.Models;
 

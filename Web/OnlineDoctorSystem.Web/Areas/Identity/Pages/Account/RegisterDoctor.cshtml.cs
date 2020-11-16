@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -27,12 +26,9 @@
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Data.Doctors;
-    using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Services.Data.Users;
-    using SixLabors.ImageSharp;
-    using SixLabors.ImageSharp.Processing;
 
     [AllowAnonymous]
     public class RegisterDoctor : PageModel

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Web.ViewModels.Consultaions;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
-    public class ConsultationsService :IConsultationsService
+    using System;
+    using System.Linq;
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
+
+    public class ConsultationsService : IConsultationsService
     {
         private readonly IDeletableEntityRepository<Doctor> doctorRepository;
         private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
@@ -26,13 +20,23 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
             this.consultationsRepository = consultationsRepository;
         }
 
-        public bool CheckIfTimeIsTaken(AddConsultationViewModel model)
+        public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
         {
-            throw new NotImplementedException();
+            if (model.StartTime > model.EndTime || model.StartTime == model.EndTime || model.Date < DateTime.UtcNow)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public async Task AddConsultation(AddConsultationViewModel model,string patientId)
+        public bool AddConsultation(AddConsultationViewModel model,string patientId)
         {
+            if (!CheckIfTimeIsCorrect(model))
+            {
+                return false;
+            }
+
             var doctor = this.doctorRepository.All().FirstOrDefault(x => x.Id == model.DoctorId);
             var consultation = new Consultation()
             {
@@ -43,11 +47,14 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 PatientId = patientId,
                 DoctorId = doctor.Id,
             };
+
+            // These are not awaited due to saving problems
             this.consultationsRepository.AddAsync(consultation);
             this.consultationsRepository.SaveChangesAsync();
-            doctor.Consultations.Add(consultation);
-            await this.doctorRepository.SaveChangesAsync();
 
+            doctor.Consultations.Add(consultation);
+            this.doctorRepository.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Consultaions
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Consultations
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
-
 
     public class AddConsultationViewModel
     {
         public string DoctorId { get; set; }
+
+        public string DoctorName { get; set; }
+
+        public string PatientEmail { get; set; }
 
         [Required(ErrorMessage = "Моля въведете дата на консултацията")]
         [DataType(DataType.Date)]

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-
-namespace OnlineDoctorSystem.Services.Data.Patients
+﻿namespace OnlineDoctorSystem.Services.Data.Patients
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+
     public class PatientsService : IPatientsService
     {
         private readonly IDeletableEntityRepository<Patient> patientRepository;

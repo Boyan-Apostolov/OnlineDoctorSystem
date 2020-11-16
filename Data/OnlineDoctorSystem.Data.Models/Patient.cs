@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using OnlineDoctorSystem.Data.Common.Models;
     using OnlineDoctorSystem.Data.Models.Enums;

@@ -3,11 +3,9 @@
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
-    using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Web.ViewModels;
-    using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class HomeController : BaseController

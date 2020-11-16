@@ -1,8 +1,5 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     using AutoMapper;
     using OnlineDoctorSystem.Data.Models;

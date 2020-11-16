@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Doctors
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
+    using System.Collections.Generic;
+
     public class DoctorReviewsViewModel
     {
         public string DoctorName { get; set; }

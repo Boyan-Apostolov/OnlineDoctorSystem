@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Review
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Review
 {
+    using System.Collections.Generic;
+
     public class ReviewsViewModel
     {
         public IEnumerable<ReviewViewModel> Reviews { get; set; }

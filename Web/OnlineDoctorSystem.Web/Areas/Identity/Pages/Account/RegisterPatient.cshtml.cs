@@ -4,9 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.IO;
     using System.Linq;
-    using System.Net.Mime;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
@@ -30,8 +28,6 @@
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Services.Data.Users;
-    using SixLabors.ImageSharp;
-    using SixLabors.ImageSharp.Processing;
 
     [AllowAnonymous]
     public class RegisterPatient : PageModel

@@ -1,17 +1,11 @@
-﻿using OnlineDoctorSystem.Services.Data.Consultations;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Web.ViewModels.Consultaions;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.Doctors;
-    using OnlineDoctorSystem.Web.ViewModels.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
 
     public class ConsultationsController : Controller
     {
@@ -19,7 +13,8 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly IConsultationsService consultationsService;
         private readonly IPatientsService patientsService;
 
-        public ConsultationsController(IDoctorsService doctorsService,
+        public ConsultationsController(
+            IDoctorsService doctorsService,
             IConsultationsService consultationsService,
             IPatientsService patientsService)
         {
@@ -30,23 +25,34 @@ namespace OnlineDoctorSystem.Web.Controllers
 
         public IActionResult AddConsultation(string id)
         {
-            var doctor = this.doctorsService.GetDoctorById<DoctorViewModel>(id);
-            this.TempData["doctorName"] = doctor.Name;
-            this.TempData["doctorId"] = doctor.Id;
-            return this.View();
+            var doctorName = this.doctorsService.GetDoctorNameById(id);
+            var viewModel = new AddConsultationViewModel()
+            {
+                DoctorId = id,
+                DoctorName = doctorName,
+                PatientEmail = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name),
+            };
+            return this.View(viewModel);
         }
 
         [HttpPost]
         public IActionResult AddConsultation(AddConsultationViewModel model)
         {
             var patientId = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name);
-            this.consultationsService.AddConsultation(model, patientId);
-            return this.RedirectToAction("SuccessfullyBooked");
+
+            if (this.consultationsService.AddConsultation(model, patientId))
+            {
+                return this.RedirectToAction("SuccessfullyBooked", model);
+            }
+
+            return this.View("InvalidTimeInput");
         }
 
-        public IActionResult SuccessfullyBooked()
+        public IActionResult SuccessfullyBooked(AddConsultationViewModel model)
         {
-            return this.View();
+            var doctorName = this.doctorsService.GetDoctorNameById(model.DoctorId);
+            var viewModel = new SuccessfullyBookedViewModel() { Date = model.Date, DoctorName = doctorName };
+            return this.View(viewModel);
         }
     }
 }
