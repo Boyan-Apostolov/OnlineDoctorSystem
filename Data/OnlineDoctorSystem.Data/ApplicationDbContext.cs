@@ -31,8 +31,6 @@
 
         public DbSet<Patient> Patients { get; set; }
 
-        public DbSet<PatientDoctor> PatientDoctors { get; set; }
-
         public DbSet<Consultation> Consultations { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
