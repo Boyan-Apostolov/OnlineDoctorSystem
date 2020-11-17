@@ -1,0 +1,57 @@
+﻿@{ ViewData["Title"] = "Home Page"; }
+
+<script src="~/js/daypilot/daypilot-all.min.js" asp-append-version="true"></script>
+<link href="icons/style.css" rel="stylesheet" type="text/css">
+
+<div class="main" style="display: flex;">
+    <div style="">
+        <div id="nav"></div>
+    </div>
+    <div style="flex-grow: 1; margin-left: 10px;">
+        <div class="navi">
+            <button id="previous">&#9668;</button>
+            <button id="today" class="highlighted">Today</button>
+            <button id="next">&#9658;</button>
+        </div>
+        <div id="dp"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var nav = new DayPilot.Navigator("nav");
+        nav.showMonths = 1;
+        nav.skipMonths = 1;
+        nav.selectMode = "month";
+        nav.onTimeRangeSelected = function (args) {
+            dp.startDate = args.day;
+            dp.update();
+            dp.events.load("/api/events");
+        };
+        nav.init();
+
+        var dp = new DayPilot.Month("dp");
+
+        dp.init();
+
+        dp.events.load("/api/events");
+
+        var elements = {
+            previous: document.querySelector("#previous"),
+            today: document.querySelector("#today"),
+            next: document.querySelector("#next"),
+        };
+
+        elements.previous.addEventListener("click", function (ev) {
+            nav.select(nav.selectionDay.addMonths(-1));
+        });
+
+        elements.today.addEventListener("click", function (ev) {
+            nav.select(DayPilot.Date.today());
+        });
+
+        elements.next.addEventListener("click", function (ev) {
+            nav.select(nav.selectionDay.addMonths(1));
+        });
+    </script>
+}

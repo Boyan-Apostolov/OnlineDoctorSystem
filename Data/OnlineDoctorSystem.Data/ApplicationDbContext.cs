@@ -23,6 +23,8 @@
         {
         }
 
+        public DbSet<CalendarEvent> Events { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Town> Towns { get; set; }
