@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Patients
+﻿using System;
+
+namespace OnlineDoctorSystem.Services.Data.Patients
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -25,6 +27,12 @@
         public string GetPatientIdByEmail(string email)
         {
             return this.patientRepository.All().FirstOrDefault(x => x.User.Email == email).Id;
+        }
+
+        public Patient GetPatientByUserEmail(string email)
+        {
+            return this.patientRepository
+                .All().FirstOrDefault(x => x.User.Email == email);
         }
     }
 }

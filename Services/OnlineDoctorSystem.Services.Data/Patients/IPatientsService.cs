@@ -9,5 +9,7 @@
         Task AddPatientToDb(string userId, Patient patient);
 
         string GetPatientIdByEmail(string email);
+
+        Patient GetPatientByUserEmail(string email);
     }
 }

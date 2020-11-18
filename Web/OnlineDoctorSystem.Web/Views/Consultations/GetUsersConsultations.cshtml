@@ -3,11 +3,17 @@
 @{
     this.ViewData["Title"] = "Моите консултации";
 }
+<div class="text-center">
+    <h1>@this.ViewData["Title"]</h1>
+    <a class="btn btn-success" asp-controller="Consultations" asp-action="UserCalendar">Виж в календарен вид</a>
+</div>
+<br />
 <table class="table table-striped table-hover table-sm text-center">
     <tr>
         <th>Дата</th>
         <th>Начален час</th>
         <th>Краен час</th>
+        <th>Доктор</th>
         <th>Описание</th>
         <th>Анулиране</th>
     </tr>
@@ -17,9 +23,9 @@
             <th>@consultation.Date.ToShortDateString()</th>
             <th>@consultation.StartTime</th>
             <th>@consultation.EndTime</th>
+            <th>@consultation.DoctorName</th>
             <th>@consultation.Description</th>
             <th><button class="btn btn-danger">АНУЛИРАНЕ</button></th>
         </tr>
-
     }
 </table>

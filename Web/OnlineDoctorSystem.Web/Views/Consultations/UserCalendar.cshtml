@@ -33,7 +33,7 @@
 
         var dp = new DayPilot.Month("dp");
         dp.onTimeRangeSelected = function (args) {
-            DayPilot.Modal.prompt("Create a new event:", "Event").then(function (modal) {
+            DayPilot.Modal.prompt("Създай ново събитие:", "Събитие").then(function (modal) {
                 var dp = args.control;
                 dp.clearSelection();
                 if (modal.canceled) {
@@ -53,7 +53,7 @@
                         console.log("created");
                         var data = ajax.data;
                         dp.events.add(data);
-                        dp.message("Event created");
+                        dp.message("Събитието е създадено");
                     }
                 });
             });
@@ -69,7 +69,7 @@
                 url: '/api/events/' + args.e.id() + "/move",
                 data: params,
                 success: function (ajax) {
-                    dp.message("Event moved");
+                    dp.message("Събитието е преместено");
                 }
             });
         };
@@ -84,7 +84,7 @@
                 url: '/api/events/' + args.e.id() + "/move",
                 data: params,
                 success: function (ajax) {
-                    dp.message("Event resized");
+                    dp.message("Събитието е преоразмерено");
                 }
             });
         };
@@ -105,7 +105,7 @@
                             url: '/api/events/' + e.id(),
                             success: function (ajax) {
                                 dp.events.remove(e);
-                                dp.message("Event deleted");
+                                dp.message("Събитието е изтрито");
                             }
                         });
                     }
@@ -114,31 +114,31 @@
                     text: "-"
                 },
                 {
-                    text: "Blue",
+                    text: "Син",
                     icon: "icon icon-blue",
                     color: "#a2c4c9",
                     onClick: function (args) { updateColor(args.source, args.item.color); }
                 },
                 {
-                    text: "Green",
+                    text: "Зелен",
                     icon: "icon icon-green",
                     color: "#b6d7a8",
                     onClick: function (args) { updateColor(args.source, args.item.color); }
                 },
                 {
-                    text: "Yellow",
+                    text: "Жълт",
                     icon: "icon icon-yellow",
                     color: "#ffe599",
                     onClick: function (args) { updateColor(args.source, args.item.color); }
                 },
                 {
-                    text: "Red",
+                    text: "Червен",
                     icon: "icon icon-red",
                     color: "#ea9999",
                     onClick: function (args) { updateColor(args.source, args.item.color); }
                 },
                 {
-                    text: "Auto",
+                    text: "Без цвят",
                     color: "auto",
                     onClick: function (args) { updateColor(args.source, args.item.color); }
                 },
@@ -160,7 +160,7 @@
                 success: function (ajax) {
                     e.data.color = color;
                     dp.events.update(e);
-                    dp.message("Color updated");
+                    dp.message("Цветът беше променен");
                 }
             });
         }

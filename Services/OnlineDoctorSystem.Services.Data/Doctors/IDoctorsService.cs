@@ -14,6 +14,8 @@
 
         Doctor GetDoctorById(string id);
 
+        Doctor GetDoctorByUserEmail(string email);
+
         string GetDoctorNameById(string id);
 
         Task CreateDoctorAsync(string userId, Doctor doctor);

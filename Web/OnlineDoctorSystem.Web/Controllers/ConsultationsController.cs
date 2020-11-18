@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Common;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
 
     using Microsoft.AspNetCore.Mvc;
@@ -55,24 +57,28 @@
             return this.View(viewModel);
         }
 
-        public IActionResult GetDoctorConsultations(string doctorId)
+        public IActionResult GetUsersConsultations()
         {
-            var viewModel = new AllConsultationsViewModel()
+            var viewModel = new AllConsultationsViewModel();
+            if (this.User.IsInRole(GlobalConstants.PatientRoleName))
             {
-                Consultations = this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctorId),
-            };
-
+                var patient = this.patientsService.GetPatientByUserEmail(this.User.Identity.Name);
+                viewModel.Consultations =
+                    this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patient.Id);
+            }
+            else if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
+            {
+                var doctor = this.doctorsService.GetDoctorByUserEmail(this.User.Identity.Name);
+                viewModel.Consultations =
+                    this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctor.Id);
+            }
             return this.View(viewModel);
         }
 
-        public IActionResult GetPatientConsultations(string patientId)
+        public IActionResult UserCalendar()
         {
-            var viewModel = new AllConsultationsViewModel()
-            {
-                Consultations = this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patientId),
-            };
-
-            return this.View(viewModel);
+            // TODO: Make it so it doesnt show all events from db
+            return this.View();
         }
     }
 }

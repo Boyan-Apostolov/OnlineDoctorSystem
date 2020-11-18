@@ -44,6 +44,12 @@
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public Doctor GetDoctorByUserEmail(string email)
+        {
+            return this.doctorsRepository
+                .All().FirstOrDefault(x => x.User.Email == email);
+        }
+
         public string GetDoctorNameById(string id)
         {
             var doctor = this.doctorsRepository
