@@ -40,7 +40,7 @@
         {
             var patientId = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name);
 
-            if (this.consultationsService.AddConsultation(model, patientId))
+            if (this.consultationsService.AddConsultation(model, patientId).Result)
             {
                 return this.RedirectToAction("SuccessfullyBooked", model);
             }

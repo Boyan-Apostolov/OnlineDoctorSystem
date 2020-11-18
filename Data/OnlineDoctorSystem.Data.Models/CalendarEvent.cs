@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OnlineDoctorSystem.Data.Common.Models;
 
 namespace OnlineDoctorSystem.Data.Models
 {
-    public class CalendarEvent
+    public class CalendarEvent : BaseDeletableModel<int>
     {
-        public int Id { get; set; }
-
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
@@ -15,7 +14,5 @@ namespace OnlineDoctorSystem.Data.Models
         public string Text { get; set; }
 
         public string Color { get; set; }
-
     }
-
 }

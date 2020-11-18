@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OnlineDoctorSystem.Services.Data.Consultations
 {
@@ -9,7 +10,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
     {
         bool CheckIfTimeIsCorrect(AddConsultationViewModel model);
 
-        bool AddConsultation(AddConsultationViewModel model, string patientId);
+        Task<bool> AddConsultation(AddConsultationViewModel model, string patientId);
 
         IEnumerable<T> GetDoctorsConsultations<T>(string doctorId);
 
