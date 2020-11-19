@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using OnlineDoctorSystem.Services.Data.Events;
+
+namespace OnlineDoctorSystem.Web
 {
     using System.Reflection;
 
@@ -76,6 +78,7 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IPatientsService, PatientsService>();
             services.AddTransient<IConsultationsService, ConsultationsService>();
+            services.AddTransient<IEventsService, EventsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

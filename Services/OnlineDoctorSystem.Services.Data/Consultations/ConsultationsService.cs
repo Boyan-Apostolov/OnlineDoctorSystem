@@ -67,6 +67,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 Start = consultation.Date + consultation.StartTime,
                 End = consultation.Date + consultation.EndTime,
                 Text = $"{consultation.StartTime}",
+                IsActive = true,
             };
 
             await this.eventsRepository.AddAsync(calendarEvent);
@@ -84,13 +85,14 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
 
         public IEnumerable<T> GetDoctorsConsultations<T>(string doctorId)
         {
-            var consultations = this.consultationsRepository.All().Where(x => x.DoctorId == doctorId && x.IsActive);
+            var consultations = this.consultationsRepository.All()
+                .Where(x => x.DoctorId == doctorId && x.IsActive && x.IsDeleted == false);
             return consultations.To<T>().ToList();
         }
 
         public IEnumerable<T> GetPatientsConsultations<T>(string patientId)
         {
-            var consultations = this.consultationsRepository.All().Where(x => x.PatientId == patientId && x.IsActive);
+            var consultations = this.consultationsRepository.All().Where(x => x.PatientId == patientId && x.IsActive == true && x.IsDeleted == false);
             return consultations.To<T>().ToList();
         }
     }

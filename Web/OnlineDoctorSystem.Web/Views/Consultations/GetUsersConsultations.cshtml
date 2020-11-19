@@ -25,7 +25,7 @@
             <th>@consultation.EndTime</th>
             <th>@consultation.DoctorName</th>
             <th>@consultation.Description</th>
-            <th><button class="btn btn-danger">АНУЛИРАНЕ</button></th>
+            <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-danger">АНУЛИРАНЕ</a></th>
         </tr>
     }
 </table>

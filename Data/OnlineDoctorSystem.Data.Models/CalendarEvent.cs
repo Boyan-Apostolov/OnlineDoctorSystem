@@ -14,5 +14,7 @@ namespace OnlineDoctorSystem.Data.Models
         public string Text { get; set; }
 
         public string Color { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

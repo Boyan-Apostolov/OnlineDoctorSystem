@@ -1,4 +1,5 @@
 ﻿using OnlineDoctorSystem.Common;
+using OnlineDoctorSystem.Services.Data.Events;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -14,15 +15,18 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly IDoctorsService doctorsService;
         private readonly IConsultationsService consultationsService;
         private readonly IPatientsService patientsService;
+        private readonly IEventsService eventsService;
 
         public ConsultationsController(
             IDoctorsService doctorsService,
             IConsultationsService consultationsService,
-            IPatientsService patientsService)
+            IPatientsService patientsService,
+            IEventsService eventsService)
         {
             this.doctorsService = doctorsService;
             this.consultationsService = consultationsService;
             this.patientsService = patientsService;
+            this.eventsService = eventsService;
         }
 
         public IActionResult AddConsultation(string id)
@@ -35,6 +39,13 @@ namespace OnlineDoctorSystem.Web.Controllers
                 PatientEmail = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name),
             };
             return this.View(viewModel);
+        }
+
+        public IActionResult RemoveConsultation(int eventId)
+        {
+            this.eventsService.DeleteEventByIdAsync(eventId);
+
+            return this.RedirectToAction("GetUsersConsultations");
         }
 
         [HttpPost]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineDoctorSystem.Data;
 using OnlineDoctorSystem.Data.Models;
+using OnlineDoctorSystem.Services.Data.Events;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -16,17 +17,19 @@ namespace OnlineDoctorSystem.Web.Controllers
     public class EventsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEventsService eventsService;
 
-        public EventsController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context, IEventsService eventsService)
         {
             _context = context;
+            this.eventsService = eventsService;
         }
 
         // GET: api/Events
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CalendarEvent>>> GetEvents()
         {
-            return await _context.Events.ToListAsync();
+            return _context.Events.Where(x => x.IsActive).ToList();
         }
         // GET: api/Events/5
         [HttpGet("{id}")]
@@ -99,23 +102,15 @@ namespace OnlineDoctorSystem.Web.Controllers
 
         // DELETE: api/Events/5
         [HttpDelete("{id}")]
+        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> DeleteEvent([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
+            if (this.eventsService.DeleteEventByIdAsync(id).Result)
             {
-                return BadRequest(ModelState);
+                return this.Ok();
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
-
-            return Ok(@event);
+            return NotFound();
         }
 
         private bool EventExists(int id)

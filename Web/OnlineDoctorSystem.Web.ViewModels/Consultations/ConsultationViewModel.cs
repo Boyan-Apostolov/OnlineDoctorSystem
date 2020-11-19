@@ -11,6 +11,8 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultations
     {
         public string DoctorName { get; set; }
 
+        public int EventId { get; set; }
+
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime { get; set; }
@@ -22,8 +24,11 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultations
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Consultation, ConsultationViewModel>().ForMember(
-                m => m.DoctorName,
-                opt => opt.MapFrom(x => x.Doctor.Name));
+                    m => m.DoctorName,
+                    opt => opt.MapFrom(x => x.Doctor.Name))
+                .ForMember(
+                    m => m.EventId,
+                    opt => opt.MapFrom(x => x.CalendarEvent.Id));
         }
     }
 }
