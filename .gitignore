@@ -353,3 +353,5 @@ MigrationBackup/
 .ionide/
 Web/OnlineDoctorSystem.Web/appsettings.json
 Web/OnlineDoctorSystem.Web/appsettings.json
+
+lib/
