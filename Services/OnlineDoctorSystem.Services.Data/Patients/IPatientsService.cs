@@ -8,8 +8,8 @@
     {
         Task AddPatientToDb(string userId, Patient patient);
 
-        string GetPatientIdByEmail(string email);
+        string GetPatientIdById(string userId);
 
-        Patient GetPatientByUserEmail(string email);
+        Patient GetPatientByUserId(string userId);
     }
 }

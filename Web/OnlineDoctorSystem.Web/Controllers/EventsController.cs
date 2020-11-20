@@ -29,8 +29,10 @@ namespace OnlineDoctorSystem.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CalendarEvent>>> GetEvents()
         {
+            //TODO: Only get user's events
             return _context.Events.Where(x => x.IsActive).ToList();
         }
+
         // GET: api/Events/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEvent([FromRoute] int id)
@@ -191,9 +193,11 @@ namespace OnlineDoctorSystem.Web.Controllers
             return NoContent();
         }
     }
+
     public class EventMoveParams
     {
         public DateTime Start { get; set; }
+
         public DateTime End { get; set; }
     }
 

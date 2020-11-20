@@ -24,15 +24,15 @@ namespace OnlineDoctorSystem.Services.Data.Patients
             await this.patientRepository.SaveChangesAsync();
         }
 
-        public string GetPatientIdByEmail(string email)
+        public string GetPatientIdById(string userId)
         {
-            return this.patientRepository.All().FirstOrDefault(x => x.User.Email == email).Id;
+            return this.patientRepository.All().FirstOrDefault(x => x.User.Id == userId).Id;
         }
 
-        public Patient GetPatientByUserEmail(string email)
+        public Patient GetPatientByUserId(string userId)
         {
             return this.patientRepository
-                .All().FirstOrDefault(x => x.User.Email == email);
+                .All().FirstOrDefault(x => x.User.Id == userId);
         }
     }
 }

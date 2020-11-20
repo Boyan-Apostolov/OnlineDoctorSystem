@@ -14,7 +14,7 @@
 
         Doctor GetDoctorById(string id);
 
-        Doctor GetDoctorByUserEmail(string email);
+        Doctor GetDoctorByUserId(string userId);
 
         string GetDoctorNameById(string id);
 

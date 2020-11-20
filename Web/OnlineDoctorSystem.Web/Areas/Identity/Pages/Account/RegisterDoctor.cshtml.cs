@@ -167,9 +167,8 @@
             returnUrl = returnUrl ?? Url.Content("~/Doctors/ThankYou");
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (!(this.Input.Image.FileName.EndsWith(".jpg")
-                || this.Input.Image.FileName.EndsWith(".png")
-                || this.Input.Image.FileName.EndsWith(".jpeg")))
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+            if (!allowedExtensions.Any(x => this.Input.Image.FileName.EndsWith(x)))
             {
                 this.ModelState.AddModelError("Image", "Invalid file type.");
             }

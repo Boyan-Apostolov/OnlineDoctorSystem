@@ -20,7 +20,7 @@
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Doctor> query = this.doctorsRepository.All();
+            IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking();
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
@@ -44,10 +44,10 @@
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public Doctor GetDoctorByUserEmail(string email)
+        public Doctor GetDoctorByUserId(string userId)
         {
             return this.doctorsRepository
-                .All().FirstOrDefault(x => x.User.Email == email);
+                .All().FirstOrDefault(x => x.User.Id == userId);
         }
 
         public string GetDoctorNameById(string id)

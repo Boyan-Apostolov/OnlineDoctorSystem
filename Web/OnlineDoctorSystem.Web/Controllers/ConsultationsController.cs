@@ -1,4 +1,5 @@
-﻿using OnlineDoctorSystem.Common;
+﻿using System.Security.Claims;
+using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Services.Data.Events;
 
 namespace OnlineDoctorSystem.Web.Controllers
@@ -73,13 +74,13 @@ namespace OnlineDoctorSystem.Web.Controllers
             var viewModel = new AllConsultationsViewModel();
             if (this.User.IsInRole(GlobalConstants.PatientRoleName))
             {
-                var patient = this.patientsService.GetPatientByUserEmail(this.User.Identity.Name);
+                var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 viewModel.Consultations =
                     this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patient.Id);
             }
             else if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
             {
-                var doctor = this.doctorsService.GetDoctorByUserEmail(this.User.Identity.Name);
+                var doctor = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 viewModel.Consultations =
                     this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctor.Id);
             }
@@ -88,7 +89,6 @@ namespace OnlineDoctorSystem.Web.Controllers
 
         public IActionResult UserCalendar()
         {
-            // TODO: Make it so it doesnt show all events from db
             return this.View();
         }
     }
