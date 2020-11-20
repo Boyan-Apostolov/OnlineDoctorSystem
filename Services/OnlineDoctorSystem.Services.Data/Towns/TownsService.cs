@@ -18,7 +18,10 @@
         public IEnumerable<T> GetAllTowns<T>()
         {
             IQueryable<Town> querry = this.townsRepository.All();
-            var towns = querry.To<T>().ToList();
+            var towns = querry
+                .OrderBy(x => x.Name)
+                .To<T>()
+                .ToList();
             return towns;
         }
 

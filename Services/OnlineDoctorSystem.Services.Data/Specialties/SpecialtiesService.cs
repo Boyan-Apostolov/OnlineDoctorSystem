@@ -18,7 +18,10 @@
         public IEnumerable<T> GetAllSpecialties<T>()
         {
             IQueryable<Specialty> query = this.specialtyRepository.All();
-            var specialties = query.To<T>().ToList();
+            var specialties = query
+                .OrderBy(x => x.Name)
+                .To<T>()
+                .ToList();
             return specialties;
         }
 
