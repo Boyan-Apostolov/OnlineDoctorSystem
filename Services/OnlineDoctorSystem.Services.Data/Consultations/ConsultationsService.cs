@@ -86,13 +86,14 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
         public IEnumerable<T> GetDoctorsConsultations<T>(string doctorId)
         {
             var consultations = this.consultationsRepository.All()
-                .Where(x => x.DoctorId == doctorId && x.IsActive && x.IsDeleted == false);
+                .Where(x => x.DoctorId == doctorId && x.IsDeleted == false);
             return consultations.To<T>().ToList();
         }
 
         public IEnumerable<T> GetPatientsConsultations<T>(string patientId)
         {
-            var consultations = this.consultationsRepository.All().Where(x => x.PatientId == patientId && x.IsActive == true && x.IsDeleted == false);
+            var consultations = this.consultationsRepository.All()
+                .Where(x => x.PatientId == patientId && x.IsDeleted == false);
             return consultations.To<T>().ToList();
         }
     }

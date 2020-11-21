@@ -13,6 +13,8 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultations
 
         public int EventId { get; set; }
 
+        public bool IsActive { get; set; }
+
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime { get; set; }

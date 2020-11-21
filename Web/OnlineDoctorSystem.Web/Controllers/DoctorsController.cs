@@ -54,11 +54,16 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Reviews(string id)
+        public IActionResult GetReviews(string id)
         {
             var doctor = this.doctorsService.GetDoctorById<DoctorViewModel>(id);
             var viewModel = new DoctorReviewsViewModel() { DoctorName = doctor.Name, Reviews = doctor.Reviews };
             return this.View(viewModel);
+        }
+
+        public IActionResult AddReview()
+        {
+            return this.View();
         }
 
         public IActionResult Image(string path)
