@@ -33,11 +33,12 @@ namespace OnlineDoctorSystem.Web.Controllers
         public IActionResult AddConsultation(string id)
         {
             var doctorName = this.doctorsService.GetDoctorNameById(id);
+            var temp = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var viewModel = new AddConsultationViewModel()
             {
                 DoctorId = id,
                 DoctorName = doctorName,
-                PatientEmail = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name),
+                PatientId = temp.Id,
             };
             return this.View(viewModel);
         }
@@ -52,9 +53,9 @@ namespace OnlineDoctorSystem.Web.Controllers
         [HttpPost]
         public IActionResult AddConsultation(AddConsultationViewModel model)
         {
-            var patientId = this.patientsService.GetPatientIdByEmail(this.User.Identity.Name);
+            var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            if (this.consultationsService.AddConsultation(model, patientId).Result)
+            if (this.consultationsService.AddConsultation(model, patient.Id).Result)
             {
                 return this.RedirectToAction("SuccessfullyBooked", model);
             }

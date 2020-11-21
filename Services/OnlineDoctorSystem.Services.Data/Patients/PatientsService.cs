@@ -26,13 +26,14 @@ namespace OnlineDoctorSystem.Services.Data.Patients
 
         public string GetPatientIdById(string userId)
         {
-            return this.patientRepository.All().FirstOrDefault(x => x.User.Id == userId).Id;
+            return this.patientRepository.All().FirstOrDefault(x => x.UserId == userId).Id;
         }
 
         public Patient GetPatientByUserId(string userId)
         {
+            var patients = this.patientRepository.All().ToList();
             return this.patientRepository
-                .All().FirstOrDefault(x => x.User.Id == userId);
+                .All().FirstOrDefault(x => x.UserId == userId);
         }
     }
 }

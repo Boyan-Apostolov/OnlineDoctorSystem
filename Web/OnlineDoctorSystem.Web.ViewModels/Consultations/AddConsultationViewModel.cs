@@ -9,7 +9,7 @@
 
         public string DoctorName { get; set; }
 
-        public string PatientEmail { get; set; }
+        public string PatientId { get; set; }
 
         [Required(ErrorMessage = "Моля въведете дата на консултацията")]
         [DataType(DataType.Date)]
