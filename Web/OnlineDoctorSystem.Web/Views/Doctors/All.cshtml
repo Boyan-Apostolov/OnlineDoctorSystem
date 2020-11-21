@@ -33,7 +33,7 @@ else
                     @if (doctor.IsWorkingWithNZOK)
                     {
                         <span class="badge badge-info" title="Работи с НЗОК">
-                            <img src="/images/nzok.png" width="25px" height="25px" />
+                            <img src="/images/nzok.png" width="25px" height="25px"/>
                             <span>Работи с НЗОК</span>
                         </span>
                     }
@@ -50,5 +50,6 @@ else
             </div>
         </div>
     }
-
+    <hr/>
+    <partial name="_PagingPartial" model="@Model"/>
 }

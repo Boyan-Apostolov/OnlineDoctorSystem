@@ -25,11 +25,15 @@
             return this.View();
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int ItemsPerPage = 12;
             var viewModel = new AllDoctorViewModel()
             {
-                Doctors = this.doctorsService.GetAll<DoctorViewModelForAll>(),
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                DoctorsCount = this.doctorsService.GetDoctorsCount(),
+                Doctors = this.doctorsService.GetAll<DoctorViewModelForAll>(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -53,7 +57,7 @@
         public IActionResult Reviews(string id)
         {
             var doctor = this.doctorsService.GetDoctorById<DoctorViewModel>(id);
-            var viewModel = new DoctorReviewsViewModel() { DoctorName = doctor.Name, Reviews = doctor.Reviews};
+            var viewModel = new DoctorReviewsViewModel() { DoctorName = doctor.Name, Reviews = doctor.Reviews };
             return this.View(viewModel);
         }
 

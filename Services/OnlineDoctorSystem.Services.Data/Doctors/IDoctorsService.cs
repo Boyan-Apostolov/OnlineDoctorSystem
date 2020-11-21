@@ -8,7 +8,7 @@
 
     public interface IDoctorsService
     {
-        IEnumerable<T> GetAll<T>(int? count = null);
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
         T GetDoctorById<T>(string id);
 
@@ -21,6 +21,8 @@
         Task CreateDoctorAsync(string userId, Doctor doctor);
 
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
+
+        int GetDoctorsCount();
 
     }
 }

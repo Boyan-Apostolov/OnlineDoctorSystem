@@ -18,13 +18,11 @@
             this.doctorsRepository = doctorsRepository;
         }
 
-        public IEnumerable<T> GetAll<T>(int? count = null)
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
         {
-            IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking();
-            if (count.HasValue)
-            {
-                query = query.Take(count.Value);
-            }
+            IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Consultations.Count)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
             return query.To<T>().ToList();
         }
@@ -85,6 +83,11 @@
             }
 
             return doctors.To<T>().ToList();
+        }
+
+        public int GetDoctorsCount()
+        {
+            return this.doctorsRepository.AllAsNoTracking().Count();
         }
     }
 }
