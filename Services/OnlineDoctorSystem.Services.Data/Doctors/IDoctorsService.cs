@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Web.ViewModels.Doctors;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -23,6 +25,8 @@
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
 
         int GetDoctorsCount();
+
+        void CreateReview(ReviewViewModel model);
 
     }
 }

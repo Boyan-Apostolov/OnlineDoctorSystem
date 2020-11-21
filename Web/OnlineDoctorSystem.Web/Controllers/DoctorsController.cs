@@ -61,7 +61,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult AddReview()
+        public IActionResult AddReview(string doctorId)
         {
             return this.View();
         }

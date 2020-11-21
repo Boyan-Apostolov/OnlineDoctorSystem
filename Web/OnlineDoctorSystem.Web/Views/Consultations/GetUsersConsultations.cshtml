@@ -50,7 +50,7 @@
                 <th>@consultation.EndTime</th>
                 <th>@consultation.DoctorName</th>
                 <th>@consultation.Description</th>
-                <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-success">ОТЗИВ</a></th>
+                <th><a asp-controller="Doctors" asp-action="AddReview" asp-route-doctorId="@consultation.DoctorId" class="btn btn-success">ОТЗИВ</a></th>
             </tr>
         }
     </table>

@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Web.ViewModels.Doctors;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -88,6 +90,17 @@
         public int GetDoctorsCount()
         {
             return this.doctorsRepository.AllAsNoTracking().Count();
+        }
+
+        public void CreateReview(ReviewViewModel model)
+        {
+            var review = new Review()
+            {
+                DoctorAttitudeReview = model.DoctorAttitudeReview,
+                OverallReview = model.OverallReview,
+                WaitingTimeReview = model.WaitingTimeReview,
+                ReviewText = model.ReviewText,
+            };
         }
     }
 }

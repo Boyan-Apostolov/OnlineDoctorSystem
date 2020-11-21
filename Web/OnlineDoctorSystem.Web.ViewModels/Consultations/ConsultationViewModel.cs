@@ -11,6 +11,8 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultations
     {
         public string DoctorName { get; set; }
 
+        public string DoctorId { get; set; }
+
         public int EventId { get; set; }
 
         public bool IsActive { get; set; }
@@ -28,9 +30,10 @@ namespace OnlineDoctorSystem.Web.ViewModels.Consultations
             configuration.CreateMap<Consultation, ConsultationViewModel>().ForMember(
                     m => m.DoctorName,
                     opt => opt.MapFrom(x => x.Doctor.Name))
-                .ForMember(
-                    m => m.EventId,
-                    opt => opt.MapFrom(x => x.CalendarEvent.Id));
+                .ForMember(m => m.EventId,
+                    opt => opt.MapFrom(x => x.CalendarEvent.Id))
+                .ForMember(m => m.DoctorId,
+                    opt => opt.MapFrom(x => x.DoctorId));
         }
     }
 }
