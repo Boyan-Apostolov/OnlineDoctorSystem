@@ -27,6 +27,7 @@
     using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Services.Data.Users;
 
     [AllowAnonymous]
@@ -35,33 +36,31 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<RegisterPatient> logger;
-        private readonly IEmailSender emailSender;
         private readonly IUsersService usersService;
         private readonly ITownsService townsService;
         private readonly IPatientsService patientsService;
-        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IConfiguration configuration;
+        private readonly Services.Messaging.IEmailSender emailSender;
 
         public RegisterPatient(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterPatient> logger,
-            IEmailSender emailSender,
             IUsersService usersService,
             ITownsService townsService,
             IPatientsService patientsService,
             IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            Services.Messaging.IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
-            this.emailSender = emailSender;
             this.usersService = usersService;
             this.townsService = townsService;
             this.patientsService = patientsService;
-            this.webHostEnvironment = webHostEnvironment;
             this.configuration = configuration;
+            this.emailSender = emailSender;
         }
 
         [BindProperty]
@@ -204,8 +203,12 @@
                         },
                         protocol: this.Request.Scheme);
 
-                    await this.emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        htmlMessage: $"Моля потвърдете своя акаунт от тук <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'></a>.");
+                    await this.emailSender.SendEmailAsync(
+                        GlobalConstants.EmailSenderEmail,
+                        GlobalConstants.EmailSenderName,
+                        this.Input.Email,
+                        "Потвърждаване на акаунт",
+                        @$"<div class=text-center><h1>Потвърждаване на акаунт в Онлайн-Доктор Системата</h1><h3>Моля потвърдете своят акаунт от  <a class=btn btn-success font-weight-bold href='{HtmlEncoder.Default.Encode(callbackUrl)}'>тук</a></h3></div>");
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                     {

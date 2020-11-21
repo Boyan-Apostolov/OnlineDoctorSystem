@@ -51,6 +51,7 @@
 
         public virtual ICollection<Consultation> Consultations { get; set; }
 
+        // Remove in the near future
         public double AverageRating()
         {
             if (this.Reviews.Any())
@@ -63,5 +64,7 @@
 
             return 0;
         }
+
+        public bool IsConfirmed { get; set; }
     }
 }

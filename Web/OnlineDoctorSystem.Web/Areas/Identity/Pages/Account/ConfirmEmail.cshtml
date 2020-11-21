@@ -1,7 +1,12 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Confirm email";
+    this.ViewData["Title"] = "Успешно потвърдихте имейла си!";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@this.ViewData["Title"]</h1>
+    <div class="alert alert-success">
+        Благодарим, че потвърдихте имейла си!
+    </div>
+</div>
