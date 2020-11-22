@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
+﻿using OnlineDoctorSystem.Web.Infrastructure;
+
+namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
 
     using OnlineDoctorSystem.Services.Mapping;
@@ -16,5 +18,8 @@
         public double DoctorAttitudeReview { get; set; }
 
         public string ReviewText { get; set; }
+        
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }
