@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OnlineDoctorSystem.Data;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Data.Events;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Data.Events;
+
     [Produces("application/json")]
     [Route("api/events")]
     [IgnoreAntiforgeryToken]

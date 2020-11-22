@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineDoctorSystem.Services.Data.Events
+﻿namespace OnlineDoctorSystem.Services.Data.Events
 {
+    using System.Threading.Tasks;
+
     public interface IEventsService
     {
         Task<bool> DeleteEventByIdAsync(int id);

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Consultations
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Consultations
 {
+    using System;
+
+    using AutoMapper;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class ConsultationViewModel : IMapFrom<Consultation>, IHaveCustomMappings
     {
         public string DoctorName { get; set; }

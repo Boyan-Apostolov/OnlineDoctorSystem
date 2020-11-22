@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Doctors
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
+
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class ReviewViewModel : IMapTo<Data.Models.Review>
     {
+        public string DoctorName { get; set; }
+
         public string DoctorId { get; set; }
 
         public double OverallReview { get; set; }

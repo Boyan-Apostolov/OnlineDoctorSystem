@@ -25,8 +25,7 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
 
         int GetDoctorsCount();
-
-        void CreateReview(ReviewViewModel model);
-
+        
+        Task<bool> AddReview(ReviewViewModel model);
     }
 }

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
 

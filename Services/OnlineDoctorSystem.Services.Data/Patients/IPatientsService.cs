@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Patients
+﻿using OnlineDoctorSystem.Web.ViewModels.Doctors;
+
+namespace OnlineDoctorSystem.Services.Data.Patients
 {
     using System.Threading.Tasks;
 

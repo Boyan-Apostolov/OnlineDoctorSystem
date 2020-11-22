@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Data.Common.Models;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using System;
+
+    using OnlineDoctorSystem.Data.Common.Models;
+
     public class CalendarEvent : BaseDeletableModel<int>
     {
         public DateTime Start { get; set; }

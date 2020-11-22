@@ -16,7 +16,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
@@ -27,7 +26,6 @@
     using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Towns;
-    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Services.Data.Users;
 
     [AllowAnonymous]

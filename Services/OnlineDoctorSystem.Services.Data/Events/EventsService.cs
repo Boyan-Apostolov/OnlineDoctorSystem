@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-
-namespace OnlineDoctorSystem.Services.Data.Events
+﻿namespace OnlineDoctorSystem.Services.Data.Events
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+
     public class EventsService : IEventsService
     {
         private readonly IDeletableEntityRepository<CalendarEvent> eventsRepository;

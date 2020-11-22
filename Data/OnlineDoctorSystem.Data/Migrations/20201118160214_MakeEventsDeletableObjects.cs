@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace OnlineDoctorSystem.Data.Migrations
+﻿namespace OnlineDoctorSystem.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class MakeEventsDeletableObjects : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace OnlineDoctorSystem.Data.Migrations
+﻿namespace OnlineDoctorSystem.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddCalendar : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

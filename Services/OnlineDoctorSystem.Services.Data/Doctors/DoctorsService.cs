@@ -92,8 +92,10 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
             return this.doctorsRepository.AllAsNoTracking().Count();
         }
 
-        public void CreateReview(ReviewViewModel model)
+        public async Task<bool> AddReview(ReviewViewModel model)
         {
+            var doctor = this.GetDoctorById(model.DoctorId);
+
             var review = new Review()
             {
                 DoctorAttitudeReview = model.DoctorAttitudeReview,
@@ -101,6 +103,10 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
                 WaitingTimeReview = model.WaitingTimeReview,
                 ReviewText = model.ReviewText,
             };
+
+            doctor.Reviews.Add(review);
+            await this.doctorsRepository.SaveChangesAsync();
+            return true;
         }
     }
 }

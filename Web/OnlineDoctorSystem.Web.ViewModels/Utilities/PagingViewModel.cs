@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Utilities
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Utilities
 {
+    using System;
+
     public class PagingViewModel
     {
         public int PageNumber { get; set; }

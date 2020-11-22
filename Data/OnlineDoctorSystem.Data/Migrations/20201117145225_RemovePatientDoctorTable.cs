@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace OnlineDoctorSystem.Data.Migrations
+﻿namespace OnlineDoctorSystem.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemovePatientDoctorTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

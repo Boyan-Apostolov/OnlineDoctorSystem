@@ -1,11 +1,78 @@
 ﻿@model OnlineDoctorSystem.Web.ViewModels.Doctors.ReviewViewModel
 
 @{
-    ViewBag.Title = "Добавяне на отзив";
+    this.ViewData["Title"] = $"Добавяне на отзив за д-р {Model.DoctorName}.";
+}
+<h2>@this.ViewData["Title"]</h2>
+<div class="justify-content-center">
+    <form asp-controller="Doctors" asp-action="AddReview" method="post">
+        <div class="row">
+            <h3>&nbsp;Цялостно представяне: &nbsp; </h3>
+            <ul class="list-unstyled row">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <li class="fas fa-star btn-outline-warning" data-vote-overall="@i"></li>
+                }
+                <li><span id="overallVote">@Model.OverallReview</span><span> / 5</span> </li>
+            </ul>
+        </div>
+        <div class="row">
+            <h3>&nbsp;Време за чакане: &nbsp; </h3>
+            <ul class="list-unstyled row">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <li class="fas fa-star btn-outline-warning" data-vote-waitingTime="@i"></li>
+                }
+                <li><span id="waitingTime">@Model.WaitingTimeReview</span><span> / 5</span> </li>
+            </ul>
+        </div>
+        <div class="row">
+            <h3>&nbsp;Отношение на доктора: &nbsp; </h3>
+            <ul class="list-unstyled row top">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <li class="fas fa-star btn-outline-warning" data-vote-attitude="@i"></li>
+                }
+                <li><span id="attitude">@Model.DoctorAttitudeReview</span><span> / 5</span> </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Лично мнение:</h3>
+            <textarea class="multiline" asp-for="ReviewText"></textarea>
+        </div>
+        
+        <input type="hidden" asp-for="OverallReview" id="overallId"/>
+        <input type="hidden" asp-for="WaitingTimeReview" id="waitingTimeId"/>
+        <input type="hidden" asp-for="DoctorAttitudeReview" id="attitudeId"/>
+        <input type="hidden"asp-for="DoctorId"/>
+        <input class="btn btn-success"type="submit"/>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $("li[data-vote-overall]").each(function (el) {
+            $(this).click(function () {
+                var value = $(this).attr("data-vote-overall");
+                $('#overallId').val(value);
+                $('#overallVote').html(value);
+            })
+        });
+        $("li[data-vote-waitingTime]").each(function(el) {
+            $(this).click(function() {
+                var value = $(this).attr("data-vote-waitingTime");
+                $('#waitingTimeId').val(value);
+                $('#waitingTime').html(value);
+            });
+        });
+        $("li[data-vote-attitude]").each(function (el) {
+            $(this).click(function() {
+                var value = $(this).attr("data-vote-attitude");
+                $('#attitudeId').val(value);
+                $('#attitude').html(value);
+            });
+        });
+    </script>
+
 }
 
-<h2>Добавяне на отзив към лекар.</h2>
-<h3>Цялостно представяне</h3>
-<h3>Време за чакане</h3>
-<h3>Отношение на доктора</h3>
-<h3>Лично мнение</h3>

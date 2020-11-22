@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
 
     using Microsoft.AspNetCore.Hosting;
@@ -63,12 +66,25 @@
 
         public IActionResult AddReview(string doctorId)
         {
-            return this.View();
+            var viewModel = new ReviewViewModel()
+            {
+                DoctorId = doctorId,
+                DoctorName = this.doctorsService.GetDoctorNameById(doctorId),
+
+            };
+            return this.View(viewModel);
         }
 
-        public IActionResult Image(string path)
+        [HttpPost]
+        public IActionResult AddReview(ReviewViewModel model)
         {
-            return this.PhysicalFile(this.webHostEnvironment.WebRootPath + "/wwwroot" + path, "image/png");
+            bool isAdded = this.doctorsService.AddReview(model).Result;
+            if (isAdded)
+            {
+                return this.RedirectToAction("Info", new { id = model.DoctorId });
+            }
+
+            return null;
         }
     }
 }
