@@ -16,6 +16,8 @@
 
         public bool IsActive { get; set; }
 
+        public bool IsCancelled { get; set; }
+
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime { get; set; }

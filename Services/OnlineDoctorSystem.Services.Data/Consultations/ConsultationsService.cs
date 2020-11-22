@@ -58,6 +58,7 @@
                 PatientId = patientId,
                 DoctorId = doctor.Id,
                 IsActive = true,
+                IsCancelled = false,
             };
 
             var calendarEvent = new CalendarEvent()
@@ -85,14 +86,14 @@
         public IEnumerable<T> GetDoctorsConsultations<T>(string doctorId)
         {
             var consultations = this.consultationsRepository.All()
-                .Where(x => x.DoctorId == doctorId && x.IsDeleted == false);
+                .Where(x => x.DoctorId == doctorId && !x.IsDeleted);
             return consultations.To<T>().ToList();
         }
 
         public IEnumerable<T> GetPatientsConsultations<T>(string patientId)
         {
             var consultations = this.consultationsRepository.All()
-                .Where(x => x.PatientId == patientId && x.IsDeleted == false);
+                .Where(x => x.PatientId == patientId && !x.IsDeleted);
             return consultations.To<T>().ToList();
         }
     }

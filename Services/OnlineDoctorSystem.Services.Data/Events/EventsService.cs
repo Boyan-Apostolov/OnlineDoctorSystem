@@ -21,15 +21,16 @@
 
         public async Task<bool> DeleteEventByIdAsync(int id)
         {
-            var @event = this.eventsRepository.All().Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == id);
+            var @event = this.eventsRepository.All().Where(x => !x.IsDeleted).FirstOrDefault(x => x.Id == id);
             var consultation = this.consultationsRepository.All().Where(x => x.IsActive)
                 .FirstOrDefault(x => x.CalendarEvent.Id == id);
 
             consultation.IsActive = false;
+            consultation.IsCancelled = true;
             @event.IsActive = false;
 
             this.consultationsRepository.SaveChangesAsync();
-            this.eventsRepository.SaveChangesAsync();
+            await this.eventsRepository.SaveChangesAsync();
             return true;
         }
     }

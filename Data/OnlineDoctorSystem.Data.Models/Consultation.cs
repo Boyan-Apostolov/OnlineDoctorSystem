@@ -27,6 +27,8 @@
 
         public bool IsActive { get; set; }
 
+        public bool IsCancelled { get; set; }
+
         public string Description { get; set; }
 
         public CalendarEvent CalendarEvent { get; set; }
