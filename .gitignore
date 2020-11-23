@@ -355,3 +355,5 @@ Web/OnlineDoctorSystem.Web/appsettings.json
 Web/OnlineDoctorSystem.Web/appsettings.json
 
 lib/
+wwwroot/css/site.min.css
+wwwroot/css/sb-admin-2.min.css
