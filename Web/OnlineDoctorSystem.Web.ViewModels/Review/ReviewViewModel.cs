@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.ViewModels.Review
+﻿using OnlineDoctorSystem.Web.Infrastructure;
+
+namespace OnlineDoctorSystem.Web.ViewModels.Review
 {
     using OnlineDoctorSystem.Services.Mapping;
 
@@ -12,5 +14,7 @@
 
         public string ReviewText { get; set; }
 
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }

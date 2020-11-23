@@ -3,13 +3,12 @@
     Model.Date = DateTime.Now;
 }
 @model OnlineDoctorSystem.Web.ViewModels.Consultations.AddConsultationViewModel
-
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 <div class="">
     <div class="row container" style="padding-top: 100px; padding-bottom: 100px;">
         <div class="col-sm-12">
             <form class="" method="post" asp-controller="Consultations" asp-action="AddConsultation">
                 <h1 class="offset-sm-2">Запазване на час при д-р @Model.DoctorName</h1>
-
                 <div class="form-group">
                     <label asp-for="Date" class="col-sm-4 offset-sm-4 align-content-center">Въведете дата</label>
                     <input asp-for="Date" class="col-sm-4 offset-sm-4 align-content-center form-control">
@@ -35,7 +34,20 @@
                 <div class="form-group">
                     <button class="btn btn-success col-sm-4 offset-sm-4 " type="submit">Уговаряне на дата и час</button>
                 </div>
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:LocalHost_Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Site_Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

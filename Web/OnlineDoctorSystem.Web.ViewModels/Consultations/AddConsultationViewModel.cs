@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.ViewModels.Consultations
+﻿using OnlineDoctorSystem.Web.Infrastructure;
+
+namespace OnlineDoctorSystem.Web.ViewModels.Consultations
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -29,6 +31,9 @@
         public string Description { get; set; }
 
         public DateTime ReceivedOn => DateTime.UtcNow;
+
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
 
     }
 }

@@ -1,9 +1,10 @@
 ﻿@model OnlineDoctorSystem.Web.ViewModels.Doctors.ReviewViewModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 @{
     this.ViewData["Title"] = $"Добавяне на отзив за д-р {Model.DoctorName}.";
 }
-<br/>
+<br />
 <h2 class="text-center">@this.ViewData["Title"]</h2>
 <div class="justify-content-center align-content-center">
     <form asp-controller="Doctors" class="justify-content-center text-center align-items-center" asp-action="AddReview" method="post">
@@ -53,9 +54,11 @@
         <input type="hidden" asp-for="WaitingTimeReview" id="waitingTimeId" />
         <input type="hidden" asp-for="DoctorAttitudeReview" id="attitudeId" />
         <input type="hidden" asp-for="DoctorId" />
+        <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
         <input class="btn btn-success" type="submit" />
     </form>
 </div>
+
 
 @section Scripts {
     <script>
@@ -78,6 +81,14 @@
                 var value = $(this).attr("data-vote-attitude");
                 $('#attitudeId').val(value);
                 $('#attitude').html(value);
+            });
+        });
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:LocalHost_Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Site_Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
             });
         });
     </script>
