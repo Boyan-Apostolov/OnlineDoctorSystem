@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Consultations;
@@ -11,7 +10,7 @@ namespace OnlineDoctorSystem.Web.Controllers
     using OnlineDoctorSystem.Services.Data.Events;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
-    
+
     [Authorize]
     public class ConsultationsController : Controller
     {

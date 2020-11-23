@@ -45,7 +45,7 @@
     <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:LocalHost_Key"]"></script>
     <script>
         grecaptcha.ready(function () {
-            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Site_Key"]', { action: 'contact_form' }).then(function (token) {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:LocalHost_Key"]', { action: 'contact_form' }).then(function (token) {
                 document.getElementById("RecaptchaValue").value = token;
             });
         });

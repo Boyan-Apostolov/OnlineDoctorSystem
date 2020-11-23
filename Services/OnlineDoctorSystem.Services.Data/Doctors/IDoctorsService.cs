@@ -1,11 +1,10 @@
-﻿using OnlineDoctorSystem.Web.ViewModels.Doctors;
-
-namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public interface IDoctorsService

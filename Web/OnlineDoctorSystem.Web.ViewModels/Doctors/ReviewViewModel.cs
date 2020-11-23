@@ -1,9 +1,7 @@
-﻿using OnlineDoctorSystem.Web.Infrastructure;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Doctors
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
-
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.Infrastructure;
 
     public class ReviewViewModel : IMapTo<Data.Models.Review>
     {

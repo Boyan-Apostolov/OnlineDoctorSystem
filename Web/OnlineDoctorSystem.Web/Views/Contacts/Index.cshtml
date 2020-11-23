@@ -1,5 +1,38 @@
-﻿@{
+﻿@model OnlineDoctorSystem.Web.ViewModels.Contacts.ContactSubmissionViewModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
     ViewBag.Title = "Контакти";
 }
 
-<h2>Изпращане на въпрос</h2>
+<h2>Изпращане на съобщение към администратора</h2>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Content"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Изпращане на съобщение</button>
+    <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+</form>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:LocalHost_Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:LocalHost_Key"]', { action: 'contact_form' }).then(function (token) {
+                $("#RecaptchaValue").val(token);
+            });
+        });
+    </script>
+}

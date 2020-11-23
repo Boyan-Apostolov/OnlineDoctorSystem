@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-using Microsoft.Extensions.Configuration;
-namespace OnlineDoctorSystem.Web.Infrastructure
+﻿namespace OnlineDoctorSystem.Web.Infrastructure
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Net;
+    using System.Net.Http;
+    using System.Text;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+
+    using Microsoft.Extensions.Configuration;
+
     public class GoogleReCaptchaValidationAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -22,7 +23,7 @@ namespace OnlineDoctorSystem.Web.Infrastructure
             }
 
             var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
-            if (configuration == null || string.IsNullOrWhiteSpace(configuration["GoogleReCaptcha:Secret_Key"]))
+            if (configuration == null || string.IsNullOrWhiteSpace(configuration["GoogleReCaptcha:LocalHost_Secret_Key"]))
             {
                 return new ValidationResult(
                     "Google reCAPTCHA validation failed. Secret key not found.",
@@ -33,7 +34,7 @@ namespace OnlineDoctorSystem.Web.Infrastructure
             var content = new FormUrlEncodedContent(
                 new[]
                     {
-                        new KeyValuePair<string, string>("secret", configuration["GoogleReCaptcha:Secret_Key"]),
+                        new KeyValuePair<string, string>("secret", configuration["GoogleReCaptcha:LocalHost_Secret_Key"]),
                         new KeyValuePair<string, string>("response", value.ToString()),
                         //// new KeyValuePair<string, string>("remoteip", remoteIp),
                     });

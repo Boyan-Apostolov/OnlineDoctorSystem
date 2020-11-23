@@ -1,9 +1,9 @@
-﻿using OnlineDoctorSystem.Web.Infrastructure;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Consultations
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Consultations
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
+    using OnlineDoctorSystem.Web.Infrastructure;
 
     public class AddConsultationViewModel
     {

@@ -251,7 +251,7 @@
                         protocol: this.Request.Scheme);
 
                     await this.emailSender.SendEmailAsync(
-                        GlobalConstants.EmailSenderEmail,
+                        GlobalConstants.SystemEmail,
                         GlobalConstants.EmailSenderName,
                         this.Input.Email,
                         "Потвърждаване на акаунт",

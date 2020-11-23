@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using OnlineDoctorSystem.Web.Infrastructure;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Review
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Review
 {
+    using System.ComponentModel.DataAnnotations;
+
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.Infrastructure;
 
     public class ReviewViewModel : IMapFrom<Data.Models.Review>
     {

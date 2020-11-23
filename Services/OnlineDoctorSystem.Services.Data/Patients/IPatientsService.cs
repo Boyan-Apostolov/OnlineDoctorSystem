@@ -1,10 +1,9 @@
-﻿using OnlineDoctorSystem.Web.ViewModels.Doctors;
-
-namespace OnlineDoctorSystem.Services.Data.Patients
+﻿namespace OnlineDoctorSystem.Services.Data.Patients
 {
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Doctors;
 
     public interface IPatientsService
     {
