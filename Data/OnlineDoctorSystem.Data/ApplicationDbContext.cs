@@ -23,6 +23,8 @@
         {
         }
 
+        public DbSet<ContactSubmission> ContactSubmissions { get; set; }
+
         public DbSet<CalendarEvent> Events { get; set; }
 
         public DbSet<Setting> Settings { get; set; }

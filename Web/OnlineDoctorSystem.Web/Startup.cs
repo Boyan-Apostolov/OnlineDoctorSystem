@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using OnlineDoctorSystem.Services.Data.ContactSubmission;
+
+namespace OnlineDoctorSystem.Web
 {
     using System.Reflection;
 
@@ -78,6 +80,7 @@
             services.AddTransient<IPatientsService, PatientsService>();
             services.AddTransient<IConsultationsService, ConsultationsService>();
             services.AddTransient<IEventsService, EventsService>();
+            services.AddTransient<IContactSubmissionService, ContactSubmissionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

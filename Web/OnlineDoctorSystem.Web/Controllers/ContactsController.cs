@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Services.Data.ContactSubmission;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -15,10 +17,14 @@
     public class ContactsController : Controller
     {
         private readonly IEmailSender emailSender;
+        private readonly IContactSubmissionService submissionService;
 
-        public ContactsController(IEmailSender emailSender)
+        public ContactsController(
+            IEmailSender emailSender,
+            IContactSubmissionService submissionService)
         {
             this.emailSender = emailSender;
+            this.submissionService = submissionService;
         }
 
         public IActionResult Index()
@@ -35,6 +41,8 @@
             {
                 return this.View(model);
             }
+
+            await this.submissionService.AddSubmissionToDb(model);
 
             await this.emailSender.SendEmailAsync(
                 model.Email,
