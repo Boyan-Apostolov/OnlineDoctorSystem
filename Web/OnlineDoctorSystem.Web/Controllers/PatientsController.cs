@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using OnlineDoctorSystem.Common;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -7,6 +9,7 @@ namespace OnlineDoctorSystem.Web.Controllers
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
 
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly IPatientsService patientsService;
@@ -20,6 +23,7 @@ namespace OnlineDoctorSystem.Web.Controllers
             this.doctorsService = doctorsService;
         }
 
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult ThankYou()
         {
             return this.View();

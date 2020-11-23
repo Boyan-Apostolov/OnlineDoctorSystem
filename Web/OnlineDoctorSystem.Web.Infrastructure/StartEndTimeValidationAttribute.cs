@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace OnlineDoctorSystem.Web.Infrastructure
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Utilities
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class StartEndTimeValidationAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

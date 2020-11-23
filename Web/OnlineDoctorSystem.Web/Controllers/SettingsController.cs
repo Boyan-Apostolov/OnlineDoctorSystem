@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+using OnlineDoctorSystem.Common;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;
@@ -9,6 +12,7 @@
     using OnlineDoctorSystem.Services.Data;
     using OnlineDoctorSystem.Web.ViewModels.Settings;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class SettingsController : BaseController
     {
         private readonly ISettingsService settingsService;

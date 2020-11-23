@@ -17,7 +17,9 @@
                         <li class="fas fa-star btn-outline-warning" data-vote-attitude="@i"></li>
                     }
                     <li><span id="attitude">@Model.DoctorAttitudeReview</span><span> / 5</span> </li>
+
                 </ul>
+                <span asp-validation-for="DoctorAttitudeReview"></span>
             </div>
         </div>
         <div class="form-group">
@@ -47,7 +49,7 @@
         <div class="form-group">
             <div>
                 <h3>Лично мнение:</h3>
-                <textarea class="multiline" asp-for="ReviewText"></textarea>
+                <textarea class="multiline" asp-for="ReviewText" placeholder="Много добро представяне"></textarea>
             </div>
         </div>
         <input type="hidden" asp-for="OverallReview" id="overallId" />

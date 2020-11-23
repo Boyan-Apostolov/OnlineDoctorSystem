@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
 
@@ -9,7 +11,8 @@
     using OnlineDoctorSystem.Services.Data.Events;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
-
+    
+    [Authorize]
     public class ConsultationsController : Controller
     {
         private readonly IDoctorsService doctorsService;
@@ -29,6 +32,7 @@
             this.eventsService = eventsService;
         }
 
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddConsultation(string id)
         {
             var doctorName = this.doctorsService.GetDoctorNameById(id);
@@ -50,8 +54,13 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddConsultation(AddConsultationViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("InvalidTimeInput");
+            }
             var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             if (this.consultationsService.AddConsultation(model, patient.Id).Result)
@@ -62,6 +71,7 @@
             return this.View("InvalidTimeInput");
         }
 
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult SuccessfullyBooked(AddConsultationViewModel model)
         {
             var doctorName = this.doctorsService.GetDoctorNameById(model.DoctorId);

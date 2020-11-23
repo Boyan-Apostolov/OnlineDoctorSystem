@@ -1,4 +1,5 @@
-﻿using OnlineDoctorSystem.Web.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
+using OnlineDoctorSystem.Web.Infrastructure;
 
 namespace OnlineDoctorSystem.Web.ViewModels.Review
 {

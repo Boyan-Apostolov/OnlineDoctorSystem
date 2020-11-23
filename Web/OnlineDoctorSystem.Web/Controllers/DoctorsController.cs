@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
+using OnlineDoctorSystem.Common;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -10,6 +12,7 @@ namespace OnlineDoctorSystem.Web.Controllers
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
+    [Authorize]
     public class DoctorsController : Controller
     {
         private readonly IDoctorsService doctorsService;
@@ -23,6 +26,7 @@ namespace OnlineDoctorSystem.Web.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public IActionResult ThankYou()
         {
             return this.View();
@@ -64,6 +68,7 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddReview(string doctorId)
         {
             var viewModel = new ReviewViewModel()
@@ -76,15 +81,15 @@ namespace OnlineDoctorSystem.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddReview(ReviewViewModel model)
         {
-            bool isAdded = this.doctorsService.AddReview(model).Result;
-            if (isAdded)
+            if (this.doctorsService.AddReview(model).Result)
             {
                 return this.RedirectToAction("Info", new { id = model.DoctorId });
             }
 
-            return null;
+            return this.View(model);
         }
     }
 }
