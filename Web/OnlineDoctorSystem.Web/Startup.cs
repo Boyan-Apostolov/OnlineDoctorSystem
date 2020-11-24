@@ -103,7 +103,7 @@ namespace OnlineDoctorSystem.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/Home/CustomErrorPage");
                 app.UseHsts();
             }
 
