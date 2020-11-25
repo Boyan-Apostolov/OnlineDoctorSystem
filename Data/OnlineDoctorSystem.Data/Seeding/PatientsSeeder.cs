@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using OnlineDoctorSystem.Data.Models;
+using OnlineDoctorSystem.Data.Models.Enums;
+
+namespace OnlineDoctorSystem.Data.Seeding
+{
+    public class PatientsSeeder : ISeeder
+    {
+        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            await SeedPatientAsync(userManager, $"patient@patient.com", dbContext);
+        }
+
+        private static async Task SeedPatientAsync(UserManager<ApplicationUser> userManager, string username, ApplicationDbContext dbContext)
+        {
+
+            Random r = new Random();
+
+            var result = await userManager.CreateAsync(new ApplicationUser() { UserName = username, Email = username, EmailConfirmed = true }, "Patient123");
+            if (result.Succeeded)
+            {
+                var user = await userManager.FindByNameAsync(username);
+                if (user.Doctor == null)
+                {
+                    var num = r.Next(0, 3);
+                    user.Patient = new Patient()
+                    {
+                        FirstName = NamesLists.maleFirstNames[num],
+                        LastName = NamesLists.maleLastNames[num],
+                        Town = dbContext.Towns.Skip(num + 5).FirstOrDefault(),
+                        Phone = $"09487{num}5563",
+                        ImageUrl =
+                            "https://res.cloudinary.com/du3ohgfpc/image/upload/v1606322301/jrtza0zytvwqeqihpg1m.png",
+                        BirthDate = DateTime.UtcNow,
+                        Gender = Gender.Male,
+                    };
+                }
+            }
+        }
+    }
+}

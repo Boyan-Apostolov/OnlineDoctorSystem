@@ -19,7 +19,7 @@ namespace OnlineDoctorSystem.Data.Seeding
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             await SeedDoctorAsync(userManager, $"doctor@doctor.com", dbContext);
 
-            for (int i = 1; i <= 6; i++)
+            for (int i = 1; i <= 4; i++)
             {
                 //Test doctors
                 await SeedDoctorAsync(userManager, $"doctor{i}@doctor.com", dbContext);
