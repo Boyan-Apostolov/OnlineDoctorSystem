@@ -49,7 +49,7 @@ namespace OnlineDoctorSystem.Data.Seeding
                         BirthDate = DateTime.UtcNow,
                         Gender = Gender.Male,
                         YearsOfPractice = 10 + num,
-                        IsWorkingWithNZOK = false,
+                        IsWorkingWithNZOK = (num % 2 == 0),
                         IsWorkingWithChildren = true,
                         SmallInfo = $"Казвам се {NamesLists.maleFirstNames[num]} {NamesLists.maleLastNames[num]} и съм лекар от {10 + num} години.",
                         Education = $"Учил съм в Пловдивският медицински университет {8 + num} години.",
