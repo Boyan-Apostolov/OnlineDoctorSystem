@@ -29,6 +29,7 @@
                               new SettingsSeeder(),
                               new TownsSeeder(),
                               new SpecialtiesSeeder(),
+                              new DoctorsSeeder(),
                           };
 
             foreach (var seeder in seeders)

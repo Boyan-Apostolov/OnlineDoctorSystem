@@ -1,4 +1,5 @@
-﻿@model OnlineDoctorSystem.Web.ViewModels.Doctors.DoctorViewModel
+﻿@using OnlineDoctorSystem.Common
+@model OnlineDoctorSystem.Web.ViewModels.Doctors.DoctorViewModel
 @{
     this.ViewData["Title"] = Model.Name;
 }
@@ -30,7 +31,10 @@
                         }
                     </div>
                     <h4 class="d-inline">@Model.Town.Name - <small class="text-muted">@Model.YearsOfPractice години стаж</small></h4>
-                    <a href="/Consultations/AddConsultation/@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                    @if (!this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                    {
+                        <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                    }
                 </div>
             </div>
         </div>

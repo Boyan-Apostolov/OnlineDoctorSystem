@@ -33,7 +33,7 @@
 
         public IActionResult All(int id = 1)
         {
-            const int ItemsPerPage = 12;
+            const int ItemsPerPage = 4;
             var viewModel = new AllDoctorViewModel()
             {
                 ItemsPerPage = ItemsPerPage,
