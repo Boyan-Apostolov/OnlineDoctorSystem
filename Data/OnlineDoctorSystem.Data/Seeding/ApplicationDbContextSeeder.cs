@@ -31,6 +31,7 @@
                               new SpecialtiesSeeder(),
                               new DoctorsSeeder(),
                               new PatientsSeeder(),
+                              new AdminSeeder(),
                           };
 
             foreach (var seeder in seeders)

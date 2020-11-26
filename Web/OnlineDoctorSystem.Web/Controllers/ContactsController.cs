@@ -45,10 +45,10 @@ namespace OnlineDoctorSystem.Web.Controllers
             await this.submissionService.AddSubmissionToDb(model);
 
             await this.emailSender.SendEmailAsync(
-                model.Email,
-                model.Name,
-                GlobalConstants.SystemEmail,
-                model.Title,
+                GlobalConstants.SystemOwnerEmail,
+                $"{model.Name} -> {model.Email}",
+                GlobalConstants.SystemAdminEmail,
+                $"{model.Title} -> {model.Email}",
                 model.Content);
 
             return this.RedirectToAction("ThankYou");

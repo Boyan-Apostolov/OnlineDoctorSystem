@@ -10,7 +10,9 @@
 
         public const string PatientRoleName = "Patient";
 
-        public const string SystemEmail = "online.doctor.system.bg@gmail.com";
+        public const string SystemAdminEmail = "online.doctor.system.bg@gmail.com";
+
+        public const string SystemOwnerEmail = "online.doctor.system.bg.owner@gmail.com";
 
         public const string EmailSenderName = "Online Doctor System";
     }
