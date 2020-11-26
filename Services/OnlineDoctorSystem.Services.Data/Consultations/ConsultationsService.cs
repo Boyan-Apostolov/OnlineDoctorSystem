@@ -1,17 +1,16 @@
-﻿using OnlineDoctorSystem.Common;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Messaging;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
 
     public class ConsultationsService : IConsultationsService

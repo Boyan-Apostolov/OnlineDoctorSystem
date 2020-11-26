@@ -23,7 +23,13 @@
 
         Task CreateDoctorAsync(string userId, Doctor doctor);
 
+        Task ApproveDoctorAsync(string doctorId);
+
+        Task DeclineDoctorAsync(string doctorId);
+
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);
+
+        IEnumerable<T> GetUnconfirmedDoctors<T>();
 
         int GetDoctorsCount();
         

@@ -227,7 +227,6 @@
                     IsWorkingWithChildren = this.Input.IsWorkingWithChildren,
                     IsWorkingWithNZOK = this.Input.IsWorkingWithNZOK,
                     ImageUrl = imageUrl,
-                    IsConfirmed = false,
                 };
 
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);

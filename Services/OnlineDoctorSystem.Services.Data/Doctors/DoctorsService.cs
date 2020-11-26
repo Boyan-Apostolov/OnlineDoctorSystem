@@ -4,9 +4,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore.Update;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
@@ -14,18 +17,20 @@
     {
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IEmailSender emailSender;
 
-        public DoctorsService(IDeletableEntityRepository<Doctor> doctorsRepository
-        , IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public DoctorsService(IDeletableEntityRepository<Doctor> doctorsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IEmailSender emailSender)
         {
             this.doctorsRepository = doctorsRepository;
             this.usersRepository = usersRepository;
+            this.emailSender = emailSender;
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
         {
             IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking()
-                .Where(x => x.User.EmailConfirmed)
+                .Where(x => x.IsConfirmed ?? false)
                 .OrderByDescending(x => x.Consultations.Count)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
@@ -76,6 +81,40 @@
             await this.doctorsRepository.SaveChangesAsync();
         }
 
+        public async Task ApproveDoctorAsync(string doctorId)
+        {
+            var doctor = this.GetDoctorById(doctorId);
+
+            doctor.IsConfirmed = true;
+            await this.doctorsRepository.SaveChangesAsync();
+
+            var doctorEmail = await this.GetDoctorEmailById(doctorId);
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"Админ на Онлайн-Доктор Системата",
+                doctorEmail,
+                "Вашият профил беше потвърден!",
+                $"Вашият профил беше потвърден! Вече сте част от нашето семейство и наши пациенти могат да се свързват с вас!"
+            );
+        }
+
+        public async Task DeclineDoctorAsync(string doctorId)
+        {
+            var doctor = this.GetDoctorById(doctorId);
+
+            doctor.IsConfirmed = false;
+            await this.doctorsRepository.SaveChangesAsync();
+
+            var doctorEmail = await this.GetDoctorEmailById(doctorId);
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"Админ на Онлайн-Доктор Системата",
+                doctorEmail,
+                "Вашата заявка за профил беше отхвърлена!",
+                $"Съжеляваме, но профилът Ви не покрива изискванията ни. Можете да виждате другите доктори, но вашият профил няма да може да бъде намерен от пациентите ни!"
+            );
+        }
+
         public IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model)
         {
             IQueryable<Doctor> doctors = this.doctorsRepository.All();
@@ -96,6 +135,11 @@
             }
 
             return doctors.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetUnconfirmedDoctors<T>()
+        {
+            return this.doctorsRepository.All().Where(x => x.IsConfirmed == null).To<T>().ToList();
         }
 
         public int GetDoctorsCount()

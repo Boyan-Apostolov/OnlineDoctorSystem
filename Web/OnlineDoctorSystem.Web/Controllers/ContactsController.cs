@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.ContactSubmission;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +8,7 @@ namespace OnlineDoctorSystem.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
+    using OnlineDoctorSystem.Services.Data.ContactSubmission;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Contacts;
 

@@ -51,20 +51,6 @@
 
         public virtual ICollection<Consultation> Consultations { get; set; }
 
-        // Remove in the near future
-        public double AverageRating()
-        {
-            if (this.Reviews.Any())
-            {
-                return (
-                    this.Reviews.Average(x => x.DoctorAttitudeReview) +
-                    this.Reviews.Average(x => x.OverallReview) +
-                    this.Reviews.Average(x => x.WaitingTimeReview)) / 3;
-            }
-
-            return 0;
-        }
-
-        public bool IsConfirmed { get; set; }
+        public bool? IsConfirmed { get; set; }
     }
 }

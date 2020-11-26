@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineDoctorSystem.Data.Seeding
+﻿namespace OnlineDoctorSystem.Data.Seeding
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class NamesLists
     {
         public static List<string> maleFirstNames = new List<string>()

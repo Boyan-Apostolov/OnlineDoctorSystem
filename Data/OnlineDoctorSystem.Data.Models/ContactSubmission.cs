@@ -1,7 +1,7 @@
-﻿using OnlineDoctorSystem.Data.Common.Models;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using OnlineDoctorSystem.Data.Common.Models;
+
     public class ContactSubmission : BaseModel<int>
     {
         public string Name { get; set; }

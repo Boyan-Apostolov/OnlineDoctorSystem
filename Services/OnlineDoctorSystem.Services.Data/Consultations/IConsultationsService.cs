@@ -1,10 +1,9 @@
-﻿using OnlineDoctorSystem.Services.Messaging;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
 
     public interface IConsultationsService

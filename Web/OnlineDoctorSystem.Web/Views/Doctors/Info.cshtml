@@ -48,7 +48,7 @@
             <div class="text-center">
                 Рейтинг
                 <div class="text-center">
-                    @for (int i = 0; i < Math.Round(Model.AverageRating); i++)
+                    @for (int i = 0; i < Math.Round(Model.AverageRating()); i++)
                     {
                         <i class="fas fa-star btn-outline-warning"></i>
                     }
