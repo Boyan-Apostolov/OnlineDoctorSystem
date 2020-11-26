@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Data.Models;
 using OnlineDoctorSystem.Data.Models.Enums;
 using OnlineDoctorSystem.Services.Data.Doctors;
@@ -30,13 +31,13 @@ namespace OnlineDoctorSystem.Data.Seeding
         {
 
             Random r = new Random();
-
-            var result = await userManager.CreateAsync(new ApplicationUser() { UserName = username, Email = username, EmailConfirmed = true }, "Doctor123");
+            var user = new ApplicationUser() {UserName = username, Email = username, EmailConfirmed = true};
+            var result = await userManager.CreateAsync(user, "Doctor123");
             if (result.Succeeded)
             {
-                var user = await userManager.FindByNameAsync(username);
                 if (user.Doctor == null)
                 {
+                    await userManager.AddToRoleAsync(user, GlobalConstants.DoctorRoleName);
                     var num = r.Next(0, 3);
                     user.Doctor = new Doctor()
                     {

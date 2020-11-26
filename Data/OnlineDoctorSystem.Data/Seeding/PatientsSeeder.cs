@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Data.Models;
 using OnlineDoctorSystem.Data.Models.Enums;
 
@@ -22,11 +23,11 @@ namespace OnlineDoctorSystem.Data.Seeding
         {
 
             Random r = new Random();
-
-            var result = await userManager.CreateAsync(new ApplicationUser() { UserName = username, Email = username, EmailConfirmed = true }, "Patient123");
+            var user = new ApplicationUser() { UserName = username, Email = username, EmailConfirmed = true };
+            var result = await userManager.CreateAsync(user, "Patient123");
             if (result.Succeeded)
             {
-                var user = await userManager.FindByNameAsync(username);
+                await userManager.AddToRoleAsync(user, GlobalConstants.PatientRoleName);
                 if (user.Doctor == null)
                 {
                     var num = r.Next(0, 3);

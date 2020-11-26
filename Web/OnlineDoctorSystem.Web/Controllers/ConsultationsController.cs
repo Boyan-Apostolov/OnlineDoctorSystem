@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Services.Messaging;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
 
@@ -60,6 +62,7 @@
             {
                 return this.View("InvalidTimeInput");
             }
+
             var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             if (this.consultationsService.AddConsultation(model, patient.Id).Result)

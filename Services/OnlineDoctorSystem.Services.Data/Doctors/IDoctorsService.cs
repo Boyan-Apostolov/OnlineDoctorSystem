@@ -19,6 +19,8 @@
 
         string GetDoctorNameById(string id);
 
+        Task<string> GetDoctorEmailById(string id);
+
         Task CreateDoctorAsync(string userId, Doctor doctor);
 
         IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model);

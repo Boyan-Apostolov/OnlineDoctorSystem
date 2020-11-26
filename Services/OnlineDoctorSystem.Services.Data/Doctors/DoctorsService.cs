@@ -13,15 +13,19 @@
     public class DoctorsService : IDoctorsService
     {
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public DoctorsService(IDeletableEntityRepository<Doctor> doctorsRepository)
+        public DoctorsService(IDeletableEntityRepository<Doctor> doctorsRepository
+        , IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.doctorsRepository = doctorsRepository;
+            this.usersRepository = usersRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
         {
             IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking()
+                .Where(x => x.User.EmailConfirmed)
                 .OrderByDescending(x => x.Consultations.Count)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
@@ -55,6 +59,14 @@
                 .All()
                 .FirstOrDefault(x => x.Id == id);
             return doctor.Name;
+        }
+
+        public async Task<string> GetDoctorEmailById(string id)
+        {
+            var doctor = this.doctorsRepository.All().FirstOrDefault(x => x.Id == id);
+            var user = await this.usersRepository.GetByIdWithDeletedAsync(doctor.UserId);
+
+            return user.Email;
         }
 
         public async Task CreateDoctorAsync(string userId, Doctor doctor)

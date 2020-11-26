@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using OnlineDoctorSystem.Services.Messaging;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

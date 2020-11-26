@@ -1,4 +1,8 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using OnlineDoctorSystem.Common;
+using OnlineDoctorSystem.Services.Data.Doctors;
+using OnlineDoctorSystem.Services.Messaging;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Collections.Generic;
@@ -16,17 +20,22 @@
         private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly IDeletableEntityRepository<Patient> patientsRepository;
         private readonly IDeletableEntityRepository<CalendarEvent> eventsRepository;
+        private readonly IEmailSender emailSender;
+        private readonly IDoctorsService doctorsService;
 
         public ConsultationsService(
             IDeletableEntityRepository<Doctor> doctorRepository,
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDeletableEntityRepository<Patient> patientsRepository,
-            IDeletableEntityRepository<CalendarEvent> eventsRepository)
+            IDeletableEntityRepository<CalendarEvent> eventsRepository,
+            IEmailSender emailSender, IDoctorsService doctorsService)
         {
             this.doctorRepository = doctorRepository;
             this.consultationsRepository = consultationsRepository;
             this.patientsRepository = patientsRepository;
             this.eventsRepository = eventsRepository;
+            this.emailSender = emailSender;
+            this.doctorsService = doctorsService;
         }
 
         public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
@@ -46,8 +55,8 @@
                 return false;
             }
 
-            var patient = this.patientsRepository.GetByIdWithDeletedAsync(patientId).Result;
-            var doctor = this.doctorRepository.All().FirstOrDefault(x => x.Id == model.DoctorId);
+            var patient = await this.patientsRepository.GetByIdWithDeletedAsync(patientId);
+            var doctor = await this.doctorRepository.GetByIdWithDeletedAsync(model.DoctorId);
 
             var consultation = new Consultation()
             {
@@ -80,6 +89,14 @@
 
             doctor.Consultations.Add(consultation);
             this.doctorRepository.SaveChangesAsync();
+            var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"{patient.FirstName} {patient.LastName}",
+                doctorEmail,
+                "Имате нова заявка за консултация",
+                $"Имате нова заявка за консултация от пациент {patient.FirstName} {patient.LastName} за {model.Date.ToShortDateString()} от {model.StartTime} часа. Моля потвърдете или отхвърлете заявката от сайта ни."
+                );
             return true;
         }
 
