@@ -9,6 +9,7 @@
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
@@ -21,13 +22,16 @@
         private readonly IDeletableEntityRepository<CalendarEvent> eventsRepository;
         private readonly IEmailSender emailSender;
         private readonly IDoctorsService doctorsService;
+        private readonly IPatientsService patientsService;
 
         public ConsultationsService(
             IDeletableEntityRepository<Doctor> doctorRepository,
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDeletableEntityRepository<Patient> patientsRepository,
             IDeletableEntityRepository<CalendarEvent> eventsRepository,
-            IEmailSender emailSender, IDoctorsService doctorsService)
+            IEmailSender emailSender, 
+            IDoctorsService doctorsService,
+            IPatientsService patientsService)
         {
             this.doctorRepository = doctorRepository;
             this.consultationsRepository = consultationsRepository;
@@ -35,6 +39,7 @@
             this.eventsRepository = eventsRepository;
             this.emailSender = emailSender;
             this.doctorsService = doctorsService;
+            this.patientsService = patientsService;
         }
 
         public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
@@ -67,6 +72,7 @@
                 DoctorId = doctor.Id,
                 IsActive = true,
                 IsCancelled = false,
+                IsConfirmed = false,
             };
 
             var calendarEvent = new CalendarEvent()
@@ -99,6 +105,13 @@
             return true;
         }
 
+        public IEnumerable<Consultation> GetDoctorsUnconfirmedConsultations(string doctorId)
+        {
+            var consultations = this.consultationsRepository.All()
+                .Where(x => x.DoctorId == doctorId && !x.IsDeleted);
+            return consultations.ToList();
+        }
+
         public IEnumerable<T> GetDoctorsConsultations<T>(string doctorId)
         {
             var consultations = this.consultationsRepository.All()
@@ -111,6 +124,38 @@
             var consultations = this.consultationsRepository.All()
                 .Where(x => x.PatientId == patientId && !x.IsDeleted);
             return consultations.To<T>().ToList();
+        }
+
+        public async Task ApproveConsultationAsync(string consultationId)
+        {
+            var consultation = await this.consultationsRepository.GetByIdWithDeletedAsync(consultationId);
+
+            consultation.IsConfirmed = true;
+            await this.consultationsRepository.SaveChangesAsync();
+
+            var patientEmail = await this.patientsService.GetPatientEmailByUserId(consultation.PatientId);
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"Админ на Онлайн-Доктор Системата",
+                patientEmail,
+                "Вашата заявка беше одобрена!",
+                $"Вашата заявка за консултация на {consultation.Date.ToShortDateString()} от {consultation.StartTime} беше одобрена. Доктора ще ви очаква :)");
+        }
+
+        public async Task DeclineConsultationAsync(string consultationId)
+        {
+            var consultation = await this.consultationsRepository.GetByIdWithDeletedAsync(consultationId);
+
+            consultation.IsConfirmed = false;
+            await this.consultationsRepository.SaveChangesAsync();
+
+            var patientEmail = await this.patientsService.GetPatientEmailByUserId(consultation.PatientId);
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"Админ на Онлайн-Доктор Системата",
+                patientEmail,
+                "Вашата заявка беше отхвърлена!",
+                $"Вашата заявка за консултация на {consultation.Date.ToShortDateString()} от {consultation.StartTime} беше отхвърлена от доктора ви, за повече информация, моля свържете се с него.");
         }
     }
 }

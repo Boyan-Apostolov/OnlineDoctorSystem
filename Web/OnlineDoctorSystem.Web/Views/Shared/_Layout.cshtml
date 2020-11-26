@@ -35,6 +35,12 @@
                         <a class="nav-link text-dark" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
                     </li>  
                         }
+                        @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                        {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Doctors" asp-action="GetUnconfirmedConsultations">Непотвърдени консултации</a>
+                    </li>  
+                        }
                         
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Contacts" asp-action="Index" >Контакти</a>

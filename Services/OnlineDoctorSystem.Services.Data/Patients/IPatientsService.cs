@@ -11,6 +11,8 @@
 
         string GetPatientIdById(string userId);
 
-        Patient GetPatientByUserId(string userId);
+        Patient GetPatientByUserId(string Id);
+
+        Task<string> GetPatientEmailByUserId(string userId);
     }
 }

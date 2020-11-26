@@ -11,12 +11,14 @@
     public class PatientsService : IPatientsService
     {
         private readonly IDeletableEntityRepository<Patient> patientRepository;
-        private readonly IDoctorsService doctorsService;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public PatientsService(IDeletableEntityRepository<Patient> patientRepository,IDoctorsService doctorsService)
+        public PatientsService(
+            IDeletableEntityRepository<Patient> patientRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.patientRepository = patientRepository;
-            this.doctorsService = doctorsService;
+            this.usersRepository = usersRepository;
         }
 
         public async Task AddPatientToDb(string userId, Patient patient)
@@ -36,6 +38,14 @@
             var patients = this.patientRepository.All().ToList();
             return this.patientRepository
                 .All().FirstOrDefault(x => x.UserId == userId);
+        }
+
+        public async Task<string> GetPatientEmailByUserId(string id)
+        {
+            var patient = await this.patientRepository.GetByIdWithDeletedAsync(id);
+            var user = await this.usersRepository.GetByIdWithDeletedAsync(patient.UserId);
+
+            return user.Email;
         }
     }
 }

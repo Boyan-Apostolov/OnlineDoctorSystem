@@ -2,12 +2,15 @@
 {
     using System.Security.Claims;
     using System.Security.Cryptography.X509Certificates;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
+    using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
@@ -15,14 +18,14 @@
     public class DoctorsController : Controller
     {
         private readonly IDoctorsService doctorsService;
-        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IConsultationsService consultationsService;
 
         public DoctorsController(
             IDoctorsService doctorsService,
-            IWebHostEnvironment webHostEnvironment)
+            IConsultationsService consultationsService)
         {
             this.doctorsService = doctorsService;
-            this.webHostEnvironment = webHostEnvironment;
+            this.consultationsService = consultationsService;
         }
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
@@ -89,6 +92,14 @@
             }
 
             return this.View(model);
+        }
+
+        public async Task<IActionResult> GetUnconfirmedConsultations()
+        {
+            var doctorId = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).Id;
+            var consultations = await this.doctorsService.GetUnconfirmedConsultations(doctorId);
+            return this.View(consultations);
+
         }
     }
 }

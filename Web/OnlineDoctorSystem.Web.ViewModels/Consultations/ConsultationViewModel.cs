@@ -18,6 +18,8 @@
 
         public bool IsCancelled { get; set; }
 
+        public bool IsConfirmed { get; set; }
+
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime { get; set; }

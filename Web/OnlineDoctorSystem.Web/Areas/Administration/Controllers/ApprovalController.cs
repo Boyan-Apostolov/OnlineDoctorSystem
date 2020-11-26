@@ -23,6 +23,7 @@
             await this.doctorsService.ApproveDoctorAsync(doctorId);
             return this.RedirectToAction("GetUnconfirmedDoctors");
         }
+
         public async Task<IActionResult> DeclineDoctor(string doctorId)
         {
             await this.doctorsService.DeclineDoctorAsync(doctorId);

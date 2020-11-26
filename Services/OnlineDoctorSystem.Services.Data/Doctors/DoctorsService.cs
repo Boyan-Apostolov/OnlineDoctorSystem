@@ -1,6 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Data.Consultations;
+    using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
@@ -18,13 +21,20 @@
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IEmailSender emailSender;
+        private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
+        private readonly IDeletableEntityRepository<Patient> patientsRepository;
 
-        public DoctorsService(IDeletableEntityRepository<Doctor> doctorsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IEmailSender emailSender)
+        public DoctorsService(
+            IDeletableEntityRepository<Doctor> doctorsRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IEmailSender emailSender,
+            IDeletableEntityRepository<Consultation> consultationsRepository, IDeletableEntityRepository<Patient> patientsRepository)
         {
             this.doctorsRepository = doctorsRepository;
             this.usersRepository = usersRepository;
             this.emailSender = emailSender;
+            this.consultationsRepository = consultationsRepository;
+            this.patientsRepository = patientsRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
@@ -162,6 +172,16 @@
             doctor.Reviews.Add(review);
             await this.doctorsRepository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId)
+        {
+            var consultations = this.consultationsRepository.AllAsNoTracking().Where(x => !x.IsConfirmed && x.DoctorId == doctorId).ToList();
+            foreach (var consultation in consultations)
+            {
+                consultation.Patient = await this.patientsRepository.GetByIdWithDeletedAsync(consultation.PatientId);
+            }
+            return consultations;
         }
     }
 }

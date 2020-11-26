@@ -1,6 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -101,6 +102,20 @@
         public IActionResult UserCalendar()
         {
             return this.View();
+        }
+
+        public async Task<IActionResult> ApproveConsultation(string consultationId)
+        {
+            await this.consultationsService.ApproveConsultationAsync(consultationId);
+
+            return this.RedirectToAction("GetUnconfirmedConsultations", "Doctors");
+        }
+
+        public async Task<IActionResult> DeclineConsultation(string consultationId)
+        {
+            await this.consultationsService.DeclineConsultationAsync(consultationId);
+
+            return this.RedirectToAction("GetUnconfirmedConsultations", "Doctors");
         }
     }
 }
