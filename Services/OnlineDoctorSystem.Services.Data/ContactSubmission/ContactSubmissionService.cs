@@ -1,12 +1,8 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.ContactSubmission
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Common.Repositories;
-    using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Web.ViewModels.Contacts;
 
     public class ContactSubmissionService : IContactSubmissionService

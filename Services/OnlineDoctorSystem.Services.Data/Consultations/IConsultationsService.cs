@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
 
     public interface IConsultationsService

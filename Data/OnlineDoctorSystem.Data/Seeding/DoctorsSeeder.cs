@@ -1,10 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Data.Seeding
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -12,7 +9,6 @@
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
-    using OnlineDoctorSystem.Services.Data.Doctors;
 
     public class DoctorsSeeder : ISeeder
     {

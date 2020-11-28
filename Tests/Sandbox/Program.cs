@@ -11,7 +11,6 @@
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Data.Seeding;
-    using OnlineDoctorSystem.Services.Data;
     using OnlineDoctorSystem.Services.Messaging;
 
     using CommandLine;

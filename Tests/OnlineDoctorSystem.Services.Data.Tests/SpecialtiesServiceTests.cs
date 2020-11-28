@@ -1,20 +1,15 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Tests
+﻿using System.Linq;
+
+namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using Moq;
     using OnlineDoctorSystem.Data;
-    using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
-    using OnlineDoctorSystem.Services.Data.ContactSubmission;
     using OnlineDoctorSystem.Services.Data.Specialties;
-    using OnlineDoctorSystem.Web.ViewModels.Home;
     using Xunit;
 
     public class SpecialtiesServiceTests
@@ -53,9 +48,9 @@
             await this.repository.AddAsync(new Specialty() { Name = "TestSpecialty3" });
             await this.repository.SaveChangesAsync();
 
-            var specialtiesCount = this.specialtiesService.GetAllSpecialties();
+            var specialtiesCount = this.specialtiesService.GetAllSpecialties().Count();
 
-            Assert.Equal(3, 3);
+            Assert.Equal(3, specialtiesCount);
         }
     }
 }

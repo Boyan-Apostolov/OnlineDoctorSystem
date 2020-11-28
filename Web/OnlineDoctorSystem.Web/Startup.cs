@@ -16,7 +16,6 @@
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Data.Seeding;
-    using OnlineDoctorSystem.Services.Data;
     using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.ContactSubmission;
     using OnlineDoctorSystem.Services.Data.Doctors;

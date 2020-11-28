@@ -1,16 +1,13 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
     using OnlineDoctorSystem.Data;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
-    using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
     using Xunit;
 

@@ -1,9 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Contacts
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using OnlineDoctorSystem.Web.Infrastructure;
 

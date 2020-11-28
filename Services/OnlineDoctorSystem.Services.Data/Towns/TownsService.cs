@@ -5,7 +5,6 @@
 
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class TownsService : ITownsService

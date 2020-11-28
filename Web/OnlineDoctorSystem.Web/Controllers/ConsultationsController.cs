@@ -10,7 +10,6 @@
     using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Data.Events;
     using OnlineDoctorSystem.Services.Data.Patients;
-    using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Consultations;
 
     [Authorize]

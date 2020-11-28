@@ -5,8 +5,6 @@
 
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Services.Data.Doctors;
-    using OnlineDoctorSystem.Web.ViewModels.Doctors;
 
     public class PatientsService : IPatientsService
     {
@@ -28,11 +26,6 @@
             await this.patientRepository.SaveChangesAsync();
         }
 
-        public string GetPatientIdById(string userId)
-        {
-            return this.patientRepository.All().FirstOrDefault(x => x.UserId == userId).Id;
-        }
-
         public Patient GetPatientByUserId(string userId)
         {
             var patients = this.patientRepository.All().ToList();
@@ -42,8 +35,7 @@
 
         public async Task<string> GetPatientEmailByUserId(string id)
         {
-            var patient = await this.patientRepository.GetByIdWithDeletedAsync(id);
-            var user = await this.usersRepository.GetByIdWithDeletedAsync(patient.UserId);
+            var user = this.usersRepository.All().FirstOrDefault(x=>x.Id == id);
 
             return user.Email;
         }

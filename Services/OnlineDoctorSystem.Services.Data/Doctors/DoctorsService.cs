@@ -1,16 +1,11 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore.Update;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Services.Data.Consultations;
-    using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;

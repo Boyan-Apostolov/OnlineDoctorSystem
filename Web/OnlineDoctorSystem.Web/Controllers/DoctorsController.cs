@@ -1,16 +1,13 @@
 ﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.Doctors;
-    using OnlineDoctorSystem.Web.ViewModels.Consultations;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 

@@ -1,9 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Data.Seeding
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -29,7 +27,7 @@
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, GlobalConstants.PatientRoleName);
-                if (user.Doctor == null)
+                if (user.Patient == null)
                 {
                     var num = r.Next(0, 3);
                     user.Patient = new Patient()
