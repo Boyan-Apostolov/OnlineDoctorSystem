@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class SpecialtiesService : ISpecialtiesService
     {
@@ -15,14 +17,16 @@
             this.specialtyRepository = specialtyRepository;
         }
 
-        public IEnumerable<T> GetAllSpecialties<T>()
+        public IEnumerable<SpecialtiesIndexViewModel> GetAllSpecialties()
         {
-            IQueryable<Specialty> query = this.specialtyRepository.All();
-            var specialties = query
+            return this.specialtyRepository.AllAsNoTracking()
                 .OrderBy(x => x.Name)
-                .To<T>()
+                .Select(x => new SpecialtiesIndexViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
                 .ToList();
-            return specialties;
         }
 
         public Specialty GetSpecialtyById(int id)

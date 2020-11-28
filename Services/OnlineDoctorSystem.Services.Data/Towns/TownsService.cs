@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class TownsService : ITownsService
     {
@@ -15,12 +17,16 @@
             this.townsRepository = townsRepository;
         }
 
-        public IEnumerable<T> GetAllTowns<T>()
+        public IEnumerable<TownsIndexViewModel> GetAllTowns()
         {
             IQueryable<Town> querry = this.townsRepository.All();
             var towns = querry
                 .OrderBy(x => x.Name)
-                .To<T>()
+                .Select(x => new TownsIndexViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
                 .ToList();
             return towns;
         }

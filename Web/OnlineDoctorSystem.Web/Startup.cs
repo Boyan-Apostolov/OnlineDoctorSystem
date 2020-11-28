@@ -70,7 +70,6 @@
 
             // Application services
             services.AddTransient <IEmailSender>(x => new SendGridEmailSender(this.configuration.GetSection("SendGrid")["API_Key"]));
-            services.AddTransient<ISettingsService, SettingsService>();
 
             services.AddTransient<IDoctorsService, DoctorsService>();
             services.AddTransient<ITownsService, TownsService>();

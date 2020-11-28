@@ -3,10 +3,11 @@
     using System.Collections.Generic;
 
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public interface ISpecialtiesService
     {
-        IEnumerable<T> GetAllSpecialties<T>();
+        IEnumerable<SpecialtiesIndexViewModel> GetAllSpecialties();
 
         Specialty GetSpecialtyById(int id);
     }
