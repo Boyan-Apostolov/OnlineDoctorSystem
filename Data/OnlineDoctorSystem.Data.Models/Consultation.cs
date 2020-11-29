@@ -31,6 +31,8 @@
 
         public bool IsCancelled { get; set; }
 
+        public bool IsReviewed { get; set; }
+
         public string Description { get; set; }
 
         public virtual CalendarEvent CalendarEvent { get; set; }

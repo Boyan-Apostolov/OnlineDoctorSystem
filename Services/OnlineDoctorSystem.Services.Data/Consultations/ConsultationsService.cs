@@ -157,5 +157,14 @@
                 "Вашата заявка беше отхвърлена!",
                 $"Вашата заявка за консултация на {consultation.Date.ToShortDateString()} от {consultation.StartTime} беше отхвърлена от доктора ви, за повече информация, моля свържете се с него.");
         }
+
+        public async Task MakeConsultationReviewedToTrue(string consultationId)
+        {
+            var consultation = this.consultationsRepository.All().FirstOrDefault(x => x.Id == consultationId);
+
+            consultation.IsReviewed = true;
+
+            await this.consultationsRepository.SaveChangesAsync();
+        }
     }
 }

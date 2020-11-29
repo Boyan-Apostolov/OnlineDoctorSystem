@@ -58,7 +58,14 @@
                 <th>@consultation.EndTime</th>
                 <th>@consultation.DoctorName</th>
                 <th>@consultation.Description</th>
-                <th><a asp-controller="Doctors" asp-action="AddReview" asp-route-doctorId="@consultation.DoctorId" class="btn btn-success">ОТЗИВ</a></th>
+                @if (consultation.IsReviewed)
+                {
+                    <th><i class="fas fa-check btn-outline-success"></i></th>
+                }
+                else
+                {
+                    <th><a asp-controller="Doctors" asp-action="AddReview" asp-route-doctorId="@consultation.DoctorId" asp-route-consultationId="@consultation.Id" class="btn btn-success">ОТЗИВ</a></th>
+                }
             </tr>
         }
     </table>

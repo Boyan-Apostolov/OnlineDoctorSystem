@@ -5,6 +5,8 @@
 
     public class ReviewViewModel : IMapTo<Data.Models.Review>
     {
+        public string ConsultationId { get; set; }
+
         public string DoctorName { get; set; }
 
         public string DoctorId { get; set; }

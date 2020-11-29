@@ -68,23 +68,25 @@
         }
 
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
-        public IActionResult AddReview(string doctorId)
+        public IActionResult AddReview(string doctorId, string consultationId)
         {
             var viewModel = new ReviewViewModel()
             {
+                ConsultationId = consultationId,
                 DoctorId = doctorId,
                 DoctorName = this.doctorsService.GetDoctorNameById(doctorId),
-
             };
+
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
-        public IActionResult AddReview(ReviewViewModel model)
+        public async Task<IActionResult> AddReview(ReviewViewModel model)
         {
             if (this.doctorsService.AddReview(model).Result)
             {
+                await this.consultationsService.MakeConsultationReviewedToTrue(model.ConsultationId);
                 return this.RedirectToAction("Info", new { id = model.DoctorId });
             }
 

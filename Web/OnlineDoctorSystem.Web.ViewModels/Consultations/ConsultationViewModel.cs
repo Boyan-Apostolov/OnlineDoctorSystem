@@ -8,6 +8,8 @@
 
     public class ConsultationViewModel : IMapFrom<Consultation>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string DoctorName { get; set; }
 
         public string DoctorId { get; set; }
@@ -19,6 +21,8 @@
         public bool IsCancelled { get; set; }
 
         public bool IsConfirmed { get; set; }
+
+        public bool IsReviewed { get; set; }
 
         public TimeSpan StartTime { get; set; }
 
