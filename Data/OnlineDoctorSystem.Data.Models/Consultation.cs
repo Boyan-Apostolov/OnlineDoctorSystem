@@ -33,6 +33,6 @@
 
         public string Description { get; set; }
 
-        public CalendarEvent CalendarEvent { get; set; }
+        public virtual CalendarEvent CalendarEvent { get; set; }
     }
 }

@@ -30,34 +30,8 @@
         };
         nav.init();
 
-
         var dp = new DayPilot.Month("dp");
-        dp.onTimeRangeSelected = function (args) {
-            DayPilot.Modal.prompt("Създай ново събитие:", "Събитие").then(function (modal) {
-                var dp = args.control;
-                dp.clearSelection();
-                if (modal.canceled) {
-                    return;
-                }
-                var params = {
-                    start: args.start.toString(),
-                    end: args.end.toString(),
-                    text: modal.result,
-                    resource: args.resource
-                };
-                DayPilot.Http.ajax({
-                    method: 'POST',
-                    url: '/api/events',
-                    data: params,
-                    success: function (ajax) {
-                        console.log("created");
-                        var data = ajax.data;
-                        dp.events.add(data);
-                        dp.message("Събитието е създадено");
-                    }
-                });
-            });
-        };
+        
         dp.onEventMove = function (args) {
             var params = {
                 id: args.e.id(),
@@ -144,6 +118,7 @@
                 },
             ]
         });
+
         dp.init();
 
         dp.events.load("/api/events");
