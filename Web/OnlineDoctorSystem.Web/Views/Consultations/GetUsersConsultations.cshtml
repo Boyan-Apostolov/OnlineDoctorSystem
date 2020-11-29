@@ -9,86 +9,158 @@
     <a class="btn btn-success" asp-controller="Consultations" asp-action="UserCalendar">Виж в календарен вид</a>
 </div>
 <br />
-<div class="text-center">
-    <h2>Предстоящи консултации</h2>
-    <table class="table table-striped table-hover table-sm">
-        <tr>
-            <th>Дата</th>
-            <th>Начален час</th>
-            <th>Краен час</th>
-            <th>Доктор</th>
-            <th>Описание</th>
-            @if (this.User.IsInRole(GlobalConstants.PatientRoleName))
-            {
+@if (this.User.IsInRole(GlobalConstants.PatientRoleName))
+{
+    <div class="text-center">
+        <h2>Предстоящи консултации</h2>
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Доктор</th>
+                <th>Описание</th>
                 <th>Анулиране</th>
-            }
 
-        </tr>
-        @foreach (var consultation in Model.Consultations.Where(x => x.IsActive && x.IsConfirmed))
-        {
-            <tr>
-                <th>@consultation.Date.ToShortDateString()</th>
-                <th>@consultation.StartTime</th>
-                <th>@consultation.EndTime</th>
-                <th>@consultation.DoctorName</th>
-                <th>@consultation.Description</th>
-                @if (this.User.IsInRole(GlobalConstants.PatientRoleName))
-                {
+
+            </tr>
+            @foreach (var consultation in Model.Consultations.Where(x => x.IsActive && x.IsConfirmed))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.DoctorName</th>
+                    <th>@consultation.Description</th>
+
                     <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-danger">АНУЛИРАНЕ</a></th>
-                }
-            </tr>
-        }
-    </table>
-    <hr />
-    <h2>Отминали консултации</h2>
-    <table class="table table-striped table-hover table-sm">
-        <tr>
-            <th>Дата</th>
-            <th>Начален час</th>
-            <th>Краен час</th>
-            <th>Доктор</th>
-            <th>Описание</th>
-            <th>Качи отзив</th>
-        </tr>
-        @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && !x.IsCancelled))
-        {
+
+                </tr>
+            }
+        </table>
+        <hr />
+        <h2>Отминали консултации</h2>
+        <table class="table table-striped table-hover table-sm">
             <tr>
-                <th>@consultation.Date.ToShortDateString()</th>
-                <th>@consultation.StartTime</th>
-                <th>@consultation.EndTime</th>
-                <th>@consultation.DoctorName</th>
-                <th>@consultation.Description</th>
-                @if (consultation.IsReviewed)
-                {
-                    <th><i class="fas fa-check btn-outline-success"></i></th>
-                }
-                else
-                {
-                    <th><a asp-controller="Doctors" asp-action="AddReview" asp-route-doctorId="@consultation.DoctorId" asp-route-consultationId="@consultation.Id" class="btn btn-success">ОТЗИВ</a></th>
-                }
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Доктор</th>
+                <th>Описание</th>
+                <th>Качи отзив</th>
             </tr>
-        }
-    </table>
-    <h2>Анулирани консултации</h2>
-    <table class="table table-striped table-hover table-sm">
-        <tr>
-            <th>Дата</th>
-            <th>Начален час</th>
-            <th>Краен час</th>
-            <th>Доктор</th>
-            <th>Описание</th>
-        </tr>
-        @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && x.IsCancelled))
-        {
+            @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && !x.IsCancelled))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.DoctorName</th>
+                    <th>@consultation.Description</th>
+                    @if (consultation.IsReviewed)
+                    {
+                        <th><i class="fas fa-check btn-outline-success"></i></th>
+                    }
+                    else
+                    {
+                        <th><a asp-controller="Doctors" asp-action="AddReview" asp-route-doctorId="@consultation.DoctorId" asp-route-consultationId="@consultation.Id" class="btn btn-success">ОТЗИВ</a></th>
+                    }
+                </tr>
+            }
+        </table>
+        <h2>Анулирани консултации</h2>
+        <table class="table table-striped table-hover table-sm">
             <tr>
-                <th>@consultation.Date.ToShortDateString()</th>
-                <th>@consultation.StartTime</th>
-                <th>@consultation.EndTime</th>
-                <th>@consultation.DoctorName</th>
-                <th>@consultation.Description</th>
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Доктор</th>
+                <th>Описание</th>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && x.IsCancelled))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.DoctorName</th>
+                    <th>@consultation.Description</th>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h2>Предстоящи консултации</h2>
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Пациент</th>
+                <th>Описание</th>
+                <th>Анулиране</th>
+
+
+            </tr>
+            @foreach (var consultation in Model.Consultations.Where(x => x.IsActive && x.IsConfirmed))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.PatientName</th>
+                    <th>@consultation.Description</th>
+                    <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-danger">АНУЛИРАНЕ</a></th>
+                </tr>
+            }
+        </table>
+        <hr />
+        <h2>Отминали консултации</h2>
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Пациент</th>
+                <th>Описание</th>
+            </tr>
+            @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && !x.IsCancelled))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.PatientName</th>
+                    <th>@consultation.Description</th>
+                </tr>
+            }
+        </table>
+        <h2>Анулирани консултации</h2>
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Дата</th>
+                <th>Начален час</th>
+                <th>Краен час</th>
+                <th>Пациент</th>
+                <th>Описание</th>
+            </tr>
+            @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && x.IsCancelled))
+            {
+                <tr>
+                    <th>@consultation.Date.ToShortDateString()</th>
+                    <th>@consultation.StartTime</th>
+                    <th>@consultation.EndTime</th>
+                    <th>@consultation.PatientName</th>
+                    <th>@consultation.Description</th>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+
 
 

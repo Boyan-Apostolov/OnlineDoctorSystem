@@ -12,6 +12,8 @@
 
         public string DoctorName { get; set; }
 
+        public string PatientName { get; set; }
+
         public string DoctorId { get; set; }
 
         public int EventId { get; set; }
@@ -40,7 +42,9 @@
                 .ForMember(m => m.EventId,
                     opt => opt.MapFrom(x => x.CalendarEvent.Id))
                 .ForMember(m => m.DoctorId,
-                    opt => opt.MapFrom(x => x.DoctorId));
+                    opt => opt.MapFrom(x => x.DoctorId))
+                .ForMember(m => m.PatientName,
+                    opt => opt.MapFrom(x => (x.Patient.FirstName + " " + x.Patient.LastName)));
         }
     }
 }
