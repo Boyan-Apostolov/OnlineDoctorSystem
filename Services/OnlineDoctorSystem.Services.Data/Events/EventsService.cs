@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using OnlineDoctorSystem.Common;
 using OnlineDoctorSystem.Services.Data.Doctors;
 using OnlineDoctorSystem.Services.Data.Patients;
+using OnlineDoctorSystem.Services.Messaging;
 
 namespace OnlineDoctorSystem.Services.Data.Events
 {
@@ -18,24 +20,26 @@ namespace OnlineDoctorSystem.Services.Data.Events
         private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly IDoctorsService doctorsService;
         private readonly IPatientsService patientsService;
+        private readonly IEmailSender emailSender;
 
         public EventsService(
             IDeletableEntityRepository<CalendarEvent> eventsRepository,
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDoctorsService doctorsService,
-            IPatientsService patientsService)
+            IPatientsService patientsService,
+            IEmailSender emailSender)
         {
             this.eventsRepository = eventsRepository;
             this.consultationsRepository = consultationsRepository;
             this.doctorsService = doctorsService;
             this.patientsService = patientsService;
+            this.emailSender = emailSender;
         }
 
         public async Task<bool> DeleteEventByIdAsync(int id)
         {
             var @event = this.eventsRepository.All().Where(x => !x.IsDeleted).FirstOrDefault(x => x.Id == id);
-            var consultation = this.consultationsRepository.All().Where(x => x.IsActive)
-                .FirstOrDefault(x => x.CalendarEvent.Id == id);
+            var consultation = this.consultationsRepository.All().Include(x => x.CalendarEvent).ToList().FirstOrDefault(x => x.CalendarEvent.Id == id);
 
             consultation.IsActive = false;
             consultation.IsCancelled = true;
@@ -43,6 +47,14 @@ namespace OnlineDoctorSystem.Services.Data.Events
 
             this.consultationsRepository.SaveChangesAsync();
             await this.eventsRepository.SaveChangesAsync();
+
+            var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
+            await this.emailSender.SendEmailAsync(
+                 GlobalConstants.SystemAdminEmail,
+                 "Онлайн-ДокторСистема",
+                 patientEmail,
+                 "Едно от предстоящите ве събития беше изтрито!",
+                 $"Събитието ви за {consultation.Date.ToShortDateString()} от {consultation.StartTime} часа беше изтрито. За повече информация, моля свържете се с практикуващия лекар.");
             return true;
         }
 

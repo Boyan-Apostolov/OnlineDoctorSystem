@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Patients
+﻿using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
+
+namespace OnlineDoctorSystem.Services.Data.Patients
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -35,9 +38,18 @@
 
         public async Task<string> GetPatientEmailByUserId(string id)
         {
-            var user = this.usersRepository.All().FirstOrDefault(x=>x.Id == id);
+            var patient = this.patientRepository.All()
+                .Include(x => x.User)
+                .FirstOrDefault(x => x.Id == id);
 
-            return user.Email;
+            return patient.User.Email;
+        }
+
+        public string GetPatientEmailByPatientId(string patientId)
+        {
+            var patient =this.patientRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == patientId);
+
+            return patient.User.Email;
         }
     }
 }
