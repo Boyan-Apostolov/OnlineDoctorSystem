@@ -86,6 +86,8 @@ namespace OnlineDoctorSystem.Services.Data.Events
                 .Include(x => x.CalendarEvent)
                 .FirstOrDefault(x => x.CalendarEvent.Id == eventId);
 
+            var previousDate = consultation.Date;
+
             consultation.Date = startTime.Date;
             consultation.StartTime = startTime.TimeOfDay;
             consultation.EndTime = endTime.TimeOfDay;
@@ -95,6 +97,14 @@ namespace OnlineDoctorSystem.Services.Data.Events
 
             this.consultationsRepository.SaveChangesAsync();
             this.eventsRepository.SaveChangesAsync();
+
+            var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
+            this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                $"Админ на Онлайн-Доктор Системата",
+                patientEmail,
+                "Датата на вашата заявка беше променена!",
+                $"Вашата консултация от {previousDate.ToShortDateString()} беше преместена на {consultation.Date.ToShortDateString()}.");
         }
 
         public void ChangeEventColor(int eventId, string color)
