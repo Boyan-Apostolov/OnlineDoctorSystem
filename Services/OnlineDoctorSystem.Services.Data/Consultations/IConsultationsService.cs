@@ -23,5 +23,7 @@
         Task DeclineConsultationAsync(string consultationId);
 
         Task MakeConsultationReviewedToTrue(string consultationId);
+
+        Task UpdateConsultationsWhenCompleted();
     }
 }

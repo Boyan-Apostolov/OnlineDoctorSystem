@@ -1,4 +1,11 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using System;
+using Hangfire;
+using Hangfire.Console;
+using Hangfire.Dashboard;
+using Hangfire.SqlServer;
+using OnlineDoctorSystem.Common;
+
+namespace OnlineDoctorSystem.Web
 {
     using System.Reflection;
 
@@ -40,6 +47,20 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(
+                config => config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    .UseSimpleAssemblyNameTypeSerializer().UseRecommendedSerializerSettings().UseSqlServerStorage(
+                        this.configuration.GetConnectionString("DefaultConnection"),
+                        new SqlServerStorageOptions
+                        {
+                            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                            QueuePollInterval = TimeSpan.Zero,
+                            UseRecommendedIsolationLevel = true,
+                            UsePageLocksOnDequeue = true,
+                            DisableGlobalLocks = true,
+                        }).UseConsole());
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
@@ -68,7 +89,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient <IEmailSender>(x => new SendGridEmailSender(this.configuration.GetSection("SendGrid")["API_Key"]));
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration.GetSection("SendGrid")["API_Key"]));
 
             services.AddTransient<IDoctorsService, DoctorsService>();
             services.AddTransient<ITownsService, TownsService>();
@@ -81,7 +102,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager, IServiceProvider serviceProvider)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -91,6 +112,7 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                this.SeedHangfireJobs(recurringJobManager, dbContext, serviceProvider);
             }
 
             if (env.IsDevelopment())
@@ -113,6 +135,11 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseHangfireServer(new BackgroundJobServerOptions { WorkerCount = 2 });
+            app.UseHangfireDashboard(
+                "/hangfire",
+                new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } });
+
             app.UseEndpoints(
                 endpoints =>
                     {
@@ -121,6 +148,22 @@
                         endpoints.MapControllerRoute("doctorInfo", "Doctors/Info/{id:guid}", new { controller = "Doctors", action = "Info" });
                         endpoints.MapRazorPages();
                     });
+        }
+
+        private void SeedHangfireJobs(IRecurringJobManager recurringJobManager, ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            recurringJobManager.AddOrUpdate("UpdateConsultationsOnCompletedTime",
+                () => serviceProvider.GetService<IConsultationsService>().UpdateConsultationsWhenCompleted(),
+                Cron.Minutely);
+        }
+
+        private class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
+        {
+            public bool Authorize(DashboardContext context)
+            {
+                var httpContext = context.GetHttpContext();
+                return httpContext.User.IsInRole(GlobalConstants.AdministratorRoleName);
+            }
         }
     }
 }

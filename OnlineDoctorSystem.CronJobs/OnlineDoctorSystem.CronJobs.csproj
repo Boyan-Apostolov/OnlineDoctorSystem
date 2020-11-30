@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\OnlineDoctorSystem.Common\OnlineDoctorSystem.Common.csproj" />
+    <ProjectReference Include="..\Services\OnlineDoctorSystem.Services.Mapping\OnlineDoctorSystem.Services.Mapping.csproj" />
+    <ProjectReference Include="..\Services\OnlineDoctorSystem.Services.Messaging\OnlineDoctorSystem.Services.Messaging.csproj" />
+    <ProjectReference Include="..\Services\OnlineDoctorSystem.Services\OnlineDoctorSystem.Services.csproj" />
+    <ProjectReference Include="..\Web\OnlineDoctorSystem.Web.ViewModels\OnlineDoctorSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

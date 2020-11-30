@@ -29,7 +29,7 @@
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDeletableEntityRepository<Patient> patientsRepository,
             IDeletableEntityRepository<CalendarEvent> eventsRepository,
-            IEmailSender emailSender, 
+            IEmailSender emailSender,
             IDoctorsService doctorsService,
             IPatientsService patientsService)
         {
@@ -163,6 +163,17 @@
             var consultation = this.consultationsRepository.All().FirstOrDefault(x => x.Id == consultationId);
 
             consultation.IsReviewed = true;
+
+            await this.consultationsRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateConsultationsWhenCompleted()
+        {
+            var pastConsultations = this.consultationsRepository.AllWithDeleted().Where(x => x.Date <= DateTime.Today).Where(x => x.EndTime <= DateTime.Now.TimeOfDay).ToList();
+            foreach (var consultation in pastConsultations)
+            {
+                consultation.IsActive = false;
+            }
 
             await this.consultationsRepository.SaveChangesAsync();
         }
