@@ -31,9 +31,8 @@ namespace OnlineDoctorSystem.Services.Data.Patients
 
         public Patient GetPatientByUserId(string userId)
         {
-            var patients = this.patientRepository.All().ToList();
             return this.patientRepository
-                .All().FirstOrDefault(x => x.UserId == userId);
+                .All().Include(x=>x.Town).FirstOrDefault(x => x.UserId == userId);
         }
 
         public async Task<string> GetPatientEmailByUserId(string id)

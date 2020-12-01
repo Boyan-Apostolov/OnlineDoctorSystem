@@ -11,6 +11,8 @@
     {
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
+        IEnumerable<T> GetAllDoctorsNearPatient<T>(int page, int itemsPerPage, Town patientTown);
+
         T GetDoctorById<T>(string id);
 
         Doctor GetDoctorById(string id);

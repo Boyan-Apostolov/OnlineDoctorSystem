@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using System.Linq;
+using OnlineDoctorSystem.Services.Data.Patients;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -16,13 +19,16 @@
     {
         private readonly IDoctorsService doctorsService;
         private readonly IConsultationsService consultationsService;
+        private readonly IPatientsService patientsService;
 
         public DoctorsController(
             IDoctorsService doctorsService,
-            IConsultationsService consultationsService)
+            IConsultationsService consultationsService,
+            IPatientsService patientsService)
         {
             this.doctorsService = doctorsService;
             this.consultationsService = consultationsService;
+            this.patientsService = patientsService;
         }
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
@@ -40,6 +46,23 @@
                 PageNumber = id,
                 DoctorsCount = this.doctorsService.GetDoctorsCount(),
                 Doctors = this.doctorsService.GetAll<DoctorViewModelForAll>(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.PatientRoleName)]
+        public IActionResult AllNearPatient(int id = 1)
+        {
+            const int ItemsPerPage = 4;
+            var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var doctors =
+                this.doctorsService.GetAllDoctorsNearPatient<DoctorViewModelForAll>(id, ItemsPerPage, patient.Town);
+            var viewModel = new AllDoctorViewModel()
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                DoctorsCount = doctors.Count(),
+                Doctors = doctors,
             };
             return this.View(viewModel);
         }

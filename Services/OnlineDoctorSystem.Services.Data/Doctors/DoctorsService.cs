@@ -42,6 +42,16 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<T> GetAllDoctorsNearPatient<T>(int page, int itemsPerPage, Town patientTown)
+        {
+            IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking()
+                .Where(x => x.IsConfirmed == true && x.Town == patientTown)
+                .OrderByDescending(x => x.Consultations.Count)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
+
+            return query.To<T>().ToList();
+        }
+
         public T GetDoctorById<T>(string id)
         {
             return this.doctorsRepository.All()
