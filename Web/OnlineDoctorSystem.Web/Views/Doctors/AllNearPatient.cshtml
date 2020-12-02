@@ -1,6 +1,8 @@
 ﻿@{
     this.ViewData["Title"] = $"Всички близки доктори";
 }
+@inject IConfiguration Configuration
+@using Microsoft.Extensions.Configuration
 @using OnlineDoctorSystem.Data.Models.Enums
 @model OnlineDoctorSystem.Web.ViewModels.Doctors.AllDoctorViewModel
 @if (!this.Model.Doctors.Any())
@@ -71,14 +73,10 @@ else
     }
 </style>
 @section Scripts {
+    <script async defer
+            src="//maps.googleapis.com/maps/api/js?key=@this.Configuration["GoogleMapsApi:API_Key"]&callback=initialize">
+    </script>
     <script>
-        jQuery(function ($) {
-            // Asynchronously Load the map API
-            var script = document.createElement('script');
-            script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyAgTaxYsCy38d1D3S3HvNSNX1HovC9Kr0A&callback=initialize";
-            document.body.appendChild(script);
-        });
-
         function initialize() {
             var map;
             var bounds = new google.maps.LatLngBounds();
