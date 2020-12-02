@@ -47,9 +47,8 @@
             await this.repository.AddAsync(new Town() { Name = "TestTown3" });
             await this.repository.SaveChangesAsync();
 
-            var specialtiesCount = this.townsService.GetAllTowns().Count();
-
-            Assert.Equal(3, 3);
+            
+            Assert.Equal(3, 0);
         }
     }
 }

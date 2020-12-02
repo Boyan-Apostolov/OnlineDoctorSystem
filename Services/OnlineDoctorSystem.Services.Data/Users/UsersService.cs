@@ -57,5 +57,15 @@
             return this.usersRepository.All().Where(x => usersOfRole.Any(u => u.Id == x.Id))
                 .ToList();
         }
+
+        public Task<string> GetUserDoctorPicture(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<string> GetUserPatientPicture(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -14,5 +14,9 @@
         Task<bool> RemoveUserFromRole(string name, string role);
 
         Task<IEnumerable<ApplicationUser>> GetUsersByRole(string role);
+
+        Task<string> GetUserDoctorPicture(string userId);
+
+        Task<string> GetUserPatientPicture(string userId);
     }
 }

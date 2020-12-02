@@ -1,9 +1,13 @@
-﻿@using OnlineDoctorSystem.Common
+﻿@using System.Security.Claims
+@using OnlineDoctorSystem.Common
 @using OnlineDoctorSystem.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using OnlineDoctorSystem.Services.Data.Doctors
+@using OnlineDoctorSystem.Services.Data.Patients
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
+@inject IDoctorsService DoctorsService
+@inject IPatientsService PatientsService
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
@@ -21,13 +25,30 @@
                 </div>
             </li>
         }
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
-        </li>
+        if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
+        {
+            <li class="nav-item">
+                Профил
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="icon-btn profile-btn logged-in">
+                    <img style="max-width: 3rem; height: auto; border-radius: 50%;" title="Profile" asp-append-version="true" src="@this.DoctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).ImageUrl" />
+                </a>
+            </li>
+        }
+        else if (this.User.IsInRole(GlobalConstants.PatientRoleName))
+        {
+            <li class="nav-item">
+                Профил
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="icon-btn profile-btn logged-in">
+                    <img style="max-width: 3rem; height: auto; border-radius: 50%;" title="Profile" asp-append-version="true" src="@this.PatientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).ImageUrl" />
+                </a>
+            </li>
+        }
+
+
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" class="nav-link btn btn-link text-dark">Изход</button>
             </form>
         </li>
     }
