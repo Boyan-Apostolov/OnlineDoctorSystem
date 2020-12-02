@@ -54,7 +54,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <select asp-for="Input.TownId" class="form-control form-control">
                                             <option value="" selected="">Избери населено място...</option>
-                                            @foreach (var town in TownsService.GetAllTowns())
+                                            @foreach (var town in TownsService.GetAllTowns<TownsIndexViewModel>())
                                             {
                                                 <option value="@town.Id">@town.Name</option>
                                             }

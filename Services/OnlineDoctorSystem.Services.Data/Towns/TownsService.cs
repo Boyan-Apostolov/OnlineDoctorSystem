@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Towns
+﻿using OnlineDoctorSystem.Services.Mapping;
+
+namespace OnlineDoctorSystem.Services.Data.Towns
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -16,16 +18,11 @@
             this.townsRepository = townsRepository;
         }
 
-        public IEnumerable<TownsIndexViewModel> GetAllTowns()
+        public IEnumerable<T> GetAllTowns<T>()
         {
-            IQueryable<Town> querry = this.townsRepository.All();
-            var towns = querry
+            var towns = this.townsRepository.All()
                 .OrderBy(x => x.Name)
-                .Select(x => new TownsIndexViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
+                .To<T>()
                 .ToList();
             return towns;
         }

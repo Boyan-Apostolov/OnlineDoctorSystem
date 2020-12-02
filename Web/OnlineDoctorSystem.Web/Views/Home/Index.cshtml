@@ -9,6 +9,7 @@
     <div class="col-sm-10 col-md-8 col-xl-6" id="home-search">
         <h1>Намерете лекар и резервирайте час за преглед онлайн!</h1>
         <div class="" id="search-doctor">
+            <a class="btn btn-success btn-outline-warning text-white" asp-controller="Doctors" asp-action="AllNearPatient"><i class="fas fa-map-marked-alt"> Доктори около мен</i></a>
             <br />
             <h4>Търси доктор:</h4>
             <br />
@@ -16,7 +17,7 @@
                 <form method="post" asp-controller="Doctors" asp-action="All">
                     <div>
                         <div class="form-group">
-                            <select asp-for="TownId"class="form-control form-control-lg">
+                            <select asp-for="TownId" class="form-control form-control-lg">
                                 <option value="" selected="">По населено място...</option>
                                 @foreach (var town in @Model.Towns)
                                 {
@@ -34,15 +35,15 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input asp-for="DoctorName" data-trigger="focus" data-placement="bottom" placeholder="По име на лекар..."class="form-control  form-control-lg">
+                            <input asp-for="DoctorName" data-trigger="focus" data-placement="bottom" placeholder="По име на лекар..." class="form-control  form-control-lg">
                         </div>
                         <button type="submit" class="btn btn-success btn-outline-warning text-white">
                             <i class="fas fa-search-plus"> Търсене по параметри</i>
                         </button>
-                        <a style="float: right" href="/Doctors/All" class="btn btn-success btn-outline-warning text-white">
+                        <a style="float: right" asp-controller="Doctors" asp-action="All" class="btn btn-success btn-outline-warning text-white">
                             <i class="fas fa-globe"> Виж всички лекари</i>
                         </a>
-                        </div>
+                    </div>
                 </form>
             </di>
         </div>

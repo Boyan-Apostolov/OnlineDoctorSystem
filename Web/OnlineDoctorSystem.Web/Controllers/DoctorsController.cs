@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using OnlineDoctorSystem.Services.Data.Patients;
+using OnlineDoctorSystem.Services.Data.Towns;
 
 namespace OnlineDoctorSystem.Web.Controllers
 {
@@ -20,15 +21,18 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly IDoctorsService doctorsService;
         private readonly IConsultationsService consultationsService;
         private readonly IPatientsService patientsService;
+        private readonly ITownsService townsService;
 
         public DoctorsController(
             IDoctorsService doctorsService,
             IConsultationsService consultationsService,
-            IPatientsService patientsService)
+            IPatientsService patientsService,
+            ITownsService townsService)
         {
             this.doctorsService = doctorsService;
             this.consultationsService = consultationsService;
             this.patientsService = patientsService;
+            this.townsService = townsService;
         }
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
@@ -63,6 +67,7 @@ namespace OnlineDoctorSystem.Web.Controllers
                 PageNumber = id,
                 DoctorsCount = doctors.Count(),
                 Doctors = doctors,
+                Towns = this.townsService.GetAllTowns<TownWithCoordinatesViewModel>(),
             };
             return this.View(viewModel);
         }

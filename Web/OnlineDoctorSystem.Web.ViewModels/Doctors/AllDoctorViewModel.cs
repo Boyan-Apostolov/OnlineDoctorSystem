@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
+﻿using OnlineDoctorSystem.Web.ViewModels.Home;
+
+namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
     using System.Collections.Generic;
 
@@ -7,5 +9,7 @@
     public class AllDoctorViewModel : PagingViewModel
     {
         public IEnumerable<DoctorViewModelForAll> Doctors { get; set; }
+
+        public IEnumerable<TownWithCoordinatesViewModel> Towns { get; set; }
     }
 }

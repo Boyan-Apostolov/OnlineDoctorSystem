@@ -7,7 +7,7 @@
 
     public interface ITownsService
     {
-        IEnumerable<TownsIndexViewModel> GetAllTowns();
+        IEnumerable<T> GetAllTowns<T>();
 
         Town GetTownById(int id);
     }
