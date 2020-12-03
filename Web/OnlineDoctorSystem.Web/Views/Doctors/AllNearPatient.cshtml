@@ -62,16 +62,7 @@ else
         <div id="map_canvas" class="mapping"></div>
     </div>
 }
-<style>
-    #map_wrapper {
-        height: 400px;
-    }
-
-    #map_canvas {
-        width: 50%;
-        height: 100%;
-    }
-</style>
+<link href="~/css/map.css" rel="stylesheet" />
 @section Scripts {
     <script async defer
             src="//maps.googleapis.com/maps/api/js?key=@this.Configuration["GoogleMapsApi:API_Key"]&callback=initialize">

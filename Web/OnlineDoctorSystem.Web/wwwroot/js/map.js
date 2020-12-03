@@ -1,19 +1,12 @@
-﻿@{
-    this.ViewData["Title"] = $"Всички доктори";
-}
-@using Microsoft.Extensions.Configuration
-@model OnlineDoctorSystem.Web.ViewModels.Doctors.AllDoctorViewModel
-@inject IConfiguration Configuration
-@section Scripts {
-    <script async defer
-            src="//maps.googleapis.com/maps/api/js?key=@this.Configuration["GoogleMapsApi:API_Key"]&callback=initialize">
-    </script>
+﻿<script async defer
+    src="//maps.googleapis.com/maps/api/js?key=@this.Configuration[" GoogleMapsApi: API_Key"]&callback=initialize" >
+    </script >
     <script>
         function initialize() {
             var map;
             var bounds = new google.maps.LatLngBounds();
             var mapOptions = {
-                mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap'
             };
 
             // Display a map on the page
@@ -40,11 +33,11 @@
             var infoWindow = new google.maps.InfoWindow(), marker, i;
 
             // Loop through our array of markers & place each one on the map
-            for (i = 0; i < markers.length; i++) {
+            for (i = 0; i < markers.length; {
                 var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
                 bounds.extend(position);
                 marker = new google.maps.Marker({
-                    position: position,
+            position: position,
                     map: map,
                     title: markers[i][0]
                 });
@@ -52,7 +45,7 @@
                 // Allow each marker to have an info window
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infoWindow.setContent(infoWindowContent[i][0]);
+            infoWindow.setContent(infoWindowContent[i][0]);
                         infoWindow.open(map, marker);
                     }
                 })(marker, i));
@@ -63,29 +56,29 @@
 
             // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
             var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-                this.setZoom(7);
+            this.setZoom(7);
                 google.maps.event.removeListener(boundsListener);
             });
             //HTML 5 Geolocation
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-                            infoWindow.setPosition(pos);
-                            infoWindow.setContent("ВИЕ СТЕ ТУК.");
-                            infoWindow.open(map);
-                            map.setCenter(pos);
-                        },
-                        () => {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        }
-                    );
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("ВИЕ СТЕ ТУК.");
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                },
+                () => {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                }
+            );
                 } else {
-                    // Browser doesn't support Geolocation
-                    handleLocationError(false, infoWindow, map.getCenter());
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
                 }
             };
 
@@ -100,4 +93,3 @@
             infoWindow.open(map);
         }
     </script>
-}
