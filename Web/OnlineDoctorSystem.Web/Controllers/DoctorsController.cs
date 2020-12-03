@@ -126,7 +126,13 @@ namespace OnlineDoctorSystem.Web.Controllers
             var doctorId = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).Id;
             var consultations = await this.doctorsService.GetUnconfirmedConsultations(doctorId);
             return this.View(consultations);
+        }
 
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
+        public async Task<IActionResult> GetDoctorPatients()
+        {
+            //return this.View();
+            return null;
         }
     }
 }

@@ -28,6 +28,14 @@
                                             <input asp-for="Input.Password" type="password" class="form-control form-control-user" placeholder="Парола">
                                             <span asp-validation-for="Input.Password"></span>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label asp-for="Input.RememberMe">
+                                                    <input asp-for="Input.RememberMe" />
+                                                    Запомни ме?
+                                                </label>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Вход</button>
                                     </form>
                                     <hr>

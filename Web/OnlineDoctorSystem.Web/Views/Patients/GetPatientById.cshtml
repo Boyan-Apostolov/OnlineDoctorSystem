@@ -1,0 +1,41 @@
+﻿@using OnlineDoctorSystem.Data.Models.Enums
+@model OnlineDoctorSystem.Web.ViewModels.Pateints.PatientViewModel
+
+@{
+    this.ViewData["Title"] = Model.FirstName + " " + Model.LastName;
+}
+<div class="d-flex text-center justify-content-center">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src=@Model.ImageUrl alt="Card image cap">
+        <div class="card-body">
+            <h5>Пациент</h5>
+            <h1 class="card-title">@Model.FirstName @Model.LastName</h1>
+            <br/>
+            <h5>
+                <i class="fas fa-map-marker-alt"></i>Град: @Model.TownName
+            </h5>
+            <br/>
+            <h5>
+                <i class="fas fa-phone-square-alt"></i>Телефон: @Model.Phone
+            </h5>
+            <br/>
+            <h5>
+                <i class="fas fa-birthday-cake"></i> Дата на раждане: @Model.BirthDate.ToShortDateString()
+            </h5>
+            <br/>
+            @if (Model.Gender == Gender.Male)
+            {
+                <h5>
+                    <i class="fas fa-mars"></i> Пол: Мъж
+                </h5>
+            }
+            @if (Model.Gender == Gender.Female)
+            {
+                <h5>
+                    <i class="fas fa-venus"></i> Пол: Жена
+                </h5>
+            }
+        </div>
+    </div>
+
+</div>

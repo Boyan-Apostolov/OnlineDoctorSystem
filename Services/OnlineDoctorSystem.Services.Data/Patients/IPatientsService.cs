@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Patients
+﻿using System.Collections.Generic;
+
+namespace OnlineDoctorSystem.Services.Data.Patients
 {
     using System.Threading.Tasks;
 
@@ -13,5 +15,9 @@
         Task<string> GetPatientEmailByUserId(string userId);
 
         string GetPatientEmailByPatientId(string patientId);
+
+        IEnumerable<T> GetDoctorsPatients<T>(string doctorId);
+
+        T GetPatient<T>(string patientId);
     }
 }

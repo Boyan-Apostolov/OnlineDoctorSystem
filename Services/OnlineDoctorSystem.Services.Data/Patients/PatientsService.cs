@@ -1,5 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
+using OnlineDoctorSystem.Services.Mapping;
 
 namespace OnlineDoctorSystem.Services.Data.Patients
 {
@@ -49,6 +51,26 @@ namespace OnlineDoctorSystem.Services.Data.Patients
             var patient =this.patientRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == patientId);
 
             return patient.User.Email;
+        }
+
+        public IEnumerable<T> GetDoctorsPatients<T>(string doctorId)
+        {
+            var patients = this.patientRepository.AllAsNoTracking()
+                .Include(x => x.Consultations)
+                .Where(x => x.Consultations.Any(x => x.DoctorId == doctorId))
+                .To<T>()
+                .ToList();
+
+            return patients;
+        }
+
+        public T GetPatient<T>(string patientId)
+        {
+            var patient = this.patientRepository.AllAsNoTracking()
+                .Where(x => x.Id == patientId)
+                .To<T>()
+                .First();
+            return patient;
         }
     }
 }

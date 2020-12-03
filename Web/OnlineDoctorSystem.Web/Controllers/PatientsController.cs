@@ -1,4 +1,7 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using System.Security.Claims;
+using OnlineDoctorSystem.Web.ViewModels.Pateints;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
 
     using Microsoft.AspNetCore.Authorization;
@@ -25,6 +28,22 @@
         public IActionResult ThankYou()
         {
             return this.View();
+        }
+
+        public IActionResult GetDoctorsPatients()
+        {
+            var doctor = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var viewModel = new ListAllPatientsViewModel()
+            {
+                Patients = this.patientsService.GetDoctorsPatients<PatientForListingViewModel>(doctor.Id),
+            };
+            return this.View(viewModel);
+        }
+
+        public IActionResult GetPatientById(string patientId)
+        {
+            var viewModel = this.patientsService.GetPatient<PatientViewModel>(patientId);
+            return this.View(viewModel);
         }
     }
 }

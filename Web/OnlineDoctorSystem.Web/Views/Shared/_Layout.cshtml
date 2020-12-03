@@ -12,7 +12,6 @@
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet" asp-append-version="true" />
     <script src="https://kit.fontawesome.com/8e7c5bd6e4.js" crossorigin="anonymous" asp-append-version="true"></script>
 
-
 </head>
 <body>
     <header>
@@ -25,25 +24,35 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                    <ul class="navbar-nav flex-grow-1 row">
+                        <li class="nav-item" style="margin-top: 7px">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
-                        @if (this.User.IsInRole(GlobalConstants.PatientRoleName) || this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                        @if (this.User.IsInRole(GlobalConstants.PatientRoleName))
                         {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
-                    </li>  
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="margin-top: 7px" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
+                            </li>
                         }
                         @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
                         {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Doctors" asp-action="GetUnconfirmedConsultations">Непотвърдени консултации</a>
-                    </li>  
-                        }
+                            <li class="nav-item">
+                                <div class="dropdown show nav-link text-dark">
+                                    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown">Консултации</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
+                                        <a class="dropdown-item" asp-controller="Doctors" asp-action="GetUnconfirmedConsultations">Непотвърдени консултации</a>
+                                    </div>
+                                </div>
+                            </li>
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Contacts" asp-action="Index" >Контакти</a>
+                        <li class="nav-item" style="margin-top: 7px">
+                            <a class="nav-link " asp-controller="Patients" asp-action="GetDoctorsPatients">Моите пациенти</a>
+                        </li>
+
+                        }
+                        <li class="nav-item" style="margin-top: 7px">
+                            <a class="nav-link " asp-controller="Contacts" asp-action="Index">Контакти</a>
                         </li>
                     </ul>
                 </div>

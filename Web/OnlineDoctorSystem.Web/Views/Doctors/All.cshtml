@@ -1,103 +1,57 @@
 ﻿@{
     this.ViewData["Title"] = $"Всички доктори";
 }
-@using Microsoft.Extensions.Configuration
 @model OnlineDoctorSystem.Web.ViewModels.Doctors.AllDoctorViewModel
-@inject IConfiguration Configuration
-@section Scripts {
-    <script async defer
-            src="//maps.googleapis.com/maps/api/js?key=@this.Configuration["GoogleMapsApi:API_Key"]&callback=initialize">
-    </script>
-    <script>
-        function initialize() {
-            var map;
-            var bounds = new google.maps.LatLngBounds();
-            var mapOptions = {
-                mapTypeId: 'roadmap'
-            };
-
-            // Display a map on the page
-            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-            map.setTilt(45);
-
-            // Multiple Markers
-            var markers = [
-            @foreach (var town in @Model.Towns)
-            {
-               @:['@town.Name', @town.Latitude, @town.Longitude],
-            }
-
-            ];
-            // Info Window Content
-            var infoWindowContent = [
-                @foreach (var town in @Model.Towns)
-            {
-               @:['<div class="info_content">' + '<h3>@town.Name</h3>' + '<p>@town.DoctorsCount Доктори</p>' + '</div>'],
-            }
-            ];
-
-            // Display multiple markers on a map
-            var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-            // Loop through our array of markers & place each one on the map
-            for (i = 0; i < markers.length; i++) {
-                var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-                bounds.extend(position);
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: markers[i][0]
-                });
-
-                // Allow each marker to have an info window
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infoWindow.setContent(infoWindowContent[i][0]);
-                        infoWindow.open(map, marker);
+@if (!this.Model.Doctors.Any())
+{
+    <h1>Няма намерени доктори по зададените параметри!</h1>
+}
+else
+{
+    <div class="row text-center justify-content-center">
+        @foreach (var doctor in @Model.Doctors)
+        {
+            <div class="card text-center d-inline-block col-xl-3 col-md-2 col-sm-5">
+                <img class="card-img-top mx-auto img-fluid" src="@doctor.ImageUrl" alt="@doctor.Name снимка">
+                <div class="card-body">
+                    @if (@doctor.Name.Length >= 15)
+                    {
+                        <h5 class="card-title">Д-р @doctor.Name</h5>
                     }
-                })(marker, i));
+                    else
+                    {
+                        <h4 class="card-title">Д-р @doctor.Name</h4>
+                    }
 
-                // Automatically center the map fitting all markers on the screen
-                map.fitBounds(bounds);
-            }
+                    <p class="card-text">@doctor.Town.Name - @doctor.Specialty.Name</p>
 
-            // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-            var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-                this.setZoom(7);
-                google.maps.event.removeListener(boundsListener);
-            });
-            //HTML 5 Geolocation
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-                            infoWindow.setPosition(pos);
-                            infoWindow.setContent("ВИЕ СТЕ ТУК.");
-                            infoWindow.open(map);
-                            map.setCenter(pos);
-                        },
-                        () => {
-                            handleLocationError(true, infoWindow, map.getCenter());
+                    @for (int i = 0; i < Math.Round(@doctor.AverageRating); i++)
+                    {
+                        <i class="fas fa-star btn-outline-warning"></i>
+                    }
+
+                    <div>
+                        @if (doctor.IsWorkingWithNZOK)
+                        {
+                            <span class="badge badge-info" title="Работи с НЗОК">
+                                <img src="/images/nzok.png" width="25px" height="25px" />
+                                <span>Работи с НЗОК</span>
+                            </span>
                         }
-                    );
-                } else {
-                    // Browser doesn't support Geolocation
-                    handleLocationError(false, infoWindow, map.getCenter());
-                }
-            };
+                        @if (doctor.IsWorkingWithChildren)
+                        {
+                            <span class="badge badge-warning text-center  d-inline" title="Работи с деца">
+                                <i class="fas fa-child"></i>
+                                <span>Работи с деца</span>
+                            </span>
+                        }
 
-
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(
-                browserHasGeolocation
-                ? "Error: The Geolocation service failed."
-                : "Error: Your browser doesn't support geolocation."
-            );
-            infoWindow.open(map);
+                    </div>
+                    <a href="@doctor.Url" class="btn btn-success btn-outline-warning text-white">Преглед</a>
+                </div>
+            </div>
         }
-    </script>
+        <hr />
+    </div>
+    <partial name="_AllDoctorsPagingPartial" model="@Model" />
 }
