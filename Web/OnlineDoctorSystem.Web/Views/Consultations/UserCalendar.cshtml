@@ -17,6 +17,9 @@
 </div>
 
 @section Scripts {
+    <style>
+        .navigator_default_main {display: none;}
+    </style>
     <script>
 
         var nav = new DayPilot.Navigator("nav");
@@ -28,10 +31,11 @@
             dp.update();
             dp.events.load("/api/events");
         };
+        //FIX ON PHONE
         nav.init();
 
         var dp = new DayPilot.Month("dp");
-        
+
         dp.onEventMove = function (args) {
             var params = {
                 id: args.e.id(),
