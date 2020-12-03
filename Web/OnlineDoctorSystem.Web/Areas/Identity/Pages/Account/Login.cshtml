@@ -38,6 +38,35 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Вход</button>
                                     </form>
+                                    <br />
+                                    <hr />
+
+                                    @{
+                                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                                        {
+                                            <div>
+                                                <p>
+                                                    There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                                    for details on setting up this ASP.NET application to support logging in via external services.
+                                                </p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                                <div>
+                                                    <p>
+                                                        @foreach (var provider in Model.ExternalLogins)
+                                                        {
+                                                            <button type="submit" class="btn btn-primary btn-user btn-block" name="provider" value="@provider.DisplayName" title="Вход с Facebook">@provider.DisplayName</button>
+                                                        }
+                                                    </p>
+                                                    
+                                                    <p class="text-center"><small>Внимание! Моля влезте в настройките на профила си в секция "Външни връзки" и добавете своя Facebook профил за да може го ползвате за вход. В противен случай, ще можете само да преглеждате докторите, но не и да създавате консултации.</small></p>
+                                                </div>
+                                            </form>
+                                        }
+                                    }
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="/Identity/Account/ForgotPassword">Забравена парола?</a>

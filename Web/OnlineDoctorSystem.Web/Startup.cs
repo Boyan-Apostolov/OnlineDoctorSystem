@@ -64,8 +64,10 @@ namespace OnlineDoctorSystem.Web
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services
+                .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -73,7 +75,11 @@ namespace OnlineDoctorSystem.Web
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
-
+            services.AddAuthentication().AddFacebook(options =>
+                {
+                    options.AppId = this.configuration["Facebook:App_Id"];
+                    options.AppSecret = this.configuration["Facebook:App_Secret"];
+                });
             services.AddControllersWithViews(
                 options =>
                     {
