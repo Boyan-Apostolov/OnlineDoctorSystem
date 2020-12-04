@@ -27,7 +27,6 @@ namespace OnlineDoctorSystem.Web.Controllers
             this.eventsService = eventsService;
         }
 
-        // GET: api/Events
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CalendarEvent>>> GetEvents()
         {
@@ -44,7 +43,6 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.NoContent();
         }
 
-        // DELETE: api/Events/5
         [HttpDelete("{id}")]
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public async Task<IActionResult> DeleteEvent([FromRoute] int id)
@@ -57,7 +55,6 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.NotFound();
         }
 
-        // PUT: api/Events/5/move
         [HttpPut("{id}/move")]
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public async Task<IActionResult> MoveEvent([FromRoute] int id, [FromBody] EventMoveParams param)
@@ -72,7 +69,6 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.Ok();
         }
 
-        // PUT: api/Events/5/color
         [HttpPut("{id}/color")]
         public async Task<IActionResult> SetEventColor([FromRoute] int id, [FromBody] EventColorParams param)
         {

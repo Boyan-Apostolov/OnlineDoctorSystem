@@ -33,7 +33,12 @@
                     <th>@consultation.DoctorName</th>
                     <th>@consultation.Description</th>
 
-                    <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-danger">АНУЛИРАНЕ</a></th>
+                    <th>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">АНУЛИРАНЕ</button>
+
+                        <form method="post" asp-controller="Consultations" asp-action="RemoveConsultation" id="deleteForm" name="deleteForm" asp-route-eventId=@consultation.EventId>
+                        </form>
+                    </th>
 
                 </tr>
             }
@@ -107,14 +112,19 @@ else
             </tr>
             @foreach (var consultation in Model.Consultations.Where(x => x.IsActive && x.IsConfirmed))
             {
-                <tr>
-                    <th>@consultation.Date.ToShortDateString()</th>
-                    <th>@consultation.StartTime</th>
-                    <th>@consultation.EndTime</th>
-                    <th>@consultation.PatientName</th>
-                    <th>@consultation.Description</th>
-                    <th><a asp-controller="Consultations" asp-action="RemoveConsultation" asp-route-eventId="@consultation.EventId" class="btn btn-danger">АНУЛИРАНЕ</a></th>
-                </tr>
+        <tr>
+            <th>@consultation.Date.ToShortDateString()</th>
+            <th>@consultation.StartTime</th>
+            <th>@consultation.EndTime</th>
+            <th>@consultation.PatientName</th>
+            <th>@consultation.Description</th>
+            <th>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">АНУЛИРАНЕ</button>
+
+                <form method="post" asp-controller="Consultations" asp-action="RemoveConsultation" id="deleteForm" name="deleteForm" asp-route-eventId=@consultation.EventId>
+                </form>
+            </th>
+        </tr>
             }
         </table>
         <hr />
@@ -161,6 +171,19 @@ else
     </div>
 }
 
-
+<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Сигурни ли сте, че искате да изтриете консултацията?</h4>
+                <p>След това няма да може да я възстановите!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="document.getElementById('deleteForm').submit();">Да</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Не</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 

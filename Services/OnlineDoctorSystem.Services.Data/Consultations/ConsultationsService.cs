@@ -88,12 +88,12 @@
             await this.eventsRepository.SaveChangesAsync();
 
             consultation.CalendarEvent = calendarEvent;
-            // These are not awaited due to saving problems
-            this.consultationsRepository.AddAsync(consultation);
-            this.consultationsRepository.SaveChangesAsync();
+
+            await this.consultationsRepository.AddAsync(consultation);
+            await this.consultationsRepository.SaveChangesAsync();
 
             doctor.Consultations.Add(consultation);
-            this.doctorRepository.SaveChangesAsync();
+            await this.doctorRepository.SaveChangesAsync();
             var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
