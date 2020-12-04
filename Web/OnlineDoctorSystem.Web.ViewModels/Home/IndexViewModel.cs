@@ -10,8 +10,8 @@
 
         public string DoctorName { get; set; }
 
-        public IEnumerable<TownsIndexViewModel> Towns { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> Towns { get; set; }
 
-        public IEnumerable<SpecialtiesIndexViewModel> Specialties { get; set; }
+        public IEnumerable<KeyValuePair<int, string>> Specialties { get; set; }
     }
 }

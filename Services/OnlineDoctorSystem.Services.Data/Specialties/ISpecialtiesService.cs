@@ -10,5 +10,7 @@
         IEnumerable<SpecialtiesIndexViewModel> GetAllSpecialties();
 
         Specialty GetSpecialtyById(int id);
+
+        IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
     }
 }

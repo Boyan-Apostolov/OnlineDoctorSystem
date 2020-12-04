@@ -10,5 +10,7 @@
         IEnumerable<T> GetAllTowns<T>();
 
         Town GetTownById(int id);
+
+        IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
     }
 }

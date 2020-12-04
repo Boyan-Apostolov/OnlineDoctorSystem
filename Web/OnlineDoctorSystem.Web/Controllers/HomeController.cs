@@ -24,8 +24,8 @@
         {
             var viewModel = new IndexViewModel()
             {
-                Towns = this.townsService.GetAllTowns<TownsIndexViewModel>(),
-                Specialties = this.specialtiesService.GetAllSpecialties(),
+                Towns = this.townsService.GetAllAsKeyValuePairs(),
+                Specialties = this.specialtiesService.GetAllAsKeyValuePairs(),
             };
             return this.View(viewModel);
         }

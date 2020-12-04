@@ -31,5 +31,17 @@ namespace OnlineDoctorSystem.Services.Data.Towns
         {
             return this.townsRepository.GetByIdWithDeletedAsync(id).Result;
         }
+
+        public IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs()
+        {
+            return this.townsRepository.AllAsNoTracking()
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                })
+                .OrderBy(x => x.Name)
+                .ToList().Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+        }
     }
 }
