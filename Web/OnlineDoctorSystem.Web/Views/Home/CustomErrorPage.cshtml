@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ErrorViewModel
+@{
     this.ViewData["Title"] = "Оопс!";
 }
 <link href="~/css/404-not-found.css" rel="stylesheet" />
@@ -8,10 +9,16 @@
     <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gradient-success">
-<div class="mainbox">
-    <div class="err">4</div>
-    <i class="far fa-question-circle fa-spin"></i>
-    <div class="err2">4</div>
-    <div class="msg">Страницата не бе намерена! Платформата е в процес на създаване и това е нормално!<p>При проблеми, моля свържете се с нашия администратор <a asp-controller="Contacts" asp-action="Index">от тук</a>.</p> Благодаря за разбирането!</div>
-</div>
+    <div class="mainbox">
+        <div class="err">4</div>
+        <i class="far fa-question-circle fa-spin"></i>
+        <div class="err2">4</div>
+        <div class="msg">Страницата не бе намерена! Платформата е в процес на създаване и това е нормално!<p>При проблеми, моля свържете се с нашия администратор <a asp-controller="Contacts" asp-action="Index">от тук</a>.</p> Благодаря за разбирането!</div>
+    </div>
+    @if (this.Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@this.Model.RequestId</code>
+        </p>
+    }
 </body>

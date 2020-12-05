@@ -25,5 +25,7 @@
         Task MakeConsultationReviewedToTrue(string consultationId);
 
         Task UpdateConsultationsWhenCompleted();
+        
+        int GetConsultationsCount();
     }
 }

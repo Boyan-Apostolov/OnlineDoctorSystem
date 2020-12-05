@@ -19,5 +19,7 @@ namespace OnlineDoctorSystem.Services.Data.Patients
         IEnumerable<T> GetDoctorsPatients<T>(string doctorId);
 
         T GetPatient<T>(string patientId);
+
+        int GetPatientsCount();
     }
 }

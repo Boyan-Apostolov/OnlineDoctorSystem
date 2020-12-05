@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -23,7 +25,8 @@
             IDeletableEntityRepository<Doctor> doctorsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IEmailSender emailSender,
-            IDeletableEntityRepository<Consultation> consultationsRepository, IDeletableEntityRepository<Patient> patientsRepository)
+            IDeletableEntityRepository<Consultation> consultationsRepository,
+            IDeletableEntityRepository<Patient> patientsRepository)
         {
             this.doctorsRepository = doctorsRepository;
             this.usersRepository = usersRepository;
@@ -160,6 +163,11 @@
         public int GetDoctorsCount()
         {
             return this.doctorsRepository.AllAsNoTracking().Count();
+        }
+
+        public int GetReviewsCount()
+        {
+            return this.doctorsRepository.All().Include(x => x.Reviews).Select(x => x.Reviews).Count();
         }
 
         public async Task<bool> AddReview(ReviewViewModel model)

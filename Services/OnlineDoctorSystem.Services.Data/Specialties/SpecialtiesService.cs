@@ -44,5 +44,10 @@
                 .OrderBy(x => x.Name)
                 .ToList().Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
+
+        public int GetSpecialtiesCount()
+        {
+            return this.specialtyRepository.AllAsNoTracking().Count();
+        }
     }
 }

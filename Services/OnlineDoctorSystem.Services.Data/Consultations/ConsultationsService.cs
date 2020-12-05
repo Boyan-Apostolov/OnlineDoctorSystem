@@ -177,5 +177,10 @@
 
             await this.consultationsRepository.SaveChangesAsync();
         }
+
+        public int GetConsultationsCount()
+        {
+            return this.consultationsRepository.AllAsNoTracking().Count();
+        }
     }
 }

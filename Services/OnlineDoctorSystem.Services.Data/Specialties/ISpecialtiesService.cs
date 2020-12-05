@@ -12,5 +12,7 @@
         Specialty GetSpecialtyById(int id);
 
         IEnumerable<KeyValuePair<int, string>> GetAllAsKeyValuePairs();
+        
+        int GetSpecialtiesCount();
     }
 }

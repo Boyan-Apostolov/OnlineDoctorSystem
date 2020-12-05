@@ -72,5 +72,10 @@ namespace OnlineDoctorSystem.Services.Data.Patients
                 .First();
             return patient;
         }
+
+        public int GetPatientsCount()
+        {
+            return this.patientRepository.AllAsNoTracking().Count();
+        }
     }
 }
