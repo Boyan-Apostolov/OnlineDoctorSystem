@@ -41,7 +41,7 @@ namespace OnlineDoctorSystem.Services.Data.Patients
         {
             var patient = this.patientRepository.All()
                 .Include(x => x.User)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(x => x.UserId == id);
 
             return patient.User.Email;
         }
@@ -51,17 +51,6 @@ namespace OnlineDoctorSystem.Services.Data.Patients
             var patient =this.patientRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == patientId);
 
             return patient.User.Email;
-        }
-
-        public IEnumerable<T> GetDoctorsPatients<T>(string doctorId)
-        {
-            var patients = this.patientRepository.AllAsNoTracking()
-                .Include(x => x.Consultations)
-                .Where(x => x.Consultations.Any(x => x.DoctorId == doctorId))
-                .To<T>()
-                .ToList();
-
-            return patients;
         }
 
         public T GetPatient<T>(string patientId)
@@ -75,7 +64,8 @@ namespace OnlineDoctorSystem.Services.Data.Patients
 
         public int GetPatientsCount()
         {
-            return this.patientRepository.AllAsNoTracking().Count();
+            var patients = this.patientRepository.All().ToList();
+            return patients.Count();
         }
     }
 }

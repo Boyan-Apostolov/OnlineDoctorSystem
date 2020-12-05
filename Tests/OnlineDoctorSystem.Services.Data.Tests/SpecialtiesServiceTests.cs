@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using System.Reflection;
+using OnlineDoctorSystem.Services.Mapping;
+using OnlineDoctorSystem.Web.ViewModels.Home;
 
 namespace OnlineDoctorSystem.Services.Data.Tests
 {
@@ -23,6 +26,9 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var repo = new EfDeletableEntityRepository<Specialty>(new ApplicationDbContext(options.Options));
             var service = new SpecialtiesService(repo);
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(SpecialtiesIndexViewModel).GetTypeInfo().Assembly);
 
             this.specialtiesService = service;
             this.repository = repo;
@@ -51,6 +57,36 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             var specialtiesCount = this.specialtiesService.GetAllSpecialties().Count();
 
             Assert.Equal(3, specialtiesCount);
+        }
+
+        [Fact]
+        public async Task GetSpecialtiesCountShouldReturnTheCorrectAmount()
+        {
+            await this.repository.AddAsync(new Specialty() { Name = "TestSpecialty1" });
+            await this.repository.AddAsync(new Specialty() { Name = "TestSpecialty2" });
+            await this.repository.AddAsync(new Specialty() { Name = "TestSpecialty3" });
+            await this.repository.SaveChangesAsync();
+
+            var specialtiesCount = this.specialtiesService.GetSpecialtiesCount();
+            Assert.Equal(3, specialtiesCount);
+        }
+
+        [Fact]
+        public async Task GetAllSpecialtiesShouldReturnCorrectData()
+        {
+            var specialty = new Specialty() { Name = "TestSpecialty"};
+
+            await this.repository.AddAsync(specialty);
+            await this.repository.SaveChangesAsync();
+            var viewModel = new SpecialtiesIndexViewModel()
+            {
+                Id = specialty.Id,
+                Name = specialty.Name
+            };
+            var specialtyFromService = this.specialtiesService.GetAllAsKeyValuePairs().First();
+
+            Assert.Equal(specialty.Name, specialtyFromService.Value);
+            Assert.Equal(specialty.Id, specialtyFromService.Key);
         }
     }
 }

@@ -16,8 +16,6 @@ namespace OnlineDoctorSystem.Services.Data.Patients
 
         string GetPatientEmailByPatientId(string patientId);
 
-        IEnumerable<T> GetDoctorsPatients<T>(string doctorId);
-
         T GetPatient<T>(string patientId);
 
         int GetPatientsCount();

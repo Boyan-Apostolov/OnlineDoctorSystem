@@ -196,5 +196,16 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
             }
             return consultations;
         }
+
+        public IEnumerable<T> GetDoctorsPatients<T>(string doctorId)
+        {
+            var patients = this.patientsRepository.AllAsNoTracking()
+                .Include(x => x.Consultations)
+                .Where(x => x.Consultations.Any(x => x.DoctorId == doctorId))
+                .To<T>()
+                .ToList();
+
+            return patients;
+        }
     }
 }

@@ -19,6 +19,8 @@
 
         Doctor GetDoctorByUserId(string userId);
 
+        IEnumerable<T> GetDoctorsPatients<T>(string doctorId);
+
         string GetDoctorNameById(string id);
 
         Task<string> GetDoctorEmailById(string id);

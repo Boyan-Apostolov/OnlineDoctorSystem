@@ -30,12 +30,13 @@ namespace OnlineDoctorSystem.Web.Controllers
             return this.View();
         }
 
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public IActionResult GetDoctorsPatients()
         {
             var doctor = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var viewModel = new ListAllPatientsViewModel()
             {
-                Patients = this.patientsService.GetDoctorsPatients<PatientForListingViewModel>(doctor.Id),
+                Patients = this.doctorsService.GetDoctorsPatients<PatientForListingViewModel>(doctor.Id),
             };
             return this.View(viewModel);
         }
