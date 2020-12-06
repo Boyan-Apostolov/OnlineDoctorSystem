@@ -1,11 +1,10 @@
-﻿using System;
-using OnlineDoctorSystem.Common;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Web.ViewModels;

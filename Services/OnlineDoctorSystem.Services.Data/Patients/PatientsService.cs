@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Services.Data.Patients
+﻿namespace OnlineDoctorSystem.Services.Data.Patients
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
 
     public class PatientsService : IPatientsService
     {
@@ -34,7 +33,7 @@ namespace OnlineDoctorSystem.Services.Data.Patients
         public Patient GetPatientByUserId(string userId)
         {
             return this.patientRepository
-                .All().Include(x=>x.Town).FirstOrDefault(x => x.UserId == userId);
+                .All().Include(x => x.Town).FirstOrDefault(x => x.UserId == userId);
         }
 
         public async Task<string> GetPatientEmailByUserId(string id)
@@ -43,12 +42,12 @@ namespace OnlineDoctorSystem.Services.Data.Patients
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.UserId == id);
 
-            return patient.User.Email;
+            return patient?.User.Email;
         }
 
         public string GetPatientEmailByPatientId(string patientId)
         {
-            var patient =this.patientRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == patientId);
+            var patient = this.patientRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == patientId);
 
             return patient.User.Email;
         }

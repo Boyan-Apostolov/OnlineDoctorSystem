@@ -1,14 +1,13 @@
-﻿using System.Security.Claims;
-using OnlineDoctorSystem.Web.ViewModels.Pateints;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using System.Security.Claims;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Web.ViewModels.Pateints;
 
     [Authorize]
     public class PatientsController : Controller

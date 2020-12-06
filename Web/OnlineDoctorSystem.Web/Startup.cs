@@ -1,14 +1,12 @@
-﻿using System;
-using Hangfire;
-using Hangfire.Console;
-using Hangfire.Dashboard;
-using Hangfire.SqlServer;
-using OnlineDoctorSystem.Common;
-
-namespace OnlineDoctorSystem.Web
+﻿namespace OnlineDoctorSystem.Web
 {
+    using System;
     using System.Reflection;
 
+    using Hangfire;
+    using Hangfire.Console;
+    using Hangfire.Dashboard;
+    using Hangfire.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -17,6 +15,7 @@ namespace OnlineDoctorSystem.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data;
     using OnlineDoctorSystem.Data.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;

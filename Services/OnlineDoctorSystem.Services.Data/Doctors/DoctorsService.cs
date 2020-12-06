@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;

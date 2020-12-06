@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OnlineDoctorSystem.Services.Data.Consultations;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Data.Specialties;
-using OnlineDoctorSystem.Services.Data.Towns;
-using OnlineDoctorSystem.Web.ViewModels.Statistics;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Services.Data.Consultations;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Data.Specialties;
+    using OnlineDoctorSystem.Services.Data.Towns;
+    using OnlineDoctorSystem.Web.ViewModels.Statistics;
+
     public class StatisticsController : Controller
     {
         private readonly IDoctorsService doctorsService;

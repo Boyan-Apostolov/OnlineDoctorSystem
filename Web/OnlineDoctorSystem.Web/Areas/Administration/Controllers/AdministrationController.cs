@@ -1,14 +1,12 @@
-﻿using AutoMapper.Configuration;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Web.ViewModels.Statistics;
-
-namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
+﻿namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
 {
-    using OnlineDoctorSystem.Common;
-    using OnlineDoctorSystem.Web.Controllers;
-
+    using AutoMapper.Configuration;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Common;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Web.Controllers;
+    using OnlineDoctorSystem.Web.ViewModels.Statistics;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]

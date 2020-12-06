@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace OnlineDoctorSystem.Data.Models
+﻿namespace OnlineDoctorSystem.Data.Models
 {
+    using System.Collections.Generic;
 
     using OnlineDoctorSystem.Data.Common.Models;
 

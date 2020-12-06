@@ -23,49 +23,20 @@
 
         public async Task<ApplicationUser> GetUserByUsername(string username)
         {
-            return await this.userManager.FindByNameAsync(username);
+            return this.usersRepository.All().FirstOrDefault(x => x.UserName == username);
         }
 
         public async Task<bool> AddUserToRole(string username, string role)
         {
-            var user = this.GetUserByUsername(username);
+            var users = this.usersRepository.All().ToList();
+            var user = await this.GetUserByUsername(username);
             if (user == null)
             {
                 return false;
             }
 
-            await this.userManager.AddToRoleAsync(user.Result, role);
+            await this.userManager.AddToRoleAsync(user, role);
             return true;
-        }
-
-        public async Task<bool> RemoveUserFromRole(string username, string role)
-        {
-            var user = this.GetUserByUsername(username);
-            if (user == null)
-            {
-                return false;
-            }
-
-            await this.userManager.RemoveFromRoleAsync(user.Result, role);
-            return true;
-        }
-
-        public async Task<IEnumerable<ApplicationUser>> GetUsersByRole(string role)
-        {
-            var usersOfRole = await this.userManager.GetUsersInRoleAsync(role);
-
-            return this.usersRepository.All().Where(x => usersOfRole.Any(u => u.Id == x.Id))
-                .ToList();
-        }
-
-        public Task<string> GetUserDoctorPicture(string userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<string> GetUserPatientPicture(string userId)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Data.Models.Enums;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Pateints
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Pateints
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Data.Models.Enums;
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class PatientViewModel : IMapFrom<Patient>
     {
         public string Id { get; set; }

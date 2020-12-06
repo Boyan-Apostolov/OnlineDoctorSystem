@@ -10,13 +10,5 @@
         Task<ApplicationUser> GetUserByUsername(string username);
 
         Task<bool> AddUserToRole(string username, string role);
-
-        Task<bool> RemoveUserFromRole(string name, string role);
-
-        Task<IEnumerable<ApplicationUser>> GetUsersByRole(string role);
-
-        Task<string> GetUserDoctorPicture(string userId);
-
-        Task<string> GetUserPatientPicture(string userId);
     }
 }

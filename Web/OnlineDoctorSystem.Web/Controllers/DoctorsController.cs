@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Data.Towns;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -12,6 +9,8 @@ namespace OnlineDoctorSystem.Web.Controllers
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
@@ -129,9 +128,9 @@ namespace OnlineDoctorSystem.Web.Controllers
         }
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
-        public async Task<IActionResult> GetDoctorPatients()
+        public IActionResult GetDoctorPatients()
         {
-            //return this.View();
+            // return this.View();
             return null;
         }
     }

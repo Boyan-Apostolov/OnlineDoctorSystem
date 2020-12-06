@@ -1,12 +1,11 @@
-﻿using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Services.Data.Towns
+﻿namespace OnlineDoctorSystem.Services.Data.Towns
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public class TownsService : ITownsService

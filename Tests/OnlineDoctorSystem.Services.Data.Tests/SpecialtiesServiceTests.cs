@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using System.Reflection;
-using OnlineDoctorSystem.Services.Mapping;
-using OnlineDoctorSystem.Web.ViewModels.Home;
-
-namespace OnlineDoctorSystem.Services.Data.Tests
+﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -13,6 +10,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Services.Data.Specialties;
+    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
     using Xunit;
 
     public class SpecialtiesServiceTests

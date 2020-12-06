@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Statistics
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Statistics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class StatsViewModel
     {
         public int DoctorsCount { get; set; }

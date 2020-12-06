@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
-
-namespace OnlineDoctorSystem.Data.Seeding
+﻿namespace OnlineDoctorSystem.Data.Seeding
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
 

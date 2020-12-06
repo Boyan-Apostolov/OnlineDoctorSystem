@@ -1,18 +1,18 @@
-﻿using System.Security.Claims;
-using OnlineDoctorSystem.Common;
-using OnlineDoctorSystem.Web.ViewModels.Events;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Data.Events;
+    using OnlineDoctorSystem.Web.ViewModels.Events;
 
     [Authorize]
     [Produces("application/json")]

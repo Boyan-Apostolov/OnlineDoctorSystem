@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace OnlineDoctorSystem.Services.Data.Patients
+﻿namespace OnlineDoctorSystem.Services.Data.Patients
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Models;

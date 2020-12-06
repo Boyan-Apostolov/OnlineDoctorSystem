@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using OnlineDoctorSystem.Data.Models;
-
-namespace OnlineDoctorSystem.Services.Data.Events
+﻿namespace OnlineDoctorSystem.Services.Data.Events
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Models;
 
     public interface IEventsService
     {
@@ -15,7 +15,7 @@ namespace OnlineDoctorSystem.Services.Data.Events
         List<CalendarEvent> GetPatientsEvents(string userId);
 
         void MoveEvent(int eventId, DateTime startTime, DateTime endTime);
-        
+
         void ChangeEventColor(int eventId, string color);
     }
 }

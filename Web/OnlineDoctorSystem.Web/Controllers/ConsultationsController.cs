@@ -95,6 +95,7 @@
                 viewModel.Consultations =
                     this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctor.Id);
             }
+
             return this.View(viewModel);
         }
 
