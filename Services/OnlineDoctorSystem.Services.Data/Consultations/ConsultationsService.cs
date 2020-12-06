@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Collections.Generic;
@@ -44,7 +46,15 @@
 
         public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
         {
-            if (model.StartTime > model.EndTime || model.StartTime == model.EndTime || model.Date <= DateTime.Now)
+            if (model.StartTime > model.EndTime)
+            {
+                return false;
+            }
+            else if (model.StartTime == model.EndTime)
+            {
+                return false;
+            }
+            else if (model.Date <= DateTime.Now)
             {
                 return false;
             }
@@ -83,17 +93,13 @@
                 Text = $"{consultation.StartTime}",
                 IsActive = true,
             };
-
-            await this.eventsRepository.AddAsync(calendarEvent);
-            await this.eventsRepository.SaveChangesAsync();
-
             consultation.CalendarEvent = calendarEvent;
 
             await this.consultationsRepository.AddAsync(consultation);
-            await this.consultationsRepository.SaveChangesAsync();
+            this.consultationsRepository.SaveChangesAsync();
 
             doctor.Consultations.Add(consultation);
-            await this.doctorRepository.SaveChangesAsync();
+            this.doctorRepository.SaveChangesAsync();
             var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
@@ -131,9 +137,9 @@
             var consultation = await this.consultationsRepository.GetByIdWithDeletedAsync(consultationId);
 
             consultation.IsConfirmed = true;
-            await this.consultationsRepository.SaveChangesAsync();
+            this.consultationsRepository.SaveChangesAsync();
 
-            var patientEmail = await this.patientsService.GetPatientEmailByUserId(consultation.PatientId);
+            var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
                 $"Админ на Онлайн-Доктор Системата",
@@ -144,12 +150,12 @@
 
         public async Task DeclineConsultationAsync(string consultationId)
         {
-            var consultation = await this.consultationsRepository.GetByIdWithDeletedAsync(consultationId);
+            var consultation = this.consultationsRepository.All().FirstOrDefault(x => x.Id == consultationId);
 
             consultation.IsConfirmed = false;
-            await this.consultationsRepository.SaveChangesAsync();
+            this.consultationsRepository.SaveChangesAsync();
 
-            var patientEmail = await this.patientsService.GetPatientEmailByUserId(consultation.PatientId);
+            var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
                 $"Админ на Онлайн-Доктор Системата",
@@ -164,18 +170,18 @@
 
             consultation.IsReviewed = true;
 
-            await this.consultationsRepository.SaveChangesAsync();
+            this.consultationsRepository.SaveChangesAsync();
         }
 
         public async Task UpdateConsultationsWhenCompleted()
         {
-            var pastConsultations = this.consultationsRepository.AllWithDeleted().Where(x => x.Date <= DateTime.Today).Where(x => x.EndTime <= DateTime.Now.TimeOfDay).ToList();
+            var pastConsultations = this.consultationsRepository.AllWithDeleted().Where(x => x.Date <= DateTime.Today || x.EndTime <= DateTime.Now.TimeOfDay).ToList();
             foreach (var consultation in pastConsultations)
             {
                 consultation.IsActive = false;
             }
 
-            await this.consultationsRepository.SaveChangesAsync();
+            this.consultationsRepository.SaveChangesAsync();
         }
 
         public int GetConsultationsCount()

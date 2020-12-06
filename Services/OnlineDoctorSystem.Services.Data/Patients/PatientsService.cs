@@ -38,11 +38,12 @@
 
         public async Task<string> GetPatientEmailByUserId(string id)
         {
+            var patients = this.patientRepository.All().ToList();
             var patient = this.patientRepository.All()
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.UserId == id);
 
-            return patient?.User.Email;
+            return patient.User.Email;
         }
 
         public string GetPatientEmailByPatientId(string patientId)

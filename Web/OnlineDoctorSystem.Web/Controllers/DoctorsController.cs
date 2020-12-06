@@ -126,12 +126,5 @@
             var consultations = await this.doctorsService.GetUnconfirmedConsultations(doctorId);
             return this.View(consultations);
         }
-
-        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
-        public IActionResult GetDoctorPatients()
-        {
-            // return this.View();
-            return null;
-        }
     }
 }
