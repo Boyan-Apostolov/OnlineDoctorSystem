@@ -123,7 +123,7 @@
         public async Task<IActionResult> GetUnconfirmedConsultations()
         {
             var doctorId = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).Id;
-            var consultations = await this.doctorsService.GetUnconfirmedConsultations(doctorId);
+            var consultations = await this.consultationsService.GetUnconfirmedConsultations(doctorId);
             return this.View(consultations);
         }
     }

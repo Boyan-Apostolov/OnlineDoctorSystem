@@ -25,7 +25,9 @@
         Task MakeConsultationReviewedToTrue(string consultationId);
 
         Task UpdateConsultationsWhenCompleted();
-        
+
         int GetConsultationsCount();
+
+        Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId);
     }
 }

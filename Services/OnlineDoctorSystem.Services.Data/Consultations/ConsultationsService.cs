@@ -188,5 +188,16 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
         {
             return this.consultationsRepository.AllAsNoTracking().Count();
         }
+
+        public async Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId)
+        {
+            var consultations = this.consultationsRepository.AllAsNoTracking().Where(x => !x.IsConfirmed && x.DoctorId == doctorId).ToList();
+            foreach (var consultation in consultations)
+            {
+                consultation.Patient = await this.patientsRepository.GetByIdWithDeletedAsync(consultation.PatientId);
+            }
+
+            return consultations;
+        }
     }
 }

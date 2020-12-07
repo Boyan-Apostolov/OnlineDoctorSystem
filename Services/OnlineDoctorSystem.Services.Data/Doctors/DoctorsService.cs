@@ -152,7 +152,7 @@
                 doctors = doctors.Where(x => x.Specialty.Id == model.SpecialtyId.Value);
             }
 
-            return doctors.To<T>().ToList();
+            return doctors.Where(x => x.IsConfirmed == true).To<T>().ToList();
         }
 
         public IEnumerable<T> GetUnconfirmedDoctors<T>()
@@ -185,16 +185,6 @@
             doctor.Reviews.Add(review);
             await this.doctorsRepository.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId)
-        {
-            var consultations = this.consultationsRepository.AllAsNoTracking().Where(x => !x.IsConfirmed && x.DoctorId == doctorId).ToList();
-            foreach (var consultation in consultations)
-            {
-                consultation.Patient = await this.patientsRepository.GetByIdWithDeletedAsync(consultation.PatientId);
-            }
-            return consultations;
         }
 
         public IEnumerable<T> GetDoctorsPatients<T>(string doctorId)

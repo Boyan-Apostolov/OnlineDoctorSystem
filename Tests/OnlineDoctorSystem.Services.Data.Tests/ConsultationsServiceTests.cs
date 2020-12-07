@@ -15,6 +15,7 @@ using OnlineDoctorSystem.Services.Data.Patients;
 using OnlineDoctorSystem.Services.Mapping;
 using OnlineDoctorSystem.Services.Messaging;
 using OnlineDoctorSystem.Web.ViewModels.Consultations;
+using OnlineDoctorSystem.Web.ViewModels.Pateints;
 using Xunit;
 
 namespace OnlineDoctorSystem.Services.Data.Tests
@@ -27,11 +28,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         private readonly IConsultationsService consultationsService;
         private readonly IEmailSender emailSender;
 
-        private readonly EfDeletableEntityRepository<CalendarEvent> eventsRepository;//
-        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;//
-        private readonly EfDeletableEntityRepository<Patient> patientsRepository;//
+        private readonly EfDeletableEntityRepository<CalendarEvent> eventsRepository;
+        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;
+        private readonly EfDeletableEntityRepository<Patient> patientsRepository;
         private readonly EfDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;//
+        private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;
 
         public ConsultationsServiceTests()
         {
@@ -622,6 +623,42 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patient.Id).Count();
 
             Assert.Equal(2, consultationsCount);
+        }
+
+        [Fact]
+        public async Task GettingUnconfirmedConsultationsShouldReturnTheCorrectAmount()
+        {
+            var user1 = new ApplicationUser() { Email = "test@test.com" };
+            var user2 = new ApplicationUser() { Email = "test@test.com" };
+            await this.usersRepository.AddAsync(user1);
+            await this.usersRepository.AddAsync(user2);
+
+            var doctor = new Doctor()
+            {
+                Name = "Test",
+                User = user1,
+                UserId = user2.Id,
+            };
+            var patient = new Patient()
+            {
+                FirstName = "Test",
+                UserId = user2.Id,
+                User = user2,
+            };
+            await this.patientsRepository.AddAsync(patient);
+
+            doctor.Consultations.Add(new Consultation()
+            {
+                Date = DateTime.Now.AddDays(5),
+                Patient = patient,
+                PatientId = patient.Id,
+            });
+            await this.doctorsService.CreateDoctorAsync(user1.Id, doctor);
+
+            var consultations = await this.consultationsService.GetUnconfirmedConsultations(doctor.Id);
+            var consultationsCount = consultations.Count();
+
+            Assert.Equal(1, consultationsCount);
         }
     }
 }

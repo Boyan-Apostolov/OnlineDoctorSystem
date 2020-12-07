@@ -41,6 +41,5 @@
 
         Task<bool> AddReview(ReviewViewModel model);
 
-        Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId);
     }
 }
