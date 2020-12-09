@@ -46,9 +46,9 @@
             return this.View(viewModel);
         }
 
-        public IActionResult RemoveConsultation(int eventId)
+        public async Task<IActionResult> RemoveConsultation(int eventId)
         {
-            this.eventsService.DeleteEventByIdAsync(eventId);
+            await this.eventsService.DeleteEventByIdAsync(eventId);
 
             return this.RedirectToAction("GetUsersConsultations");
         }

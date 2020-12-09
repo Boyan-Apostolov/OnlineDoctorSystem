@@ -10,7 +10,6 @@
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Contacts;
 
-    [Authorize]
     public class ContactsController : Controller
     {
         private readonly IEmailSender emailSender;

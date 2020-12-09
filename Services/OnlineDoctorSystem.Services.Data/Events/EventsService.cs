@@ -44,7 +44,7 @@
             consultation.IsCancelled = true;
             @event.IsActive = false;
 
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
             await this.eventsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
@@ -62,7 +62,7 @@
             var doctor = this.doctorsService.GetDoctorByUserId(userId);
             var events = this.consultationsRepository.All()
                 .Include(x => x.CalendarEvent)
-                .Where(x => x.DoctorId == doctor.Id && x.IsActive)
+                .Where(x => x.DoctorId == doctor.Id && x.IsActive && x.IsConfirmed == true)
                 .Select(x => x.CalendarEvent)
                 .ToList();
             return events;
@@ -73,7 +73,7 @@
             var patient = this.patientsService.GetPatientByUserId(userId);
             var events = this.consultationsRepository.All()
                 .Include(x => x.CalendarEvent)
-                .Where(x => x.PatientId == patient.Id && x.IsConfirmed)
+                .Where(x => x.PatientId == patient.Id && x.IsActive && x.IsConfirmed == true)
                 .Select(x => x.CalendarEvent)
                 .ToList();
             return events;

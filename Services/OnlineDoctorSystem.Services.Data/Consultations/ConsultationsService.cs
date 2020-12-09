@@ -82,7 +82,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 DoctorId = doctor.Id,
                 IsActive = true,
                 IsCancelled = false,
-                IsConfirmed = false,
+                IsConfirmed = null,
             };
 
             var calendarEvent = new CalendarEvent()
@@ -96,10 +96,10 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
             consultation.CalendarEvent = calendarEvent;
 
             await this.consultationsRepository.AddAsync(consultation);
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
 
             doctor.Consultations.Add(consultation);
-            this.doctorRepository.SaveChangesAsync();
+            await this.doctorRepository.SaveChangesAsync();
             var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
@@ -170,7 +170,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
 
             consultation.IsReviewed = true;
 
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
         }
 
         public async Task UpdateConsultationsWhenCompleted()
@@ -191,7 +191,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
 
         public async Task<IEnumerable<Consultation>> GetUnconfirmedConsultations(string doctorId)
         {
-            var consultations = this.consultationsRepository.AllAsNoTracking().Where(x => !x.IsConfirmed && x.DoctorId == doctorId).ToList();
+            var consultations = this.consultationsRepository.AllAsNoTracking().Where(x => x.IsConfirmed == null && x.DoctorId == doctorId).ToList();
             foreach (var consultation in consultations)
             {
                 consultation.Patient = await this.patientsRepository.GetByIdWithDeletedAsync(consultation.PatientId);
