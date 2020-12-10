@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Diagnostics;
@@ -54,5 +56,11 @@
         [HttpGet("robots.txt")]
         [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Any)]
         public IActionResult RobotsTxt() => this.Content("User-agent: *" + Environment.NewLine + "Disallow:");
+
+        [Authorize]
+        public IActionResult Chat()
+        {
+            return this.View();
+        }
     }
 }

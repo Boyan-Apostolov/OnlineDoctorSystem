@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using OnlineDoctorSystem.Web.Hubs;
+
+namespace OnlineDoctorSystem.Web
 {
     using System;
     using System.Reflection;
@@ -86,6 +88,8 @@
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
+            services.AddSignalR();
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -152,6 +156,7 @@
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("doctorInfo", "Doctors/Info/{id:guid}", new { controller = "Doctors", action = "Info" });
                         endpoints.MapRazorPages();
+                        endpoints.MapHub<ChatHub>("/chat");
                     });
         }
 
