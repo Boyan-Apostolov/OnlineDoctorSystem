@@ -69,8 +69,8 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 return false;
             }
 
-            var patient = await this.patientsRepository.GetByIdWithDeletedAsync(patientId);
-            var doctor = await this.doctorRepository.GetByIdWithDeletedAsync(model.DoctorId);
+            var patient = this.patientsRepository.All().FirstOrDefault(x => x.Id == patientId);
+            var doctor = this.doctorRepository.All().FirstOrDefault(x => x.Id == model.DoctorId);
 
             var consultation = new Consultation()
             {
@@ -94,12 +94,11 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 IsActive = true,
             };
             consultation.CalendarEvent = calendarEvent;
+            doctor.Consultations.Add(consultation);
 
             await this.consultationsRepository.AddAsync(consultation);
             await this.consultationsRepository.SaveChangesAsync();
 
-            doctor.Consultations.Add(consultation);
-            await this.doctorRepository.SaveChangesAsync();
             var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
             await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,

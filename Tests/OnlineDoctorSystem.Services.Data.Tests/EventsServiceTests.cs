@@ -87,16 +87,15 @@
                 EmailConfirmed = true,
             };
             await this.usersRepository.AddAsync(user);
-            await this.usersRepository.SaveChangesAsync();
 
             var patient = new Patient()
             {
                 FirstName = "Test",
                 LastName = "test",
                 UserId = user.Id,
+                User = user,
             };
             await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
 
             await this.consultationsRepository.AddAsync(new Consultation()
             {
@@ -104,7 +103,7 @@
                 Date = DateTime.Now,
                 CalendarEvent = calendarEvent,
             });
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
 
             bool isDeleted = await this.eventsService.DeleteEventByIdAsync(calendarEvent.Id);
 
@@ -156,7 +155,6 @@
             };
             var user = new ApplicationUser() { Email = "test@test.com", EmailConfirmed = true };
             await this.usersRepository.AddAsync(user);
-            await this.usersRepository.SaveChangesAsync();
 
             var patient = new Patient()
             {
@@ -165,7 +163,6 @@
                 UserId = user.Id,
             };
             await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
 
             await this.consultationsRepository.AddAsync(new Consultation()
             {
@@ -173,8 +170,9 @@
                 Date = DateTime.Now,
                 CalendarEvent = calendarEvent,
                 IsConfirmed = true,
+                IsActive = true,
             });
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
 
             var eventsCount = this.eventsService.GetPatientsEvents(patient.UserId).Count;
 
