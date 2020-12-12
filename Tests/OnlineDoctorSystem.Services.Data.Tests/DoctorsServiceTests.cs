@@ -22,34 +22,10 @@
     using OnlineDoctorSystem.Web.ViewModels.Pateints;
     using Xunit;
 
-    public class DoctorsServiceTests
+    public class DoctorsServiceTests : BaseTestClass
     {
-        private readonly IDoctorsService doctorsService;
-        private readonly IEmailSender emailSender;
-
-        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;
-        private readonly EfDeletableEntityRepository<Patient> patientsRepository;
-        private readonly EfDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;
-
         public DoctorsServiceTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
-
-            this.consultationsRepository = new EfDeletableEntityRepository<Consultation>(new ApplicationDbContext(options.Options));
-            this.doctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
-            this.usersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
-            this.patientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
-            this.emailSender = new SendGridEmailSender("test");
-
-            this.doctorsService = new DoctorsService(
-                this.doctorsRepository,
-                this.usersRepository,
-                this.emailSender,
-                this.consultationsRepository,
-                this.patientsRepository);
-
             AutoMapperConfig.RegisterMappings(typeof(DoctorViewModel).GetTypeInfo().Assembly);
             AutoMapperConfig.RegisterMappings(typeof(IndexViewModel).GetTypeInfo().Assembly);
             AutoMapperConfig.RegisterMappings(typeof(ReviewViewModel).GetTypeInfo().Assembly);

@@ -22,52 +22,10 @@ namespace OnlineDoctorSystem.Services.Data.Tests
     using OnlineDoctorSystem.Web.ViewModels.Pateints;
     using Xunit;
 
-    // TODO: Refactor in the future
-    public class ConsultationsServiceTests
+    public class ConsultationsServiceTests : BaseTestClass
     {
-        private readonly IDoctorsService doctorsService;
-        private readonly IPatientsService patientsService;
-        private readonly IConsultationsService consultationsService;
-        private readonly IEmailSender emailSender;
-
-        private readonly EfDeletableEntityRepository<CalendarEvent> eventsRepository;
-        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;
-        private readonly EfDeletableEntityRepository<Patient> patientsRepository;
-        private readonly EfDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;
-
         public ConsultationsServiceTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
-
-            this.eventsRepository = new EfDeletableEntityRepository<CalendarEvent>(new ApplicationDbContext(options.Options));
-            this.consultationsRepository = new EfDeletableEntityRepository<Consultation>(new ApplicationDbContext(options.Options));
-            this.doctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
-            this.usersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
-            this.patientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
-            this.emailSender = new SendGridEmailSender("test");
-
-            this.doctorsService = new DoctorsService(
-                this.doctorsRepository,
-                this.usersRepository,
-                this.emailSender,
-                this.consultationsRepository,
-                this.patientsRepository);
-
-            this.patientsService = new PatientsService(
-                this.patientsRepository,
-                this.usersRepository);
-
-            this.consultationsService = new ConsultationsService(
-                this.doctorsRepository,
-                this.consultationsRepository,
-                this.patientsRepository,
-                this.eventsRepository,
-                this.emailSender,
-                this.doctorsService,
-                this.patientsService);
-
             AutoMapperConfig.RegisterMappings(
                 typeof(ConsultationViewModel).GetTypeInfo().Assembly);
         }

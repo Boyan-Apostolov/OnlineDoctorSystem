@@ -18,46 +18,8 @@
     using OnlineDoctorSystem.Services.Messaging;
     using Xunit;
 
-    public class EventsServiceTests
+    public class EventsServiceTests : BaseTestClass
     {
-        private readonly IEventsService eventsService;
-        private readonly EfDeletableEntityRepository<CalendarEvent> eventsRepository;
-        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;
-        private readonly EfDeletableEntityRepository<Patient> patientsRepository;
-        private readonly EfDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;
-
-        public EventsServiceTests()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
-
-            this.eventsRepository = new EfDeletableEntityRepository<CalendarEvent>(new ApplicationDbContext(options.Options));
-            this.consultationsRepository = new EfDeletableEntityRepository<Consultation>(new ApplicationDbContext(options.Options));
-            this.doctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
-            this.usersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
-            this.patientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
-            var emailSender = new SendGridEmailSender("test");
-
-            var doctorsService = new DoctorsService(
-                this.doctorsRepository,
-                this.usersRepository,
-                emailSender,
-                this.consultationsRepository,
-                this.patientsRepository);
-
-            var patientsService = new PatientsService(
-                this.patientsRepository,
-                this.usersRepository);
-
-            this.eventsService = new EventsService(
-                this.eventsRepository,
-                this.consultationsRepository,
-                doctorsService,
-                patientsService,
-                emailSender);
-        }
-
         [Fact]
         public async Task ChangeEventColorShouldChangeEventsColor()
         {
