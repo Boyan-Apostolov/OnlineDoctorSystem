@@ -22,7 +22,7 @@
             }
 
             var configuration = (IConfiguration)validationContext.GetService(typeof(IConfiguration));
-            if (configuration == null || string.IsNullOrWhiteSpace(configuration["GoogleReCaptcha:LocalHost_Secret_Key"]))
+            if (configuration == null || string.IsNullOrWhiteSpace(configuration["GoogleReCaptcha:Secret_Key"]))
             {
                 return new ValidationResult(
                     "Google reCAPTCHA validation failed. Secret key not found.",
@@ -33,7 +33,7 @@
             var content = new FormUrlEncodedContent(
                 new[]
                     {
-                        new KeyValuePair<string, string>("secret", configuration["GoogleReCaptcha:LocalHost_Secret_Key"]),
+                        new KeyValuePair<string, string>("secret", configuration["GoogleReCaptcha:Secret_Key"]),
                         new KeyValuePair<string, string>("response", value.ToString()),
                         //// new KeyValuePair<string, string>("remoteip", remoteIp),
                     });

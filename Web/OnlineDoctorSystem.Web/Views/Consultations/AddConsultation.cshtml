@@ -42,7 +42,7 @@
 
 @section Scripts
 {
-    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:LocalHost_Key"]"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Site_Key"]"></script>
     <script>
         grecaptcha.ready(function () {
             grecaptcha.execute('@this.Configuration["GoogleReCaptcha:LocalHost_Key"]', { action: 'contact_form' }).then(function (token) {

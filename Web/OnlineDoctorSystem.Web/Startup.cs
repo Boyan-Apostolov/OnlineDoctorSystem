@@ -89,6 +89,9 @@
 
             services.AddSignalR();
 
+            services.AddApplicationInsightsTelemetry();
+
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
