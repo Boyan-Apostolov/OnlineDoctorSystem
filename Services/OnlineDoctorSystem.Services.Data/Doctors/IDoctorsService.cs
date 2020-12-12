@@ -40,6 +40,5 @@
         int GetReviewsCount();
 
         Task<bool> AddReview(ReviewViewModel model);
-
     }
 }

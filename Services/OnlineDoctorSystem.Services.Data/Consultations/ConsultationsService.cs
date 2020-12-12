@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
@@ -64,7 +63,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
 
         public async Task<bool> AddConsultation(AddConsultationViewModel model, string patientId)
         {
-            if (!CheckIfTimeIsCorrect(model))
+            if (!this.CheckIfTimeIsCorrect(model))
             {
                 return false;
             }
@@ -105,8 +104,7 @@ namespace OnlineDoctorSystem.Services.Data.Consultations
                 $"{patient.FirstName} {patient.LastName}",
                 doctorEmail,
                 "Имате нова заявка за консултация",
-                $"Имате нова заявка за консултация от пациент {patient.FirstName} {patient.LastName} за {model.Date.ToShortDateString()} от {model.StartTime} часа. Моля потвърдете или отхвърлете заявката от сайта ни."
-                );
+                $"Имате нова заявка за консултация от пациент {patient.FirstName} {patient.LastName} за {model.Date.ToShortDateString()} от {model.StartTime} часа. Моля потвърдете или отхвърлете заявката от сайта ни.");
             return true;
         }
 

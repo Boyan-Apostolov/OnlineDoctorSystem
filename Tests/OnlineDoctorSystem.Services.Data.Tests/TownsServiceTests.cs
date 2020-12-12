@@ -79,11 +79,7 @@
 
             await this.repository.AddAsync(town);
             await this.repository.SaveChangesAsync();
-            var viewModel = new TownsIndexViewModel()
-            {
-                Id = town.Id,
-                Name = town.Name
-            };
+
             var townFromService = this.townsService.GetAllTowns<TownsIndexViewModel>().First();
 
             Assert.Equal(town.Name, townFromService.Name);

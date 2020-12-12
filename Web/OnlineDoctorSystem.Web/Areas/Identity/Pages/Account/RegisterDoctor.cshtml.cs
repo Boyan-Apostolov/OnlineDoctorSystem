@@ -160,7 +160,7 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/Doctors/ThankYou");
+            returnUrl ??= this.Url.Content("~/Doctors/ThankYou");
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
@@ -188,22 +188,20 @@
 
                 var uploadResult = new ImageUploadResult();
 
-                var imageUrl = "";
+                var imageUrl = string.Empty;
 
                 if (file != null)
                 {
                     if (file.Length > 0)
                     {
-                        using (var stream = file.OpenReadStream())
+                        using var stream = file.OpenReadStream();
+                        var uploadParams = new ImageUploadParams()
                         {
-                            var uploadParams = new ImageUploadParams()
-                            {
-                                File = new FileDescription(file.Name, stream),
-                                Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
-                            };
+                            File = new FileDescription(file.Name, stream),
+                            Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
+                        };
 
-                            uploadResult = cloudinary.Upload(uploadParams);
-                        }
+                        uploadResult = cloudinary.Upload(uploadParams);
                     }
 
                     imageUrl = uploadResult.Uri.ToString();
@@ -244,8 +242,8 @@
                         {
                             area = "Identity",
                             userId = user.Id,
-                            code = code,
-                            returnUrl = returnUrl,
+                            code,
+                            returnUrl,
                         },
                         protocol: this.Request.Scheme);
 
@@ -258,7 +256,7 @@
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl });
                     }
                     else
                     {

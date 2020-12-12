@@ -34,6 +34,5 @@
 
         [GoogleReCaptchaValidation]
         public string RecaptchaValue { get; set; }
-
     }
 }

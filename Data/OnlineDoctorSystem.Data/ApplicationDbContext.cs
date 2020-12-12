@@ -62,22 +62,6 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<PatientDoctor>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.DoctorId, e.PatientId });
-            //
-            //    entity.HasOne(d => d.Doctor)
-            //        .WithMany(p => p.Patients)
-            //        .HasForeignKey(d => d.DoctorId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull);
-            //
-            //    entity.HasOne(d => d.Patient)
-            //        .WithMany(p => p.Doctors)
-            //        .HasForeignKey(d => d.PatientId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull);
-            //});
-
-            // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
             this.ConfigureUserIdentityRelations(builder);

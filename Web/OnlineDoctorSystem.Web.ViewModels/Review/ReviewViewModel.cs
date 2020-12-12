@@ -1,6 +1,5 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Review
 {
-
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.Infrastructure;
 

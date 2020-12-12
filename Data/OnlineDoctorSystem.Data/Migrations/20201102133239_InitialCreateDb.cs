@@ -18,7 +18,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    TownName = table.Column<string>(nullable: true)
+                    TownName = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -50,7 +50,7 @@
                     WorkingHours = table.Column<string>(nullable: true),
                     Education = table.Column<string>(nullable: true),
                     Qualifications = table.Column<string>(nullable: true),
-                    Biography = table.Column<string>(nullable: true)
+                    Biography = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,7 @@
                     TownId = table.Column<int>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -118,7 +118,7 @@
                     WaitingTimeReview = table.Column<double>(nullable: false),
                     DoctorAttitudeReview = table.Column<double>(nullable: false),
                     ReviewText = table.Column<string>(nullable: true),
-                    DoctorId = table.Column<string>(nullable: true)
+                    DoctorId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -143,7 +143,7 @@
                     Date = table.Column<DateTime>(nullable: false),
                     PatientId = table.Column<string>(nullable: true),
                     DoctorId = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false)
+                    IsActive = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -167,7 +167,7 @@
                 columns: table => new
                 {
                     DoctorId = table.Column<string>(nullable: false),
-                    PatientId = table.Column<string>(nullable: false)
+                    PatientId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {

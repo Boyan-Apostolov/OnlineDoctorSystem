@@ -18,7 +18,7 @@
         public double DoctorAttitudeReview { get; set; }
 
         public string ReviewText { get; set; }
-        
+
         [GoogleReCaptchaValidation]
         public string RecaptchaValue { get; set; }
     }

@@ -1,6 +1,5 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Doctors
 {
-
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
 
@@ -19,7 +18,7 @@
         public bool IsWorkingWithNZOK { get; set; }
 
         public bool IsWorkingWithChildren { get; set; }
-        
+
         public string Phone { get; set; }
 
         public string SmallInfo { get; set; }
@@ -31,6 +30,5 @@
         public string Qualifications { get; set; }
 
         public string Biography { get; set; }
-
     }
 }

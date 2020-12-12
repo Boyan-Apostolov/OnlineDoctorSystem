@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Web.Hubs;
-
-namespace OnlineDoctorSystem.Web
+﻿namespace OnlineDoctorSystem.Web
 {
     using System;
     using System.Reflection;
@@ -34,6 +32,7 @@ namespace OnlineDoctorSystem.Web
     using OnlineDoctorSystem.Services.Data.Users;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
+    using OnlineDoctorSystem.Web.Hubs;
     using OnlineDoctorSystem.Web.ViewModels;
 
     public class Startup
@@ -162,7 +161,8 @@ namespace OnlineDoctorSystem.Web
 
         private void SeedHangfireJobs(IRecurringJobManager recurringJobManager, ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            recurringJobManager.AddOrUpdate("UpdateConsultationsOnCompletedTime",
+            recurringJobManager.AddOrUpdate(
+                "UpdateConsultationsOnCompletedTime",
                 () => serviceProvider.GetService<IConsultationsService>().UpdateConsultationsWhenCompleted(),
                 Cron.Minutely);
         }

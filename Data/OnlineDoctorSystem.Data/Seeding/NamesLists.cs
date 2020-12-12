@@ -4,14 +4,14 @@
 
     public class NamesLists
     {
-        public static List<string> maleFirstNames = new List<string>()
+        public static List<string> MaleFirstNames = new List<string>()
         {
-            "Иван","Тихомир", "Боян",
+            "Иван", "Тихомир", "Боян",
         };
 
-        public static List<string> maleLastNames = new List<string>()
+        public static List<string> MaleLastNames = new List<string>()
         {
-            "Апостолов","Георгиев", "Станимиров"
+            "Апостолов", "Георгиев", "Станимиров",
         };
     }
 }

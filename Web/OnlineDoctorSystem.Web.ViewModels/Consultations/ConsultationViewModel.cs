@@ -39,12 +39,15 @@
             configuration.CreateMap<Consultation, ConsultationViewModel>().ForMember(
                     m => m.DoctorName,
                     opt => opt.MapFrom(x => x.Doctor.Name))
-                .ForMember(m => m.EventId,
+                .ForMember(
+                    m => m.EventId,
                     opt => opt.MapFrom(x => x.CalendarEvent.Id))
-                .ForMember(m => m.DoctorId,
+                .ForMember(
+                    m => m.DoctorId,
                     opt => opt.MapFrom(x => x.DoctorId))
-                .ForMember(m => m.PatientName,
-                    opt => opt.MapFrom(x => (x.Patient.FirstName + " " + x.Patient.LastName)));
+                .ForMember(
+                    m => m.PatientName,
+                    opt => opt.MapFrom(x => x.Patient.FirstName + " " + x.Patient.LastName));
         }
     }
 }

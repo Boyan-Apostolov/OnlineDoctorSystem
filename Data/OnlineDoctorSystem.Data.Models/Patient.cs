@@ -33,6 +33,5 @@
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Consultation> Consultations { get; set; }
-
     }
 }

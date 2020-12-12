@@ -1,6 +1,5 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Home
 {
-
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Mapping;
 

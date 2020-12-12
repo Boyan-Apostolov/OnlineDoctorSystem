@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Chat
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Chat
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class Message
     {
         public string User { get; set; }

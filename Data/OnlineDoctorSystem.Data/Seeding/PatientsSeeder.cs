@@ -20,7 +20,6 @@
 
         private static async Task SeedPatientAsync(UserManager<ApplicationUser> userManager, string username, ApplicationDbContext dbContext)
         {
-
             Random r = new Random();
             var user = new ApplicationUser() { UserName = username, Email = username, EmailConfirmed = true };
             var result = await userManager.CreateAsync(user, "Patient123");
@@ -32,8 +31,8 @@
                     var num = r.Next(0, 3);
                     user.Patient = new Patient()
                     {
-                        FirstName = NamesLists.maleFirstNames[num],
-                        LastName = NamesLists.maleLastNames[num],
+                        FirstName = NamesLists.MaleFirstNames[num],
+                        LastName = NamesLists.MaleLastNames[num],
                         Town = dbContext.Towns.Skip(num + 5).FirstOrDefault(),
                         Phone = $"09487{num}5563",
                         ImageUrl =

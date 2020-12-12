@@ -47,7 +47,6 @@
             IUsersService usersService,
             ITownsService townsService,
             IPatientsService patientsService,
-            IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
             Services.Messaging.IEmailSender emailSender)
         {
@@ -120,7 +119,7 @@
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/Patients/ThankYou");
+            returnUrl ??= this.Url.Content("~/Patients/ThankYou");
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
@@ -136,7 +135,6 @@
 
             if (this.ModelState.IsValid)
             {
-
                 var cloudinaryAccount = this.configuration.GetSection("Cloudinary");
                 CloudinaryDotNet.Account account = new CloudinaryDotNet.Account(
                     cloudinaryAccount["Cloud_Name"],
@@ -149,26 +147,25 @@
 
                 var uploadResult = new ImageUploadResult();
 
-                var imageUrl = "";
+                var imageUrl = string.Empty;
 
                 if (file != null)
                 {
                     if (file.Length > 0)
                     {
-                        using (var stream = file.OpenReadStream())
+                        await using var stream = file.OpenReadStream();
+                        var uploadParams = new ImageUploadParams()
                         {
-                            var uploadParams = new ImageUploadParams()
-                            {
-                                File = new FileDescription(file.Name, stream),
-                                Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
-                            };
+                            File = new FileDescription(file.Name, stream),
+                            Transformation = new Transformation().Width(256).Height(256).Gravity("face").Radius("max").Border("2px_solid_white").Crop("thumb"),
+                        };
 
-                            uploadResult = cloudinary.Upload(uploadParams);
-                        }
+                        uploadResult = cloudinary.Upload(uploadParams);
                     }
 
                     imageUrl = uploadResult.Uri.ToString();
                 }
+
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
 
                 var patient = new Patient()
@@ -196,8 +193,8 @@
                         {
                             area = "Identity",
                             userId = user.Id,
-                            code = code,
-                            returnUrl = returnUrl,
+                            code,
+                            returnUrl,
                         },
                         protocol: this.Request.Scheme);
 
@@ -210,7 +207,7 @@
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl });
                     }
                     else
                     {

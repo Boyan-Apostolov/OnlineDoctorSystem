@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OnlineDoctorSystem.Data;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Data.Repositories;
-using OnlineDoctorSystem.Services.Data.Consultations;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Mapping;
-using OnlineDoctorSystem.Services.Messaging;
-using OnlineDoctorSystem.Web.ViewModels.Consultations;
-using OnlineDoctorSystem.Web.ViewModels.Doctors;
-using OnlineDoctorSystem.Web.ViewModels.Home;
-using OnlineDoctorSystem.Web.ViewModels.Pateints;
-using Xunit;
-
-namespace OnlineDoctorSystem.Services.Data.Tests
+﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Data.Repositories;
+    using OnlineDoctorSystem.Services.Data.Consultations;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Services.Messaging;
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
+    using OnlineDoctorSystem.Web.ViewModels.Doctors;
+    using OnlineDoctorSystem.Web.ViewModels.Home;
+    using OnlineDoctorSystem.Web.ViewModels.Pateints;
+    using Xunit;
+
     public class DoctorsServiceTests
     {
         private readonly IDoctorsService doctorsService;
-        private readonly IPatientsService patientsService;
         private readonly IEmailSender emailSender;
 
-        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;//
+        private readonly EfDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly EfDeletableEntityRepository<Patient> patientsRepository;
         private readonly EfDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly EfDeletableEntityRepository<Doctor> doctorsRepository;
@@ -49,10 +49,6 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 this.emailSender,
                 this.consultationsRepository,
                 this.patientsRepository);
-
-            this.patientsService = new PatientsService(
-                this.patientsRepository,
-                this.usersRepository);
 
             AutoMapperConfig.RegisterMappings(typeof(DoctorViewModel).GetTypeInfo().Assembly);
             AutoMapperConfig.RegisterMappings(typeof(IndexViewModel).GetTypeInfo().Assembly);
@@ -97,9 +93,9 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             this.doctorsService.CreateDoctorAsync(user.Id, doctor);
 
             var doctors = this.doctorsService.GetAllDoctorsNearPatient<DoctorViewModel>(1, 12, town);
-
+            var doctorsCount = doctors.Count();
             Assert.IsType<List<DoctorViewModel>>(doctors);
-            Assert.Equal(1, doctors.Count());
+            Assert.Equal(1, doctorsCount);
         }
 
         [Fact]
@@ -290,7 +286,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
             await this.usersRepository.AddAsync(user);
-            var town = new Town(){Name = "Test"};
+            var town = new Town() { Name = "Test" };
             var doctor = new Doctor()
             {
                 Name = "Test",
@@ -315,7 +311,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
             await this.usersRepository.AddAsync(user);
-            var specialty = new Specialty(){Name = "Test"};
+            var specialty = new Specialty() { Name = "Test" };
             var doctor = new Doctor()
             {
                 Name = "Test",

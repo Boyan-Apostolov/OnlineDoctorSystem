@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
     using OnlineDoctorSystem.Data.Models.Enums;
 
     public class PatientRegister

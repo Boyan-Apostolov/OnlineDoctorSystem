@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Diagnostics;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Specialties;
@@ -17,7 +16,8 @@ namespace OnlineDoctorSystem.Web.Controllers
         private readonly ITownsService townsService;
         private readonly ISpecialtiesService specialtiesService;
 
-        public HomeController(ITownsService townsService,
+        public HomeController(
+            ITownsService townsService,
             ISpecialtiesService specialtiesService)
         {
             this.townsService = townsService;

@@ -17,7 +17,7 @@
                     Start = table.Column<DateTime>(nullable: false),
                     End = table.Column<DateTime>(nullable: false),
                     Text = table.Column<string>(nullable: true),
-                    Color = table.Column<string>(nullable: true)
+                    Color = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

@@ -19,7 +19,7 @@
                     Name = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true)
+                    Content = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

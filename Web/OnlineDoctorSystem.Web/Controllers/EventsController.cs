@@ -22,7 +22,7 @@
     {
         private readonly IEventsService eventsService;
 
-        public EventsController(ApplicationDbContext context, IEventsService eventsService)
+        public EventsController(IEventsService eventsService)
         {
             this.eventsService = eventsService;
         }
@@ -74,7 +74,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             this.eventsService.ChangeEventColor(id, param.Color);

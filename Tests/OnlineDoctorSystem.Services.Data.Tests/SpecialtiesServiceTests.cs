@@ -73,15 +73,11 @@
         [Fact]
         public async Task GetAllSpecialtiesShouldReturnCorrectData()
         {
-            var specialty = new Specialty() { Name = "TestSpecialty"};
+            var specialty = new Specialty() { Name = "TestSpecialty" };
 
             await this.repository.AddAsync(specialty);
             await this.repository.SaveChangesAsync();
-            var viewModel = new SpecialtiesIndexViewModel()
-            {
-                Id = specialty.Id,
-                Name = specialty.Name
-            };
+
             var specialtyFromService = this.specialtiesService.GetAllAsKeyValuePairs().First();
 
             Assert.Equal(specialty.Name, specialtyFromService.Value);

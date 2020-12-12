@@ -5,6 +5,11 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using OnlineDoctorSystem.Data;
     using OnlineDoctorSystem.Data.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
@@ -12,13 +17,6 @@
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Data.Seeding;
     using OnlineDoctorSystem.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class Program
     {
@@ -42,12 +40,12 @@
                 serviceProvider = serviceScope.ServiceProvider;
 
                 return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
-                    opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
+                    opts => SandboxCode().GetAwaiter().GetResult(),
                     _ => 255);
             }
         }
 
-        private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
+        private static async Task<int> SandboxCode()
         {
             var sw = Stopwatch.StartNew();
             Console.WriteLine(sw.Elapsed);

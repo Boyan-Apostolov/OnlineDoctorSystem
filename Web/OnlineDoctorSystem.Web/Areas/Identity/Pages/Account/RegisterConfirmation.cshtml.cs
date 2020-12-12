@@ -14,13 +14,11 @@
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEmailSender _sender;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public RegisterConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager;
-            _sender = sender;
+            this.userManager = userManager;
         }
 
         public string Email { get; set; }
@@ -33,31 +31,30 @@
         {
             if (email == null)
             {
-                return RedirectToPage("/Index");
+                return this.RedirectToPage("/Index");
             }
 
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await this.userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return this.NotFound($"Unable to load user with email '{email}'.");
             }
 
-            Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
-            DisplayConfirmAccountLink = true;
-            if (DisplayConfirmAccountLink)
+            this.Email = email;
+            this.DisplayConfirmAccountLink = true;
+            if (this.DisplayConfirmAccountLink)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var userId = await this.userManager.GetUserIdAsync(user);
+                var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                EmailConfirmationUrl = Url.Page(
+                this.EmailConfirmationUrl = this.Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme);
+                    values: new { area = "Identity", userId, code, returnUrl },
+                    protocol: this.Request.Scheme);
             }
 
-            return Page();
+            return this.Page();
         }
     }
 }

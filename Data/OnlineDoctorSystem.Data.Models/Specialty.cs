@@ -1,6 +1,5 @@
 ﻿namespace OnlineDoctorSystem.Data.Models
 {
-
     using OnlineDoctorSystem.Data.Common.Models;
 
     public class Specialty : BaseDeletableModel<int>

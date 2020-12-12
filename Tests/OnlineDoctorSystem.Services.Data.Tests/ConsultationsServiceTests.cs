@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OnlineDoctorSystem.Data;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Data.Repositories;
-using OnlineDoctorSystem.Services.Data.Consultations;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Events;
-using OnlineDoctorSystem.Services.Data.Patients;
-using OnlineDoctorSystem.Services.Mapping;
-using OnlineDoctorSystem.Services.Messaging;
-using OnlineDoctorSystem.Web.ViewModels.Consultations;
-using OnlineDoctorSystem.Web.ViewModels.Pateints;
-using Xunit;
-
+﻿// ReSharper disable All
 namespace OnlineDoctorSystem.Services.Data.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Data.Repositories;
+    using OnlineDoctorSystem.Services.Data.Consultations;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Events;
+    using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Services.Messaging;
+    using OnlineDoctorSystem.Web.ViewModels.Consultations;
+    using OnlineDoctorSystem.Web.ViewModels.Pateints;
+    using Xunit;
+
     // TODO: Refactor in the future
     public class ConsultationsServiceTests
     {
@@ -116,7 +118,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         }
 
         [Fact]
-        public async Task IncorrectTimeShouldReturnFalseWhenEndTimeIsBeforeStartTime()
+        public void IncorrectTimeShouldReturnFalseWhenEndTimeIsBeforeStartTime()
         {
             var model = new AddConsultationViewModel()
             {
