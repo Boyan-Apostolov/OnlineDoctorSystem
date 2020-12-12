@@ -1,10 +1,11 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Contacts
 {
     using System.ComponentModel.DataAnnotations;
-
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.Infrastructure;
 
-    public class ContactSubmissionViewModel
+    public class ContactSubmissionViewModel : IMapFrom<ContactSubmission>
     {
         [Required(ErrorMessage = "Моля въведете вашите имена")]
         [Display(Name = "Вашите имена")]

@@ -37,5 +37,30 @@
 
             Assert.Contains(list, x => x.Content == content);
         }
+
+        [Fact]
+        public async Task GettingAllSubmissionsShouldReturnTheCorrectAmount()
+        {
+            var list = new List<ContactSubmission>();
+
+            var mockRepo = new Mock<IRepository<ContactSubmission>>();
+
+            mockRepo.Setup(x => x.All()).Returns(list.AsQueryable());
+            mockRepo.Setup(x => x.AddAsync(It.IsAny<ContactSubmission>())).Callback(
+                (ContactSubmission submission) => list.Add(submission));
+            var service = new ContactSubmissionService(mockRepo.Object);
+
+            var content = "TestContent";
+
+            await service.AddSubmissionToDb(new ContactSubmissionViewModel()
+            {
+                Content = content,
+                Email = "test@test.com",
+                Name = "Test",
+                Title = "Test",
+            });
+            var submissions = service.GetAllSubmissions();
+            Assert.Equal(list.Count(), submissions.Count());
+        }
     }
 }
