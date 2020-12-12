@@ -31,7 +31,7 @@
                         @if (this.User.IsInRole(GlobalConstants.PatientRoleName))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" style="margin-top: 7px" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
+                                <a class="nav-link text-dark" style="margin-top: 7px" asp-area="" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
                             </li>
                         }
                         @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
@@ -40,25 +40,25 @@
                                 <div class="dropdown show nav-link text-dark">
                                     <a class="btn dropdown-toggle" href="#" data-toggle="dropdown">Консултации</a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
-                                        <a class="dropdown-item" asp-controller="Doctors" asp-action="GetUnconfirmedConsultations">Непотвърдени консултации</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Consultations" asp-action="GetUsersConsultations">Моите консултации</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="GetUnconfirmedConsultations">Непотвърдени консултации</a>
                                     </div>
                                 </div>
                             </li>
 
                             <li class="nav-item" style="margin-top: 7px">
-                                <a class="nav-link " asp-controller="Patients" asp-action="GetDoctorsPatients">Моите пациенти</a>
+                                <a class="nav-link " asp-area="" asp-controller="Patients" asp-action="GetDoctorsPatients">Моите пациенти</a>
                             </li>
 
                         }
                         <li class="nav-item" style="margin-top: 7px">
-                            <a class="nav-link " asp-controller="Home" asp-action="Chat">Общ чат</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Chat">Общ чат</a>
                         </li>
                         <li class="nav-item" style="margin-top: 7px">
-                            <a class="nav-link " asp-controller="Contacts" asp-action="Index">Контакти</a>
+                            <a class="nav-link" asp-area="" asp-controller="Contacts" asp-action="Index">Контакти</a>
                         </li>
                         <li class="nav-item" style="margin-top: 7px">
-                            <a class="nav-link" asp-controller="Statistics" asp-action="Index">Статистика</a>
+                            <a class="nav-link" asp-area="" asp-controller="Statistics" asp-action="Index">Статистика</a>
                         </li>
                     </ul>
                 </div>
