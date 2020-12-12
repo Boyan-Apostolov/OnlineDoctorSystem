@@ -57,11 +57,6 @@
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddConsultation(AddConsultationViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View("InvalidTimeInput");
-            }
-
             var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             if (this.consultationsService.AddConsultation(model, patient.Id).Result)
