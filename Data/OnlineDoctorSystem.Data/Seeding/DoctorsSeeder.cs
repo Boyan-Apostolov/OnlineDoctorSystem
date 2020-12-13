@@ -49,7 +49,7 @@
                         IsWorkingWithChildren = true,
                         SmallInfo = $"Казвам се {NamesLists.MaleFirstNames[num]} {NamesLists.MaleLastNames[num]} и съм лекар от {10 + num} години.",
                         Education = $"Учил съм в Пловдивският медицински университет {8 + num} години.",
-                        Qualifications = "Спечелил съм нобелова награда за откриване на ваксина срешу коронавируса",
+                        Qualifications = "Спечелил съм нобелова награда за откриване на ваксина срещу коронавируса",
                         Biography = "Работил съм като анестезиолог в софийската градска болница",
                         IsConfirmed = true,
                     };
