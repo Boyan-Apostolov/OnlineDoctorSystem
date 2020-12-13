@@ -79,7 +79,7 @@
             return events;
         }
 
-        public void MoveEvent(int eventId, DateTime startTime, DateTime endTime)
+        public async Task MoveEvent(int eventId, DateTime startTime, DateTime endTime)
         {
             var consultation = this.consultationsRepository.All()
                 .Include(x => x.CalendarEvent)
@@ -94,8 +94,8 @@
             consultation.CalendarEvent.Start = startTime;
             consultation.CalendarEvent.End = endTime;
 
-            this.consultationsRepository.SaveChangesAsync();
-            this.eventsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
+            await this.eventsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
             this.emailSender.SendEmailAsync(
@@ -106,11 +106,11 @@
                 $"Вашата консултация от {previousDate.ToShortDateString()} беше преместена на {consultation.Date.ToShortDateString()}.");
         }
 
-        public void ChangeEventColor(int eventId, string color)
+        public async Task ChangeEventColor(int eventId, string color)
         {
             var @event = this.eventsRepository.All().FirstOrDefault(x => x.Id == eventId);
             @event.Color = color;
-            this.eventsRepository.SaveChangesAsync();
+            await this.eventsRepository.SaveChangesAsync();
         }
     }
 }

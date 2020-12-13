@@ -134,7 +134,7 @@
             var consultation = await this.consultationsRepository.GetByIdWithDeletedAsync(consultationId);
 
             consultation.IsConfirmed = true;
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
             await this.emailSender.SendEmailAsync(
@@ -150,7 +150,7 @@
             var consultation = this.consultationsRepository.All().FirstOrDefault(x => x.Id == consultationId);
 
             consultation.IsConfirmed = false;
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
             await this.emailSender.SendEmailAsync(
@@ -172,13 +172,13 @@
 
         public async Task UpdateConsultationsWhenCompleted()
         {
-            var pastConsultations = this.consultationsRepository.AllWithDeleted().Where(x => x.Date <= DateTime.Today || x.EndTime <= DateTime.Now.TimeOfDay).ToList();
+            var pastConsultations = this.consultationsRepository.All().Where(x => x.Date <= DateTime.Today || (x.Date <= DateTime.Today && x.EndTime <= DateTime.Now.TimeOfDay)).ToList();
             foreach (var consultation in pastConsultations)
             {
                 consultation.IsActive = false;
             }
 
-            this.consultationsRepository.SaveChangesAsync();
+            await this.consultationsRepository.SaveChangesAsync();
         }
 
         public int GetConsultationsCount()

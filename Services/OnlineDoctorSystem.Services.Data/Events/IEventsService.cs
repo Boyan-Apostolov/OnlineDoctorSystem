@@ -14,8 +14,8 @@
 
         List<CalendarEvent> GetPatientsEvents(string userId);
 
-        void MoveEvent(int eventId, DateTime startTime, DateTime endTime);
+        Task MoveEvent(int eventId, DateTime startTime, DateTime endTime);
 
-        void ChangeEventColor(int eventId, string color);
+        Task ChangeEventColor(int eventId, string color);
     }
 }
