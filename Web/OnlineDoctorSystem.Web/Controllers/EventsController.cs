@@ -16,8 +16,7 @@
 
     [Authorize]
     [Produces("application/json")]
-    [Route("api/events")]
-    [IgnoreAntiforgeryToken]
+    [Route("api/[controller]")]
     public class EventsController : ControllerBase
     {
         private readonly IEventsService eventsService;
@@ -64,7 +63,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            this.eventsService.MoveEvent(id, param.Start, param.End);
+            await this.eventsService.MoveEvent(id, param.Start, param.End);
 
             return this.Ok();
         }
@@ -77,7 +76,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            this.eventsService.ChangeEventColor(id, param.Color);
+            await this.eventsService.ChangeEventColor(id, param.Color);
 
             return this.Ok();
         }

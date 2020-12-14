@@ -91,6 +91,10 @@
 
             services.AddApplicationInsightsTelemetry();
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(this.configuration);
 
