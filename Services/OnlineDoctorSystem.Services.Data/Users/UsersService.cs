@@ -21,15 +21,14 @@
             this.usersRepository = usersRepository;
         }
 
-        public async Task<ApplicationUser> GetUserByUsername(string username)
+        public ApplicationUser GetUserByUsername(string username)
         {
             return this.usersRepository.All().FirstOrDefault(x => x.UserName == username);
         }
 
         public async Task<bool> AddUserToRole(string username, string role)
         {
-            var users = this.usersRepository.All().ToList();
-            var user = await this.GetUserByUsername(username);
+            var user = this.GetUserByUsername(username);
             if (user == null)
             {
                 return false;

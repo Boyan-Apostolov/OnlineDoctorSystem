@@ -13,14 +13,11 @@
     public class PatientsService : IPatientsService
     {
         private readonly IDeletableEntityRepository<Patient> patientRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
         public PatientsService(
-            IDeletableEntityRepository<Patient> patientRepository,
-            IDeletableEntityRepository<ApplicationUser> usersRepository)
+            IDeletableEntityRepository<Patient> patientRepository)
         {
             this.patientRepository = patientRepository;
-            this.usersRepository = usersRepository;
         }
 
         public async Task AddPatientToDb(string userId, Patient patient)
@@ -36,7 +33,7 @@
                 .All().Include(x => x.Town).FirstOrDefault(x => x.UserId == userId);
         }
 
-        public async Task<string> GetPatientEmailByUserId(string id)
+        public string GetPatientEmailByUserId(string id)
         {
             var patients = this.patientRepository.All().ToList();
             var patient = this.patientRepository.All()

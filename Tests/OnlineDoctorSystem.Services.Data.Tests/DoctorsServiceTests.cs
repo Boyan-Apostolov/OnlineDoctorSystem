@@ -36,7 +36,7 @@
         public void GetAllShouldReturnTheCorrectNumberOfEntities()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -45,9 +45,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorsCount = this.doctorsService.GetAll<DoctorViewModel>(1, 12).Count();
+            var doctorsCount = this.DoctorsService.GetAll<DoctorViewModel>(1, 12).Count();
             Assert.Equal(1, doctorsCount);
         }
 
@@ -55,7 +55,7 @@
         public void GetAllDoctorsNearPatientShouldReturnCorrectAmountOfEntities()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var town = new Town() { Name = "TestTown" };
             var doctor = new Doctor()
@@ -66,9 +66,9 @@
                 IsConfirmed = true,
                 Town = town,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctors = this.doctorsService.GetAllDoctorsNearPatient<DoctorViewModel>(1, 12, town);
+            var doctors = this.DoctorsService.GetAllDoctorsNearPatient<DoctorViewModel>(1, 12, town);
             var doctorsCount = doctors.Count();
             Assert.IsType<List<DoctorViewModel>>(doctors);
             Assert.Equal(1, doctorsCount);
@@ -78,7 +78,7 @@
         public void GettingDoctorByIdWithModelShouldReturnCorrectDoctor()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -87,9 +87,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorFromService = this.doctorsService.GetDoctorById<DoctorViewModel>(doctor.Id);
+            var doctorFromService = this.DoctorsService.GetDoctorById<DoctorViewModel>(doctor.Id);
 
             Assert.Equal(doctor.Id, doctorFromService.Id);
             Assert.Equal(doctor.Name, doctorFromService.Name);
@@ -99,7 +99,7 @@
         public void GettingDoctorByIdShouldReturnCorrectDoctor()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -108,9 +108,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorFromService = this.doctorsService.GetDoctorById(doctor.Id);
+            var doctorFromService = this.DoctorsService.GetDoctorById(doctor.Id);
 
             Assert.Equal(doctor, doctorFromService);
         }
@@ -119,7 +119,7 @@
         public void GettingDoctorByUserIdShouldReturnCorrectDoctor()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -128,9 +128,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorFromService = this.doctorsService.GetDoctorByUserId(user.Id);
+            var doctorFromService = this.DoctorsService.GetDoctorByUserId(user.Id);
 
             Assert.Equal(doctor, doctorFromService);
         }
@@ -139,7 +139,7 @@
         public void GettingDoctorNameByIdShouldReturnCorrectName()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            this.usersRepository.AddAsync(user);
+            this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -148,9 +148,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorFromService = this.doctorsService.GetDoctorNameById(doctor.Id);
+            var doctorFromService = this.DoctorsService.GetDoctorNameById(doctor.Id);
 
             Assert.Equal(doctor.Name, doctorFromService);
         }
@@ -159,7 +159,7 @@
         public async Task GettingDoctorEmailByIdShouldReturnCorrectEmail()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -168,9 +168,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var email = await this.doctorsService.GetDoctorEmailById(doctor.Id);
+            var email = await this.DoctorsService.GetDoctorEmailById(doctor.Id);
 
             Assert.Equal(doctor.User.Email, email);
         }
@@ -179,7 +179,7 @@
         public async Task CreateDoctorAsyncShouldAddDoctorToTheDb()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -188,9 +188,9 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorsCount = this.doctorsRepository.All().Count();
+            var doctorsCount = this.DoctorsRepository.All().Count();
 
             Assert.Equal(1, doctorsCount);
         }
@@ -199,7 +199,7 @@
         public async Task ApprovingDoctorShouldChangeItsIsConfirmedFieldToTrue()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -207,9 +207,9 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            await this.doctorsService.ApproveDoctorAsync(doctor.Id);
+            await this.DoctorsService.ApproveDoctorAsync(doctor.Id);
 
             Assert.True(doctor.IsConfirmed);
         }
@@ -218,7 +218,7 @@
         public async Task DecliningDoctorShouldChangeItsIsConfirmedFieldToFalse()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -226,9 +226,9 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            await this.doctorsService.DeclineDoctorAsync(doctor.Id);
+            await this.DoctorsService.DeclineDoctorAsync(doctor.Id);
 
             Assert.False(doctor.IsConfirmed);
         }
@@ -237,7 +237,7 @@
         public async Task GettingFilteredDoctorsByNameShouldReturnTheCorrectDoctors()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -246,13 +246,13 @@
                 UserId = user.Id,
                 IsConfirmed = true,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
             var model = new IndexViewModel()
             {
                 DoctorName = "Test",
             };
 
-            var filteredDoctors = this.doctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
+            var filteredDoctors = this.DoctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
 
             Assert.Equal(1, filteredDoctors);
         }
@@ -261,7 +261,7 @@
         public async Task GettingFilteredDoctorsByTownShouldReturnTheCorrectDoctors()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
             var town = new Town() { Name = "Test" };
             var doctor = new Doctor()
             {
@@ -271,13 +271,13 @@
                 Town = town,
                 IsConfirmed = true,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
             var model = new IndexViewModel()
             {
                 TownId = town.Id,
             };
 
-            var filteredDoctors = this.doctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
+            var filteredDoctors = this.DoctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
 
             Assert.Equal(1, filteredDoctors);
         }
@@ -286,7 +286,7 @@
         public async Task GettingFilteredDoctorsBySpecialtyShouldReturnTheCorrectDoctors()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
             var specialty = new Specialty() { Name = "Test" };
             var doctor = new Doctor()
             {
@@ -296,13 +296,13 @@
                 Specialty = specialty,
                 IsConfirmed = true,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
             var model = new IndexViewModel()
             {
                 SpecialtyId = specialty.Id,
             };
 
-            var filteredDoctors = this.doctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
+            var filteredDoctors = this.DoctorsService.GetFilteredDoctors<DoctorViewModel>(model).Count();
 
             Assert.Equal(1, filteredDoctors);
         }
@@ -311,7 +311,7 @@
         public async Task GettingUnconfirmedDoctorsShouldReturnTheCorrectAmount()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -319,9 +319,9 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var unconfirmedDoctors = this.doctorsService.GetUnconfirmedDoctors<DoctorViewModel>().Count();
+            var unconfirmedDoctors = this.DoctorsService.GetUnconfirmedDoctors<DoctorViewModel>().Count();
 
             Assert.Equal(1, unconfirmedDoctors);
         }
@@ -330,7 +330,7 @@
         public async Task GettingDoctorsCountShouldReturnTheCorrectAmountOfDoctors()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -338,9 +338,9 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var doctorsCount = this.doctorsService.GetDoctorsCount();
+            var doctorsCount = this.DoctorsService.GetDoctorsCount();
 
             Assert.Equal(1, doctorsCount);
         }
@@ -349,7 +349,7 @@
         public async Task GettingReviewsCountShouldReturnTheCorrectAmountOfReviews()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -357,9 +357,9 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
-            var reviewsCount = this.doctorsService.GetReviewsCount();
+            var reviewsCount = this.DoctorsService.GetReviewsCount();
 
             Assert.Equal(1, reviewsCount);
         }
@@ -368,7 +368,7 @@
         public async Task AddingSuccessfullyReviewShouldReturnTrue()
         {
             var user = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var doctor = new Doctor()
             {
@@ -376,7 +376,7 @@
                 User = user,
                 UserId = user.Id,
             };
-            await this.doctorsService.CreateDoctorAsync(user.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
             var model = new ReviewViewModel()
             {
                 DoctorId = doctor.Id,
@@ -385,7 +385,7 @@
                 WaitingTimeReview = 3,
                 ReviewText = "Test",
             };
-            var isAdded = await this.doctorsService.AddReview(model);
+            var isAdded = await this.DoctorsService.AddReview(model);
 
             Assert.True(isAdded);
         }
@@ -395,8 +395,8 @@
         {
             var user1 = new ApplicationUser() { Email = "test@test.com" };
             var user2 = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user1);
-            await this.usersRepository.AddAsync(user2);
+            await this.UsersRepository.AddAsync(user1);
+            await this.UsersRepository.AddAsync(user2);
 
             var doctor = new Doctor()
             {
@@ -410,7 +410,7 @@
                 UserId = user2.Id,
                 User = user2,
             };
-            await this.patientsRepository.AddAsync(patient);
+            await this.PatientsRepository.AddAsync(patient);
 
             doctor.Consultations.Add(new Consultation()
             {
@@ -418,9 +418,9 @@
                 Patient = patient,
                 PatientId = patient.Id,
             });
-            await this.doctorsService.CreateDoctorAsync(user1.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user1.Id, doctor);
 
-            var patientsCount = this.doctorsService.GetDoctorsPatients<PatientViewModel>(doctor.Id).Count();
+            var patientsCount = this.DoctorsService.GetDoctorsPatients<PatientViewModel>(doctor.Id).Count();
 
             Assert.Equal(1, patientsCount);
         }

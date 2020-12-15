@@ -1,18 +1,17 @@
-﻿using System.Security.Claims;
-using OnlineDoctorSystem.Services.Data.Doctors;
-using OnlineDoctorSystem.Services.Data.Patients;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Hangfire;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
+    using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Prescriptions;
     using OnlineDoctorSystem.Web.ViewModels.Prescriptions;
 
@@ -36,7 +35,10 @@ namespace OnlineDoctorSystem.Web.Controllers
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public IActionResult AddPrescriptions(string patientId)
         {
-            var viewModel = new PrescriptionViewModel() { PatientId = patientId};
+            var viewModel = new PrescriptionViewModel()
+            {
+                PatientId = patientId,
+            };
             return this.View(viewModel);
         }
 

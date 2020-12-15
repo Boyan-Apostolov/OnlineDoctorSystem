@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace OnlineDoctorSystem.Data.Migrations
+﻿namespace OnlineDoctorSystem.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddPrescriptions : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +21,7 @@ namespace OnlineDoctorSystem.Data.Migrations
                     PatientId = table.Column<string>(nullable: true),
                     Quantity = table.Column<string>(nullable: true),
                     MedicamentName = table.Column<string>(nullable: true),
-                    Instructions = table.Column<string>(nullable: true)
+                    Instructions = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

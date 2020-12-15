@@ -40,7 +40,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(2),
             };
 
-            var isTimeCorrect = this.consultationsService.CheckIfTimeIsCorrect(model);
+            var isTimeCorrect = this.ConsultationsService.CheckIfTimeIsCorrect(model);
 
             Assert.False(isTimeCorrect);
         }
@@ -55,7 +55,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(2),
             };
 
-            var isTimeCorrect = this.consultationsService.CheckIfTimeIsCorrect(model);
+            var isTimeCorrect = this.ConsultationsService.CheckIfTimeIsCorrect(model);
 
             Assert.True(isTimeCorrect);
         }
@@ -70,7 +70,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(2),
             };
 
-            var isTimeCorrect = this.consultationsService.CheckIfTimeIsCorrect(model);
+            var isTimeCorrect = this.ConsultationsService.CheckIfTimeIsCorrect(model);
 
             Assert.False(isTimeCorrect);
         }
@@ -85,7 +85,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(2),
             };
 
-            var isAdded = this.consultationsService.CheckIfTimeIsCorrect(model);
+            var isAdded = this.ConsultationsService.CheckIfTimeIsCorrect(model);
 
             Assert.False(isAdded);
         }
@@ -102,8 +102,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -111,8 +111,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -122,7 +122,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(1),
             };
 
-            var isAdded = await this.consultationsService.AddConsultation(model, patient.Id);
+            var isAdded = await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             Assert.False(isAdded);
         }
@@ -139,8 +139,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -148,8 +148,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -159,7 +159,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(-1),
             };
 
-            var isAdded = await this.consultationsService.AddConsultation(model, patient.Id);
+            var isAdded = await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             Assert.False(isAdded);
         }
@@ -175,8 +175,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user.Id,
                 User = user,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -185,7 +185,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.UtcNow.AddDays(2),
             };
 
-            var isTimeCorrect = this.consultationsService.CheckIfTimeIsCorrect(model);
+            var isTimeCorrect = this.ConsultationsService.CheckIfTimeIsCorrect(model);
 
             Assert.True(isTimeCorrect);
         }
@@ -202,8 +202,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -211,8 +211,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -222,7 +222,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.Now.AddDays(-1),
             };
 
-            var isAdded = await this.consultationsService.AddConsultation(model, patient.Id);
+            var isAdded = await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             Assert.False(isAdded);
         }
@@ -239,8 +239,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -248,8 +248,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -259,7 +259,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Date = DateTime.UtcNow.AddDays(5),
             };
 
-            var isAdded = await this.consultationsService.AddConsultation(model, patient.Id);
+            var isAdded = await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             Assert.True(isAdded);
         }
@@ -276,8 +276,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -285,8 +285,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -295,10 +295,10 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
-            var consultationsCount = this.consultationsService.GetConsultationsCount();
+            var consultationsCount = this.ConsultationsService.GetConsultationsCount();
 
             Assert.Equal(2, consultationsCount);
         }
@@ -315,8 +315,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -324,8 +324,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -334,13 +334,13 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
-            var consultation = await this.consultationsRepository.All().FirstAsync();
+            var consultation = await this.ConsultationsRepository.All().FirstAsync();
             consultation.Date = DateTime.Today.AddDays(-1);
-            await this.consultationsRepository.SaveChangesAsync();
+            await this.ConsultationsRepository.SaveChangesAsync();
 
-            await this.consultationsService.UpdateConsultationsWhenCompleted();
+            await this.ConsultationsService.UpdateConsultationsWhenCompleted();
 
             Assert.False(consultation.IsActive);
         }
@@ -357,8 +357,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -366,8 +366,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -376,11 +376,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
-            var consultation = await this.consultationsRepository.All().FirstAsync();
+            var consultation = await this.ConsultationsRepository.All().FirstAsync();
 
-            await this.consultationsService.MakeConsultationReviewedToTrue(consultation.Id);
+            await this.ConsultationsService.MakeConsultationReviewedToTrue(consultation.Id);
 
             Assert.True(consultation.IsReviewed);
         }
@@ -397,8 +397,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -406,8 +406,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -416,11 +416,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
-            var consultation = await this.consultationsRepository.All().FirstAsync();
+            var consultation = await this.ConsultationsRepository.All().FirstAsync();
 
-            await this.consultationsService.DeclineConsultationAsync(consultation.Id);
+            await this.ConsultationsService.DeclineConsultationAsync(consultation.Id);
 
             Assert.False(consultation.IsConfirmed);
         }
@@ -437,8 +437,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -446,8 +446,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -456,11 +456,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
-            var consultation = await this.consultationsRepository.All().FirstAsync();
+            var consultation = await this.ConsultationsRepository.All().FirstAsync();
 
-            await this.consultationsService.ApproveConsultationAsync(consultation.Id);
+            await this.ConsultationsService.ApproveConsultationAsync(consultation.Id);
 
             Assert.True(consultation.IsConfirmed);
         }
@@ -477,8 +477,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -486,8 +486,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -496,11 +496,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             var unconfirmedConsultations =
-                this.consultationsService.GetDoctorsUnconfirmedConsultations(doctor.Id).Count();
+                this.ConsultationsService.GetDoctorsUnconfirmedConsultations(doctor.Id).Count();
 
             Assert.Equal(2, unconfirmedConsultations);
         }
@@ -517,8 +517,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -526,8 +526,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -536,11 +536,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             var consultationsCount =
-                this.consultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctor.Id).Count();
+                this.ConsultationsService.GetDoctorsConsultations<ConsultationViewModel>(doctor.Id).Count();
 
             Assert.Equal(2, consultationsCount);
         }
@@ -557,8 +557,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.PatientsRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
@@ -566,8 +566,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -576,11 +576,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 EndTime = DateTime.UtcNow.AddMinutes(40).TimeOfDay,
                 Date = DateTime.UtcNow.AddDays(5),
             };
-            await this.consultationsService.AddConsultation(model, patient.Id);
-            await this.consultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
+            await this.ConsultationsService.AddConsultation(model, patient.Id);
 
             var consultationsCount =
-                this.consultationsService.GetPatientsConsultations<ConsultationViewModel>(patient.Id).Count();
+                this.ConsultationsService.GetPatientsConsultations<ConsultationViewModel>(patient.Id).Count();
 
             Assert.Equal(2, consultationsCount);
         }
@@ -590,8 +590,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         {
             var user1 = new ApplicationUser() { Email = "test@test.com" };
             var user2 = new ApplicationUser() { Email = "test@test.com" };
-            await this.usersRepository.AddAsync(user1);
-            await this.usersRepository.AddAsync(user2);
+            await this.UsersRepository.AddAsync(user1);
+            await this.UsersRepository.AddAsync(user2);
 
             var doctor = new Doctor()
             {
@@ -605,7 +605,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user2.Id,
                 User = user2,
             };
-            await this.patientsRepository.AddAsync(patient);
+            await this.PatientsRepository.AddAsync(patient);
 
             doctor.Consultations.Add(new Consultation()
             {
@@ -613,9 +613,9 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 Patient = patient,
                 PatientId = patient.Id,
             });
-            await this.doctorsService.CreateDoctorAsync(user1.Id, doctor);
+            await this.DoctorsService.CreateDoctorAsync(user1.Id, doctor);
 
-            var consultations = await this.consultationsService.GetUnconfirmedConsultations(doctor.Id);
+            var consultations = await this.ConsultationsService.GetUnconfirmedConsultations(doctor.Id);
             var consultationsCount = consultations.Count();
 
             Assert.Equal(1, consultationsCount);

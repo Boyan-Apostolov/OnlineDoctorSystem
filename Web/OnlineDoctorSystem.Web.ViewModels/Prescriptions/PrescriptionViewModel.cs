@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Mapping;
-
-namespace OnlineDoctorSystem.Web.ViewModels.Prescriptions
+﻿namespace OnlineDoctorSystem.Web.ViewModels.Prescriptions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+
     public class PrescriptionViewModel : IMapFrom<Prescription>
     {
         public string DoctorId { get; set; }

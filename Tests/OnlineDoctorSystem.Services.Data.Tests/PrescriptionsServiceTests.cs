@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Web.ViewModels.Prescriptions;
-using Xunit;
-
-namespace OnlineDoctorSystem.Services.Data.Tests
+﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Web.ViewModels.Prescriptions;
+    using Xunit;
+
     public class PrescriptionsServiceTests : BaseTestClass
     {
         [Fact]
@@ -21,11 +22,11 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 MedicamentName = "Test",
                 Quantity = "Test123",
             };
-            await this.prescriptionsService.AddPrescriptionToPatient(prescription);
+            await this.PrescriptionsService.AddPrescriptionToPatient(prescription);
 
-            var prescriptionFromService = this.prescribtionsRepository.All().First();
+            var prescriptionFromService = this.PrescribtionsRepository.All().First();
 
-            Assert.Equal(prescription.Quantity,prescriptionFromService.Quantity);
+            Assert.Equal(prescription.Quantity, prescriptionFromService.Quantity);
         }
 
         [Fact]
@@ -40,7 +41,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 UserId = user1.Id,
                 User = user1,
             };
-            await this.patientsRepository.AddAsync(patient);
+            await this.PatientsRepository.AddAsync(patient);
 
             var doctor = new Doctor()
             {
@@ -48,7 +49,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.AddAsync(doctor);
             var prescription = new PrescriptionViewModel()
             {
                 Doctor = doctor,
@@ -59,10 +60,10 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 MedicamentName = "Test",
                 Quantity = "Test123",
             };
-            await this.prescriptionsService.AddPrescriptionToPatient(prescription);
+            await this.PrescriptionsService.AddPrescriptionToPatient(prescription);
 
             var prescriptions =
-                this.prescriptionsService.GetPatientsPrescriptions<PrescriptionViewModel>(patient.Id);
+                this.PrescriptionsService.GetPatientsPrescriptions<PrescriptionViewModel>(patient.Id);
 
             var prescriptionsCount = prescriptions.Count();
 

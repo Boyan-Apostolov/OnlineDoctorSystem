@@ -29,13 +29,6 @@
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-        }
-
         public bool RequirePassword { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -80,6 +73,13 @@
             this.logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
 
             return this.Redirect("~/");
+        }
+
+        public class InputModel
+        {
+            [Required]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
         }
     }
 }

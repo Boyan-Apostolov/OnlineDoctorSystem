@@ -36,6 +36,8 @@
 
         public string Biography { get; set; }
 
+        public virtual ICollection<Review> Reviews { get; set; }
+
         public double AverageRating()
         {
             if (this.Reviews.Any())
@@ -48,7 +50,5 @@
 
             return 0;
         }
-
-        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

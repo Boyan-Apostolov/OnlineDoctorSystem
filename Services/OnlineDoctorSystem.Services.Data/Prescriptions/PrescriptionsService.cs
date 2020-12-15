@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using OnlineDoctorSystem.Data.Common.Repositories;
-using OnlineDoctorSystem.Data.Models;
-using OnlineDoctorSystem.Services.Mapping;
-using OnlineDoctorSystem.Web.ViewModels.Prescriptions;
-
-namespace OnlineDoctorSystem.Services.Data.Prescriptions
+﻿namespace OnlineDoctorSystem.Services.Data.Prescriptions
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
+    using OnlineDoctorSystem.Data.Common.Repositories;
+    using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Mapping;
+    using OnlineDoctorSystem.Web.ViewModels.Prescriptions;
 
     public class PrescriptionsService : IPrescriptionsService
     {

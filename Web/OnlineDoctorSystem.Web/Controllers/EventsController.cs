@@ -27,7 +27,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CalendarEvent>>> GetEvents()
+        public ActionResult<IEnumerable<CalendarEvent>> GetEvents()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
@@ -44,7 +44,7 @@
 
         [HttpDelete("{id}")]
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
-        public async Task<IActionResult> DeleteEvent([FromRoute] int id)
+        public IActionResult DeleteEvent([FromRoute] int id)
         {
             if (this.eventsService.DeleteEventByIdAsync(id).Result)
             {

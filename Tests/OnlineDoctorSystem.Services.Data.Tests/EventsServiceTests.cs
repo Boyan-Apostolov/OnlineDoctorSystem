@@ -28,10 +28,10 @@
                 Color = "blue",
             };
 
-            await this.eventsRepository.AddAsync(calendarEvent);
-            await this.eventsRepository.SaveChangesAsync();
+            await this.EventsRepository.AddAsync(calendarEvent);
+            await this.EventsRepository.SaveChangesAsync();
 
-            this.eventsService.ChangeEventColor(calendarEvent.Id, "pink");
+            await this.EventsService.ChangeEventColor(calendarEvent.Id, "pink");
 
             Assert.True(calendarEvent.Color == "pink");
         }
@@ -48,7 +48,7 @@
                 Email = "test@test.com",
                 EmailConfirmed = true,
             };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var patient = new Patient()
             {
@@ -57,17 +57,17 @@
                 UserId = user.Id,
                 User = user,
             };
-            await this.patientsRepository.AddAsync(patient);
+            await this.PatientsRepository.AddAsync(patient);
 
-            await this.consultationsRepository.AddAsync(new Consultation()
+            await this.ConsultationsRepository.AddAsync(new Consultation()
             {
                 Patient = patient,
                 Date = DateTime.Now,
                 CalendarEvent = calendarEvent,
             });
-            await this.consultationsRepository.SaveChangesAsync();
+            await this.ConsultationsRepository.SaveChangesAsync();
 
-            bool isDeleted = await this.eventsService.DeleteEventByIdAsync(calendarEvent.Id);
+            bool isDeleted = await this.EventsService.DeleteEventByIdAsync(calendarEvent.Id);
 
             Assert.True(isDeleted);
         }
@@ -80,8 +80,7 @@
                 Color = "blue",
             };
             var user = new ApplicationUser() { Email = "test@test.com", EmailConfirmed = true };
-            await this.usersRepository.AddAsync(user);
-            await this.usersRepository.SaveChangesAsync();
+            await this.UsersRepository.AddAsync(user);
 
             var patient = new Patient()
             {
@@ -89,18 +88,18 @@
                 LastName = "test",
                 UserId = user.Id,
             };
-            await this.patientsRepository.AddAsync(patient);
-            await this.patientsRepository.SaveChangesAsync();
+            await this.PatientsRepository.AddAsync(patient);
+            await this.UsersRepository.SaveChangesAsync();
 
-            await this.consultationsRepository.AddAsync(new Consultation()
+            await this.ConsultationsRepository.AddAsync(new Consultation()
             {
                 Patient = patient,
                 Date = DateTime.Now,
                 CalendarEvent = calendarEvent,
             });
-            this.consultationsRepository.SaveChangesAsync();
+            await this.ConsultationsRepository.SaveChangesAsync();
 
-            this.eventsService.MoveEvent(
+            await this.EventsService.MoveEvent(
                 calendarEvent.Id,
                 DateTime.UtcNow,
                 DateTime.UtcNow.AddDays(1));
@@ -116,7 +115,7 @@
                 Color = "blue",
             };
             var user = new ApplicationUser() { Email = "test@test.com", EmailConfirmed = true };
-            await this.usersRepository.AddAsync(user);
+            await this.UsersRepository.AddAsync(user);
 
             var patient = new Patient()
             {
@@ -124,9 +123,9 @@
                 LastName = "test",
                 UserId = user.Id,
             };
-            await this.patientsRepository.AddAsync(patient);
+            await this.PatientsRepository.AddAsync(patient);
 
-            await this.consultationsRepository.AddAsync(new Consultation()
+            await this.ConsultationsRepository.AddAsync(new Consultation()
             {
                 Patient = patient,
                 Date = DateTime.Now,
@@ -134,9 +133,9 @@
                 IsConfirmed = true,
                 IsActive = true,
             });
-            await this.consultationsRepository.SaveChangesAsync();
+            await this.ConsultationsRepository.SaveChangesAsync();
 
-            var eventsCount = this.eventsService.GetPatientsEvents(patient.UserId).Count;
+            var eventsCount = this.EventsService.GetPatientsEvents(patient.UserId).Count;
 
             Assert.Equal(1, eventsCount);
         }
@@ -149,18 +148,18 @@
                 Color = "blue",
             };
             var user = new ApplicationUser() { Email = "test@test.com", EmailConfirmed = true };
-            await this.usersRepository.AddAsync(user);
-            await this.usersRepository.SaveChangesAsync();
+            await this.UsersRepository.AddAsync(user);
+            await this.UsersRepository.SaveChangesAsync();
 
             var doctor = new Doctor()
             {
                 Name = "Test",
                 UserId = user.Id,
             };
-            await this.doctorsRepository.AddAsync(doctor);
-            await this.doctorsRepository.SaveChangesAsync();
+            await this.DoctorsRepository.AddAsync(doctor);
+            await this.DoctorsRepository.SaveChangesAsync();
 
-            await this.consultationsRepository.AddAsync(new Consultation()
+            await this.ConsultationsRepository.AddAsync(new Consultation()
             {
                 Doctor = doctor,
                 Date = DateTime.Now,
@@ -169,10 +168,10 @@
                 IsActive = true,
             });
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            this.consultationsRepository.SaveChangesAsync();
+            this.ConsultationsRepository.SaveChangesAsync();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-            var eventsCount = this.eventsService.GetDoctorsEvents(doctor.UserId).Count;
+            var eventsCount = this.EventsService.GetDoctorsEvents(doctor.UserId).Count;
 
             Assert.Equal(1, eventsCount);
         }

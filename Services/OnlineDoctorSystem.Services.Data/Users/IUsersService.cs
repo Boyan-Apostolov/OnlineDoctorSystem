@@ -7,7 +7,7 @@
 
     public interface IUsersService
     {
-        Task<ApplicationUser> GetUserByUsername(string username);
+        ApplicationUser GetUserByUsername(string username);
 
         Task<bool> AddUserToRole(string username, string role);
     }

@@ -42,9 +42,9 @@
         }
 
         [Fact]
-        public async Task GetUserByUsernameWithFalseUserShouldReturnNull()
+        public void GetUserByUsernameWithFalseUserShouldReturnNull()
         {
-            var user = await this.usersService.GetUserByUsername("TestUser");
+            var user = this.usersService.GetUserByUsername("TestUser");
             Assert.Null(user);
         }
 

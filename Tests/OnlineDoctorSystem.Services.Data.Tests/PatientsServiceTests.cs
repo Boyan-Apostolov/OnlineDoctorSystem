@@ -49,7 +49,7 @@
             AutoMapperConfig.RegisterMappings(
                 typeof(PatientViewModel).GetTypeInfo().Assembly);
 
-            var service = new PatientsService(mockRepo.Object, mockRepoOfUser.Object);
+            var service = new PatientsService(mockRepo.Object);
             this.patientsService = service;
         }
 
@@ -98,7 +98,7 @@
         }
 
         [Fact]
-        public async Task GetPatientEmailByUserIdShouldGetCorrectEmail()
+        public void GetPatientEmailByUserIdShouldGetCorrectEmail()
         {
             var email = "test@test.com";
             var user = new ApplicationUser() { UserName = "test", Email = email };
@@ -118,7 +118,7 @@
             this.listOfUsers.Add(user);
             this.list.Add(patient);
 
-            var actualEmail = await this.patientsService.GetPatientEmailByUserId(user.Id);
+            var actualEmail = this.patientsService.GetPatientEmailByUserId(user.Id);
 
             Assert.Equal(email, actualEmail);
         }

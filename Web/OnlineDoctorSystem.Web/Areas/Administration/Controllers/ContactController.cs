@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineDoctorSystem.Services.Data.ContactSubmission;
-using OnlineDoctorSystem.Web.ViewModels.Contacts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
+﻿namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using OnlineDoctorSystem.Services.Data.ContactSubmission;
+    using OnlineDoctorSystem.Web.ViewModels.Contacts;
+
     public class ContactController : AdministrationController
     {
         private readonly IContactSubmissionService contactSubmission;

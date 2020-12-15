@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.Prescriptions;
-
-namespace OnlineDoctorSystem.Services.Data.Tests
+﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
 
@@ -12,65 +10,64 @@ namespace OnlineDoctorSystem.Services.Data.Tests
     using OnlineDoctorSystem.Services.Data.Doctors;
     using OnlineDoctorSystem.Services.Data.Events;
     using OnlineDoctorSystem.Services.Data.Patients;
+    using OnlineDoctorSystem.Services.Data.Prescriptions;
     using OnlineDoctorSystem.Services.Messaging;
 
     public class BaseTestClass
     {
-        public IDoctorsService doctorsService;
-        public IPatientsService patientsService;
-        public IConsultationsService consultationsService;
-        public IEmailSender emailSender;
-        public IEventsService eventsService;
-        public IPrescriptionsService prescriptionsService;
+        public IDoctorsService DoctorsService;
+        public IPatientsService PatientsService;
+        public IConsultationsService ConsultationsService;
+        public IEmailSender EmailSender;
+        public IEventsService EventsService;
+        public IPrescriptionsService PrescriptionsService;
 
-        public EfDeletableEntityRepository<CalendarEvent> eventsRepository;
-        public EfDeletableEntityRepository<Consultation> consultationsRepository;
-        public EfDeletableEntityRepository<Patient> patientsRepository;
-        public EfDeletableEntityRepository<ApplicationUser> usersRepository;
-        public EfDeletableEntityRepository<Doctor> doctorsRepository;
-        public EfDeletableEntityRepository<Prescription> prescribtionsRepository;
+        public EfDeletableEntityRepository<CalendarEvent> EventsRepository;
+        public EfDeletableEntityRepository<Consultation> ConsultationsRepository;
+        public EfDeletableEntityRepository<Patient> PatientsRepository;
+        public EfDeletableEntityRepository<ApplicationUser> UsersRepository;
+        public EfDeletableEntityRepository<Doctor> DoctorsRepository;
+        public EfDeletableEntityRepository<Prescription> PrescribtionsRepository;
 
         public BaseTestClass()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
-            this.eventsRepository = new EfDeletableEntityRepository<CalendarEvent>(new ApplicationDbContext(options.Options));
-            this.consultationsRepository = new EfDeletableEntityRepository<Consultation>(new ApplicationDbContext(options.Options));
-            this.doctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
-            this.usersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
-            this.patientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
-            this.prescribtionsRepository = new EfDeletableEntityRepository<Prescription>(new ApplicationDbContext(options.Options));
-            this.emailSender = new SendGridEmailSender("test");
+            this.EventsRepository = new EfDeletableEntityRepository<CalendarEvent>(new ApplicationDbContext(options.Options));
+            this.ConsultationsRepository = new EfDeletableEntityRepository<Consultation>(new ApplicationDbContext(options.Options));
+            this.DoctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
+            this.UsersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            this.PatientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
+            this.PrescribtionsRepository = new EfDeletableEntityRepository<Prescription>(new ApplicationDbContext(options.Options));
+            this.EmailSender = new SendGridEmailSender("test");
 
-            this.doctorsService = new DoctorsService(
-                this.doctorsRepository,
-                this.usersRepository,
-                this.emailSender,
-                this.consultationsRepository,
-                this.patientsRepository);
+            this.DoctorsService = new DoctorsService(
+                this.DoctorsRepository,
+                this.UsersRepository,
+                this.EmailSender,
+                this.ConsultationsRepository,
+                this.PatientsRepository);
 
-            this.patientsService = new PatientsService(
-                this.patientsRepository,
-                this.usersRepository);
+            this.PatientsService = new PatientsService(this.PatientsRepository);
 
-            this.consultationsService = new ConsultationsService(
-                this.doctorsRepository,
-                this.consultationsRepository,
-                this.patientsRepository,
-                this.eventsRepository,
-                this.emailSender,
-                this.doctorsService,
-                this.patientsService);
+            this.ConsultationsService = new ConsultationsService(
+                this.DoctorsRepository,
+                this.ConsultationsRepository,
+                this.PatientsRepository,
+                this.EventsRepository,
+                this.EmailSender,
+                this.DoctorsService,
+                this.PatientsService);
 
-            this.eventsService = new EventsService(
-                this.eventsRepository,
-                this.consultationsRepository,
-                this.doctorsService,
-                this.patientsService,
-                this.emailSender);
+            this.EventsService = new EventsService(
+                this.EventsRepository,
+                this.ConsultationsRepository,
+                this.DoctorsService,
+                this.PatientsService,
+                this.EmailSender);
 
-            this.prescriptionsService = new PrescriptionsService(prescribtionsRepository);
+            this.PrescriptionsService = new PrescriptionsService(this.PrescribtionsRepository);
         }
     }
 }

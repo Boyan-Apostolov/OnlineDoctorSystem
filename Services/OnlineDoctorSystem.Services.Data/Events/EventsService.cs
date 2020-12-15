@@ -98,7 +98,7 @@
             await this.eventsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
-            this.emailSender.SendEmailAsync(
+            await this.emailSender.SendEmailAsync(
                 GlobalConstants.SystemAdminEmail,
                 $"Админ на Онлайн-Доктор Системата",
                 patientEmail,
