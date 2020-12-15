@@ -1,0 +1,27 @@
+﻿@model OnlineDoctorSystem.Web.ViewModels.Prescriptions.ListOfPrescriptions
+
+@{
+    this.ViewData["Title"] = "Моите предписания";
+}
+
+@if (Model.Prescriptions.Any())
+{
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
+    <div class="row">
+        @foreach (var prescription in @Model.Prescriptions)
+        {
+            <div class="media border-bottom-info col-md-4">
+                <div class="media-body">
+                    <h5 class="mt-0">Медикамент: @prescription.MedicamentName</h5>
+                    <h5>Количество: @prescription.Quantity</h5>
+                    <div class="form-group">Инструкции: <textarea class="text-wrap form-control" disabled="disabled">@prescription.Instructions</textarea></div>
+                    <h5>Добавено от: @prescription.Doctor.Name</h5>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h1>Нямате никакви предписания за сега</h1>
+}

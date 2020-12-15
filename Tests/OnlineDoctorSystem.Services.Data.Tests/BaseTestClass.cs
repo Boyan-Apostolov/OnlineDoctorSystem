@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Tests
+﻿using OnlineDoctorSystem.Services.Data.Prescriptions;
+
+namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
 
@@ -19,12 +21,14 @@
         public IConsultationsService consultationsService;
         public IEmailSender emailSender;
         public IEventsService eventsService;
+        public IPrescriptionsService prescriptionsService;
 
         public EfDeletableEntityRepository<CalendarEvent> eventsRepository;
         public EfDeletableEntityRepository<Consultation> consultationsRepository;
         public EfDeletableEntityRepository<Patient> patientsRepository;
         public EfDeletableEntityRepository<ApplicationUser> usersRepository;
         public EfDeletableEntityRepository<Doctor> doctorsRepository;
+        public EfDeletableEntityRepository<Prescription> prescribtionsRepository;
 
         public BaseTestClass()
         {
@@ -36,6 +40,7 @@
             this.doctorsRepository = new EfDeletableEntityRepository<Doctor>(new ApplicationDbContext(options.Options));
             this.usersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             this.patientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
+            this.prescribtionsRepository = new EfDeletableEntityRepository<Prescription>(new ApplicationDbContext(options.Options));
             this.emailSender = new SendGridEmailSender("test");
 
             this.doctorsService = new DoctorsService(
@@ -64,6 +69,8 @@
                 this.doctorsService,
                 this.patientsService,
                 this.emailSender);
+
+            this.prescriptionsService = new PrescriptionsService(prescribtionsRepository);
         }
     }
 }

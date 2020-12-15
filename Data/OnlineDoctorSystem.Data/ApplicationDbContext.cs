@@ -23,6 +23,8 @@
         {
         }
 
+        public DbSet<Prescription> Prescriptions { get; set; }
+
         public DbSet<ContactSubmission> ContactSubmissions { get; set; }
 
         public DbSet<CalendarEvent> Events { get; set; }

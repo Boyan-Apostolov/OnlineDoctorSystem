@@ -14,6 +14,8 @@
 
         public string PatientName { get; set; }
 
+        public string PatientId { get; set; }
+
         public string DoctorId { get; set; }
 
         public int EventId { get; set; }

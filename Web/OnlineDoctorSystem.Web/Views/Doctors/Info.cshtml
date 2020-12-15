@@ -31,6 +31,8 @@
                         }
                     </div>
                     <h4 class="d-inline">@Model.Town.Name - <small class="text-muted">@Model.YearsOfPractice години стаж</small></h4>
+                    <p>Телефон: @Model.Phone</p>
+
                     @if (!this.User.IsInRole(GlobalConstants.DoctorRoleName))
                     {
                         <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>

@@ -111,8 +111,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -148,8 +148,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -211,8 +211,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -248,8 +248,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -285,8 +285,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -366,8 +366,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -406,8 +406,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -446,8 +446,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -486,8 +486,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -526,8 +526,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {
@@ -566,8 +566,8 @@ namespace OnlineDoctorSystem.Services.Data.Tests
                 User = user2,
                 UserId = user2.Id,
             };
-            this.doctorsRepository.AddAsync(doctor);
-            this.doctorsRepository.SaveChangesAsync();
+            await this.doctorsRepository.AddAsync(doctor);
+            await this.doctorsRepository.SaveChangesAsync();
 
             var model = new AddConsultationViewModel()
             {

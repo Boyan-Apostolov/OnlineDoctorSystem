@@ -4,22 +4,28 @@
     this.ViewData["Title"] = "Моите пациенти";
 }
 
-<h1 class="text-center">@this.ViewData["Title"]</h1>
-@foreach (var patient in @Model.Patients)
+@if (Model.Patients.Any())
 {
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
     <div class="row">
+        @foreach (var patient in @Model.Patients)
+        {
             <div class="media border-bottom-info col-md-4">
                 <img style="height: 100px; width: 100px" src="@patient.ImageUrl" alt="">
-                
+
                 <div class="media-body">
                     <h5 class="mt-0">@patient.FirstName @patient.LastName</h5>
                     <a asp-controller="Patients" asp-action="GetPatientById" asp-route-patientId="@patient.Id" class="btn btn-success">Инфо</a>
-                    <br/>
+                    <br />
                     <i class="fas fa-map-marker-alt"></i> @patient.TownName
                     <br />
                     <i class="fas fa-phone-square-alt"></i> @patient.Phone
                 </div>
             </div>
+        }
     </div>
-
+}
+else
+{
+    <h1>Нямате никакви пациенти за сега</h1>
 }

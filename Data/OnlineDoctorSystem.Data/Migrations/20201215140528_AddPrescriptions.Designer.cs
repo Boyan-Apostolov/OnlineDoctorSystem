@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineDoctorSystem.Data;
 
 namespace OnlineDoctorSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201215140528_AddPrescriptions")]
+    partial class AddPrescriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -790,7 +792,7 @@ namespace OnlineDoctorSystem.Data.Migrations
                         .HasForeignKey("DoctorId");
 
                     b.HasOne("OnlineDoctorSystem.Data.Models.Patient", "Patient")
-                        .WithMany("Prescriptions")
+                        .WithMany()
                         .HasForeignKey("PatientId");
                 });
 

@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Consultations = new HashSet<Consultation>();
+            this.Prescriptions = new HashSet<Prescription>();
         }
 
         public string FirstName { get; set; }
@@ -33,5 +34,7 @@
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Consultation> Consultations { get; set; }
+
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
     }
 }

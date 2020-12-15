@@ -136,16 +136,18 @@ else
                 <th>Краен час</th>
                 <th>Пациент</th>
                 <th>Описание</th>
+                <th>Предписание</th>
             </tr>
             @foreach (var consultation in Model.Consultations.Where(x => !x.IsActive && !x.IsCancelled))
             {
-                <tr>
-                    <th>@consultation.Date.ToShortDateString()</th>
-                    <th>@consultation.StartTime</th>
-                    <th>@consultation.EndTime</th>
-                    <th>@consultation.PatientName</th>
-                    <th>@consultation.Description</th>
-                </tr>
+        <tr>
+            <th>@consultation.Date.ToShortDateString()</th>
+            <th>@consultation.StartTime</th>
+            <th>@consultation.EndTime</th>
+            <th>@consultation.PatientName</th>
+            <th>@consultation.Description</th>
+            <th><a asp-controller="Prescriptions" asp-action="AddPrescriptions" asp-route-patientId="@consultation.PatientId"class="btn btn-success">ДОБАВИ</a></th>
+        </tr>
             }
         </table>
         <h2>Анулирани консултации</h2>

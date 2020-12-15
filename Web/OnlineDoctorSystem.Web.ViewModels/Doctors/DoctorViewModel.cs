@@ -28,7 +28,7 @@
 
         public string SmallInfo { get; set; }
 
-        public string WorkingHours { get; set; }
+        public string Phone { get; set; }
 
         public string Education { get; set; }
 
