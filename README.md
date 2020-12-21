@@ -58,6 +58,9 @@ You can check it out on: https://onlinedoc.azurewebsites.net/
 
 ![GenralChat](https://cdn1.bbcode0.com/uploads/2020/12/13/50adfc1873c54e44141f16d7d1cca6e9-full.png)
 
+# Database Diagram:
+![Database Diagram](https://cdn1.bbcode0.com/uploads/2020/12/21/382e82bc79fe018a2c886e791b8bd333-full.png)
+
 # Code Coverage Results:
 ![Code Coverage Results](https://cdn1.bbcode0.com/uploads/2020/12/12/19db8200e005b0cc795c4acc39ed547a-full.png)
 
