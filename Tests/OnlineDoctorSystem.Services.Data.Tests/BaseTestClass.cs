@@ -46,7 +46,6 @@
                 this.DoctorsRepository,
                 this.UsersRepository,
                 this.EmailSender,
-                this.ConsultationsRepository,
                 this.PatientsRepository);
 
             this.PatientsService = new PatientsService(this.PatientsRepository);
