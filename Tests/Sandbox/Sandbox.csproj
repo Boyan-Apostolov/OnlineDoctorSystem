@@ -39,7 +39,6 @@
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Data\OnlineDoctorSystem.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Mapping\OnlineDoctorSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Messaging\OnlineDoctorSystem.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services\OnlineDoctorSystem.Services.csproj" />
   </ItemGroup>
 
 </Project>
