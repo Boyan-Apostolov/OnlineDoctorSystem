@@ -28,7 +28,7 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(DoctorViewModel).GetTypeInfo().Assembly);
             AutoMapperConfig.RegisterMappings(typeof(IndexViewModel).GetTypeInfo().Assembly);
-            AutoMapperConfig.RegisterMappings(typeof(ReviewViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(AddReviewInputModel).GetTypeInfo().Assembly);
             AutoMapperConfig.RegisterMappings(typeof(PatientViewModel).GetTypeInfo().Assembly);
         }
 
@@ -377,7 +377,7 @@
                 UserId = user.Id,
             };
             await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
-            var model = new ReviewViewModel()
+            var model = new AddReviewInputModel()
             {
                 DoctorId = doctor.Id,
                 DoctorAttitudeReview = 3,

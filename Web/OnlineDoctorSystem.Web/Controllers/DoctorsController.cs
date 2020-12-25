@@ -17,6 +17,8 @@
     [Authorize]
     public class DoctorsController : Controller
     {
+        private const int ItemsPerPage = 4;
+
         private readonly IDoctorsService doctorsService;
         private readonly IConsultationsService consultationsService;
         private readonly IPatientsService patientsService;
@@ -42,7 +44,6 @@
 
         public IActionResult All(int id = 1)
         {
-            const int ItemsPerPage = 4;
             var viewModel = new AllDoctorViewModel()
             {
                 ItemsPerPage = ItemsPerPage,
@@ -56,7 +57,6 @@
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AllNearPatient(int id = 1)
         {
-            const int ItemsPerPage = 4;
             var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var doctors =
                 this.doctorsService.GetAllDoctorsNearPatient<DoctorViewModelForAll>(id, ItemsPerPage, patient.Town);
@@ -97,7 +97,7 @@
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
         public IActionResult AddReview(string doctorId, string consultationId)
         {
-            var viewModel = new ReviewViewModel()
+            var viewModel = new AddReviewInputModel()
             {
                 ConsultationId = consultationId,
                 DoctorId = doctorId,
@@ -109,7 +109,7 @@
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
-        public async Task<IActionResult> AddReview(ReviewViewModel model)
+        public async Task<IActionResult> AddReview(AddReviewInputModel model)
         {
             if (this.doctorsService.AddReview(model).Result)
             {

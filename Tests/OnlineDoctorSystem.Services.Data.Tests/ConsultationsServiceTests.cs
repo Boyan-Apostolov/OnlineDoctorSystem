@@ -33,7 +33,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         [Fact]
         public void Test1()
         {
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 StartTime = DateTime.Now.AddMinutes(50).TimeOfDay,
                 EndTime = DateTime.Now.AddMinutes(-50).TimeOfDay,
@@ -48,7 +48,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         [Fact]
         public void Test2()
         {
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 StartTime = DateTime.Now.AddMinutes(-50).TimeOfDay,
                 EndTime = DateTime.Now.AddMinutes(50).TimeOfDay,
@@ -63,7 +63,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         [Fact]
         public void Test3()
         {
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 StartTime = TimeSpan.Parse("15:15:15"),
                 EndTime = TimeSpan.Parse("15:15:15"),
@@ -78,7 +78,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
         [Fact]
         public void IncorrectTimeShouldReturnFalseWhenEndTimeIsBeforeStartTime()
         {
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 StartTime = DateTime.Now.AddHours(3).TimeOfDay,
                 EndTime = DateTime.Now.TimeOfDay,
@@ -114,7 +114,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = TimeSpan.Parse("15:15:15"),
@@ -151,7 +151,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.Now.TimeOfDay,
@@ -178,7 +178,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.PatientsRepository.AddAsync(patient);
             await this.PatientsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 StartTime = DateTime.UtcNow.TimeOfDay,
                 EndTime = DateTime.UtcNow.AddDays(5).TimeOfDay,
@@ -214,7 +214,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.Now.AddHours(5).TimeOfDay,
@@ -251,7 +251,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -288,7 +288,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -327,7 +327,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -369,7 +369,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -409,7 +409,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -449,7 +449,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -489,7 +489,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -529,7 +529,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,
@@ -569,7 +569,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
             await this.DoctorsRepository.AddAsync(doctor);
             await this.DoctorsRepository.SaveChangesAsync();
 
-            var model = new AddConsultationViewModel()
+            var model = new AddConsultationInputModel()
             {
                 DoctorId = doctor.Id,
                 StartTime = DateTime.UtcNow.TimeOfDay,

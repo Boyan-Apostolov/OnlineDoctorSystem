@@ -12,7 +12,7 @@
         [Fact]
         public async Task CreatingPrescriptionShouldAddItToTheDb()
         {
-            var prescription = new PrescriptionViewModel()
+            var prescription = new AddPrescriptionInputModel()
             {
                 Doctor = new Doctor(),
                 DoctorId = "test",
@@ -50,7 +50,7 @@
                 UserId = user2.Id,
             };
             await this.DoctorsRepository.AddAsync(doctor);
-            var prescription = new PrescriptionViewModel()
+            var prescription = new AddPrescriptionInputModel()
             {
                 Doctor = doctor,
                 DoctorId = doctor.Id,
@@ -63,7 +63,7 @@
             await this.PrescriptionsService.AddPrescriptionToPatient(prescription);
 
             var prescriptions =
-                this.PrescriptionsService.GetPatientsPrescriptions<PrescriptionViewModel>(patient.Id);
+                this.PrescriptionsService.GetPatientsPrescriptions<AddPrescriptionInputModel>(patient.Id);
 
             var prescriptionsCount = prescriptions.Count();
 

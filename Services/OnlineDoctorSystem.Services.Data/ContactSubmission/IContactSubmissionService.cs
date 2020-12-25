@@ -7,8 +7,8 @@
 
     public interface IContactSubmissionService
     {
-        Task AddSubmissionToDb(ContactSubmissionViewModel model);
+        Task AddSubmissionToDb(ContactSubmissionInputModel model);
 
-        IEnumerable<ContactSubmissionViewModel> GetAllSubmissions();
+        IEnumerable<ContactSubmissionInputModel> GetAllSubmissions();
     }
 }

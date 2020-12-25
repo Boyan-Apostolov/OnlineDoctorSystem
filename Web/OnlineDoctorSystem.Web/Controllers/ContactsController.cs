@@ -29,7 +29,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(ContactSubmissionViewModel model)
+        public async Task<IActionResult> Index(ContactSubmissionInputModel model)
         {
             var errors = this.ModelState.Values.ToList();
 

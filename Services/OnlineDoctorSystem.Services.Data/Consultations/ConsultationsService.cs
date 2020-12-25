@@ -43,7 +43,7 @@
             this.patientsService = patientsService;
         }
 
-        public bool CheckIfTimeIsCorrect(AddConsultationViewModel model)
+        public bool CheckIfTimeIsCorrect(AddConsultationInputModel model)
         {
             if (model.StartTime > model.EndTime)
             {
@@ -61,7 +61,7 @@
             return true;
         }
 
-        public async Task<bool> AddConsultation(AddConsultationViewModel model, string patientId)
+        public async Task<bool> AddConsultation(AddConsultationInputModel model, string patientId)
         {
             if (!this.CheckIfTimeIsCorrect(model))
             {

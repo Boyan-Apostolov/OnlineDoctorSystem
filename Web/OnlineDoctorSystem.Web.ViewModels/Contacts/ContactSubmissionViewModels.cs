@@ -6,6 +6,6 @@
 
     public class ContactSubmissionViewModels
     {
-        public IEnumerable<ContactSubmissionViewModel> Submissions { get; set; }
+        public IEnumerable<ContactSubmissionInputModel> Submissions { get; set; }
     }
 }

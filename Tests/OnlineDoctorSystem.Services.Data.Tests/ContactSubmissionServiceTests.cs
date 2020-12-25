@@ -27,7 +27,7 @@
 
             var content = "TestContent";
 
-            await service.AddSubmissionToDb(new ContactSubmissionViewModel()
+            await service.AddSubmissionToDb(new ContactSubmissionInputModel()
             {
                 Content = content,
                 Email = "test@test.com",
@@ -52,7 +52,7 @@
 
             var content = "TestContent";
 
-            await service.AddSubmissionToDb(new ContactSubmissionViewModel()
+            await service.AddSubmissionToDb(new ContactSubmissionInputModel()
             {
                 Content = content,
                 Email = "test@test.com",

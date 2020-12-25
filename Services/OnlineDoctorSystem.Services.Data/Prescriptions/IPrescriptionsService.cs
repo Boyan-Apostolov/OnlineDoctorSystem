@@ -9,7 +9,7 @@
 
     public interface IPrescriptionsService
     {
-        Task AddPrescriptionToPatient(PrescriptionViewModel model);
+        Task AddPrescriptionToPatient(AddPrescriptionInputModel model);
 
         IEnumerable<T> GetPatientsPrescriptions<T>(string patientId);
     }

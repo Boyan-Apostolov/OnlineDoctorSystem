@@ -18,7 +18,7 @@
             this.submissionsRepository = submissionsRepository;
         }
 
-        public async Task AddSubmissionToDb(ContactSubmissionViewModel model)
+        public async Task AddSubmissionToDb(ContactSubmissionInputModel model)
         {
             var submission = new OnlineDoctorSystem.Data.Models.ContactSubmission()
             {
@@ -31,11 +31,11 @@
             await this.submissionsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<ContactSubmissionViewModel> GetAllSubmissions()
+        public IEnumerable<ContactSubmissionInputModel> GetAllSubmissions()
         {
             var submissions = this.submissionsRepository.All()
                 .OrderBy(x => x.CreatedOn)
-                .Select(x => new ContactSubmissionViewModel
+                .Select(x => new ContactSubmissionInputModel
                 {
                     Content = x.Content,
                     Name = x.Name,

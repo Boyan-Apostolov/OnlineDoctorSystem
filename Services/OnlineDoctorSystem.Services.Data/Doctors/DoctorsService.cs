@@ -18,20 +18,17 @@
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IEmailSender emailSender;
-        private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly IDeletableEntityRepository<Patient> patientsRepository;
 
         public DoctorsService(
             IDeletableEntityRepository<Doctor> doctorsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
             IEmailSender emailSender,
-            IDeletableEntityRepository<Consultation> consultationsRepository,
             IDeletableEntityRepository<Patient> patientsRepository)
         {
             this.doctorsRepository = doctorsRepository;
             this.usersRepository = usersRepository;
             this.emailSender = emailSender;
-            this.consultationsRepository = consultationsRepository;
             this.patientsRepository = patientsRepository;
         }
 
@@ -168,7 +165,7 @@
             return this.doctorsRepository.All().Include(x => x.Reviews).Select(x => x.Reviews).Count();
         }
 
-        public async Task<bool> AddReview(ReviewViewModel model)
+        public async Task<bool> AddReview(AddReviewInputModel model)
         {
             var doctor = this.GetDoctorById(model.DoctorId);
 

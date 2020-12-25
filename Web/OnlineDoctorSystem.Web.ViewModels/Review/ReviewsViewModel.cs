@@ -4,6 +4,6 @@
 
     public class ReviewsViewModel
     {
-        public IEnumerable<ReviewViewModel> Reviews { get; set; }
+        public IEnumerable<AddReviewInputModel> Reviews { get; set; }
     }
 }

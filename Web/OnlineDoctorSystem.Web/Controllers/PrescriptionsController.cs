@@ -35,7 +35,7 @@
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public IActionResult AddPrescriptions(string patientId)
         {
-            var viewModel = new PrescriptionViewModel()
+            var viewModel = new AddPrescriptionInputModel()
             {
                 PatientId = patientId,
             };
@@ -44,7 +44,7 @@
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         [HttpPost]
-        public async Task<IActionResult> AddPrescriptions(PrescriptionViewModel model)
+        public async Task<IActionResult> AddPrescriptions(AddPrescriptionInputModel model)
         {
             var doctor = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             model.Doctor = doctor;
@@ -59,7 +59,7 @@
                 this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var viewModel = new ListOfPrescriptions()
             {
-                Prescriptions = this.prescriptionsService.GetPatientsPrescriptions<PrescriptionViewModel>(patient.Id),
+                Prescriptions = this.prescriptionsService.GetPatientsPrescriptions<AddPrescriptionInputModel>(patient.Id),
             };
             return this.View(viewModel);
         }

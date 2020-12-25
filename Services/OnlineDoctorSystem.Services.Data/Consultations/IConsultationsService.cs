@@ -8,9 +8,9 @@
 
     public interface IConsultationsService
     {
-        bool CheckIfTimeIsCorrect(AddConsultationViewModel model);
+        bool CheckIfTimeIsCorrect(AddConsultationInputModel model);
 
-        Task<bool> AddConsultation(AddConsultationViewModel model, string patientId);
+        Task<bool> AddConsultation(AddConsultationInputModel model, string patientId);
 
         IEnumerable<T> GetDoctorsConsultations<T>(string doctorId);
 

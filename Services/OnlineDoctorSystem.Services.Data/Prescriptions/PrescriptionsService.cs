@@ -21,7 +21,7 @@
             this.prescriptionsRepository = prescriptionsRepository;
         }
 
-        public async Task AddPrescriptionToPatient(PrescriptionViewModel model)
+        public async Task AddPrescriptionToPatient(AddPrescriptionInputModel model)
         {
             var prescription = new Prescription()
             {

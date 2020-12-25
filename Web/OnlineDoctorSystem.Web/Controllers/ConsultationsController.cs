@@ -37,7 +37,7 @@
         {
             var doctorName = this.doctorsService.GetDoctorNameById(id);
             var temp = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var viewModel = new AddConsultationViewModel()
+            var viewModel = new AddConsultationInputModel()
             {
                 DoctorId = id,
                 DoctorName = doctorName,
@@ -55,7 +55,7 @@
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
-        public IActionResult AddConsultation(AddConsultationViewModel model)
+        public IActionResult AddConsultation(AddConsultationInputModel model)
         {
             var patient = this.patientsService.GetPatientByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
@@ -68,7 +68,7 @@
         }
 
         [Authorize(Roles = GlobalConstants.PatientRoleName)]
-        public IActionResult SuccessfullyBooked(AddConsultationViewModel model)
+        public IActionResult SuccessfullyBooked(AddConsultationInputModel model)
         {
             var doctorName = this.doctorsService.GetDoctorNameById(model.DoctorId);
             var viewModel = new SuccessfullyBookedViewModel() { Date = model.Date, DoctorName = doctorName };

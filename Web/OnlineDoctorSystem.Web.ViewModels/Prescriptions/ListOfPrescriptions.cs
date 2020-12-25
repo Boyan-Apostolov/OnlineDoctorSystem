@@ -6,6 +6,6 @@
 
     public class ListOfPrescriptions
     {
-        public IEnumerable<PrescriptionViewModel> Prescriptions { get; set; }
+        public IEnumerable<AddPrescriptionInputModel> Prescriptions { get; set; }
     }
 }
