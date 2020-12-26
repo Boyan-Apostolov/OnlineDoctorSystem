@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -17,18 +19,18 @@
     {
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly IEmailSender emailSender;
+        private readonly IEmailsService emailsService;
         private readonly IDeletableEntityRepository<Patient> patientsRepository;
 
         public DoctorsService(
             IDeletableEntityRepository<Doctor> doctorsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IEmailSender emailSender,
+            IEmailsService emailsService,
             IDeletableEntityRepository<Patient> patientsRepository)
         {
             this.doctorsRepository = doctorsRepository;
             this.usersRepository = usersRepository;
-            this.emailSender = emailSender;
+            this.emailsService = emailsService;
             this.patientsRepository = patientsRepository;
         }
 
@@ -104,12 +106,8 @@
             await this.doctorsRepository.SaveChangesAsync();
 
             var doctorEmail = await this.GetDoctorEmailById(doctorId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"Админ на Онлайн-Доктор Системата",
-                doctorEmail,
-                "Вашият профил беше потвърден!",
-                $"Вашият профил беше потвърден! Вече сте част от нашето семейство и наши пациенти могат да се свързват с вас!");
+
+            await this.emailsService.ApproveDoctorEmailAsync(doctorEmail);
         }
 
         public async Task DeclineDoctorAsync(string doctorId)
@@ -120,12 +118,8 @@
             await this.doctorsRepository.SaveChangesAsync();
 
             var doctorEmail = await this.GetDoctorEmailById(doctorId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"Админ на Онлайн-Доктор Системата",
-                doctorEmail,
-                "Вашата заявка за профил беше отхвърлена!",
-                $"Съжеляваме, но профилът Ви не покрива изискванията ни. Можете да виждате другите доктори, но вашият профил няма да може да бъде намерен от пациентите ни!");
+
+            await this.emailsService.DeclineDoctorEmailAsync(doctorEmail);
         }
 
         public IEnumerable<T> GetFilteredDoctors<T>(IndexViewModel model)

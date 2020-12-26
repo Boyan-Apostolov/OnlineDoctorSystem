@@ -1,9 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Pateints
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Models.Enums;
     using OnlineDoctorSystem.Services.Mapping;

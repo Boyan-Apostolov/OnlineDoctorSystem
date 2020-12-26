@@ -3,17 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using OnlineDoctorSystem.Data;
-    using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
-    using OnlineDoctorSystem.Services.Data.ContactSubmission;
     using OnlineDoctorSystem.Services.Data.Users;
     using Xunit;
 

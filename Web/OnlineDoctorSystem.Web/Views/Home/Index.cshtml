@@ -1,5 +1,4 @@
 ﻿@using OnlineDoctorSystem.Common
-@using OnlineDoctorSystem.Data
 @{
     this.ViewData["Title"] = $"ОнлайнДоктор-Системата";
     var towns = this.Model.Towns.Select(x => new SelectListItem(x.Value, x.Key.ToString()));

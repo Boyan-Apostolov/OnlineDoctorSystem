@@ -1,11 +1,11 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Consultations
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Services.Data.Consultations
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
@@ -20,8 +20,7 @@
         private readonly IDeletableEntityRepository<Doctor> doctorRepository;
         private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly IDeletableEntityRepository<Patient> patientsRepository;
-        private readonly IDeletableEntityRepository<CalendarEvent> eventsRepository;
-        private readonly IEmailSender emailSender;
+        private readonly IEmailsService emailsService;
         private readonly IDoctorsService doctorsService;
         private readonly IPatientsService patientsService;
 
@@ -29,16 +28,14 @@
             IDeletableEntityRepository<Doctor> doctorRepository,
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDeletableEntityRepository<Patient> patientsRepository,
-            IDeletableEntityRepository<CalendarEvent> eventsRepository,
-            IEmailSender emailSender,
+            IEmailsService emailsService,
             IDoctorsService doctorsService,
             IPatientsService patientsService)
         {
             this.doctorRepository = doctorRepository;
             this.consultationsRepository = consultationsRepository;
             this.patientsRepository = patientsRepository;
-            this.eventsRepository = eventsRepository;
-            this.emailSender = emailSender;
+            this.emailsService = emailsService;
             this.doctorsService = doctorsService;
             this.patientsService = patientsService;
         }
@@ -99,12 +96,9 @@
             await this.consultationsRepository.SaveChangesAsync();
 
             var doctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"{patient.FirstName} {patient.LastName}",
-                doctorEmail,
-                "Имате нова заявка за консултация",
-                $"Имате нова заявка за консултация от пациент {patient.FirstName} {patient.LastName} за {model.Date.ToShortDateString()} от {model.StartTime} часа. Моля потвърдете или отхвърлете заявката от сайта ни.");
+
+            await this.emailsService.AddConsultationEmailAsync(patient.FirstName, patient.LastName, doctorEmail, model.Date, model.StartTime);
+
             return true;
         }
 
@@ -137,12 +131,8 @@
             await this.consultationsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"Админ на Онлайн-Доктор Системата",
-                patientEmail,
-                "Вашата заявка беше одобрена!",
-                $"Вашата заявка за консултация на {consultation.Date.ToShortDateString()} от {consultation.StartTime} беше одобрена. Доктора ще ви очаква :)");
+
+            await this.emailsService.ApproveConsultationEmailAsync(patientEmail, consultation.Date, consultation.StartTime);
         }
 
         public async Task DeclineConsultationAsync(string consultationId)
@@ -153,12 +143,8 @@
             await this.consultationsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"Админ на Онлайн-Доктор Системата",
-                patientEmail,
-                "Вашата заявка беше отхвърлена!",
-                $"Вашата заявка за консултация на {consultation.Date.ToShortDateString()} от {consultation.StartTime} беше отхвърлена от доктора ви, за повече информация, моля свържете се с него.");
+
+            await this.emailsService.DeclineConsultationEmailAsync(patientEmail, consultation.Date, consultation.StartTime);
         }
 
         public async Task MakeConsultationReviewedToTrue(string consultationId)

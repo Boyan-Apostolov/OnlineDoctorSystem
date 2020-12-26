@@ -1,9 +1,9 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.ContactSubmission;
@@ -12,15 +12,15 @@
 
     public class ContactsController : Controller
     {
-        private readonly IEmailSender emailSender;
         private readonly IContactSubmissionService submissionService;
+        private readonly IEmailsService emailsService;
 
         public ContactsController(
-            IEmailSender emailSender,
-            IContactSubmissionService submissionService)
+            IContactSubmissionService submissionService,
+            IEmailsService emailsService)
         {
-            this.emailSender = emailSender;
             this.submissionService = submissionService;
+            this.emailsService = emailsService;
         }
 
         public IActionResult Index()
@@ -31,8 +31,6 @@
         [HttpPost]
         public async Task<IActionResult> Index(ContactSubmissionInputModel model)
         {
-            var errors = this.ModelState.Values.ToList();
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -40,12 +38,7 @@
 
             await this.submissionService.AddSubmissionToDb(model);
 
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemOwnerEmail,
-                $"{model.Name} -> {model.Email}",
-                GlobalConstants.SystemAdminEmail,
-                $"{model.Title} -> {model.Email}",
-                model.Content);
+            await this.emailsService.AddContactSubmissionEmailAsync(model.Name, model.Email, model.Title, model.Content);
 
             return this.RedirectToAction("ThankYou");
         }

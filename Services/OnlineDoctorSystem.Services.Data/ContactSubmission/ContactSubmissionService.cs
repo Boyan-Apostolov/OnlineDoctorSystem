@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Data.Common.Repositories;
-    using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.ViewModels.Contacts;
 
     public class ContactSubmissionService : IContactSubmissionService

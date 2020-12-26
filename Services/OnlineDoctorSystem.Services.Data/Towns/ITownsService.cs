@@ -3,7 +3,6 @@
     using System.Collections.Generic;
 
     using OnlineDoctorSystem.Data.Models;
-    using OnlineDoctorSystem.Web.ViewModels.Home;
 
     public interface ITownsService
     {

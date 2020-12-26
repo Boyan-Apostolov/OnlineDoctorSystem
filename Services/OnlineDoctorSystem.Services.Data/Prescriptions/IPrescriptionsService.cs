@@ -1,8 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Prescriptions
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
 
     using OnlineDoctorSystem.Web.ViewModels.Prescriptions;

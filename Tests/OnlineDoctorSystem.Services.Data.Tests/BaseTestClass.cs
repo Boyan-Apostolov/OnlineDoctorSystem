@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Tests
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
 
@@ -19,6 +21,7 @@
         public IPatientsService PatientsService;
         public IConsultationsService ConsultationsService;
         public IEmailSender EmailSender;
+        public IEmailsService EmailsService;
         public IEventsService EventsService;
         public IPrescriptionsService PrescriptionsService;
 
@@ -40,12 +43,14 @@
             this.UsersRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
             this.PatientsRepository = new EfDeletableEntityRepository<Patient>(new ApplicationDbContext(options.Options));
             this.PrescribtionsRepository = new EfDeletableEntityRepository<Prescription>(new ApplicationDbContext(options.Options));
+
             this.EmailSender = new SendGridEmailSender("test");
+            this.EmailsService = new EmailsService(this.EmailSender);
 
             this.DoctorsService = new DoctorsService(
                 this.DoctorsRepository,
                 this.UsersRepository,
-                this.EmailSender,
+                this.EmailsService,
                 this.PatientsRepository);
 
             this.PatientsService = new PatientsService(this.PatientsRepository);
@@ -54,8 +59,7 @@
                 this.DoctorsRepository,
                 this.ConsultationsRepository,
                 this.PatientsRepository,
-                this.EventsRepository,
-                this.EmailSender,
+                this.EmailsService,
                 this.DoctorsService,
                 this.PatientsService);
 
@@ -64,7 +68,7 @@
                 this.ConsultationsRepository,
                 this.DoctorsService,
                 this.PatientsService,
-                this.EmailSender);
+                this.EmailsService);
 
             this.PrescriptionsService = new PrescriptionsService(this.PrescribtionsRepository);
         }

@@ -1,7 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -13,7 +12,6 @@
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Web.ViewModels.Home;
-    using OnlineDoctorSystem.Web.ViewModels.Statistics;
     using Xunit;
 
     public class TownsServiceTests

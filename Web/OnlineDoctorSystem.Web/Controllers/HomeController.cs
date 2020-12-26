@@ -5,7 +5,6 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Specialties;
     using OnlineDoctorSystem.Services.Data.Towns;
     using OnlineDoctorSystem.Web.ViewModels;

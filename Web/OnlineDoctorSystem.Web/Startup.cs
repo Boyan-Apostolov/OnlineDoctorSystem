@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Web
 {
     using System;
     using System.Reflection;
@@ -116,6 +118,7 @@
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<IContactSubmissionService, ContactSubmissionService>();
             services.AddTransient<IPrescriptionsService, PrescriptionsService>();
+            services.AddTransient<IEmailsService, EmailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

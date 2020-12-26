@@ -1,8 +1,6 @@
 ﻿namespace OnlineDoctorSystem.Web.ViewModels.Statistics
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     public class StatsViewModel
     {

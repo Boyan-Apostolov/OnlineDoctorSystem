@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Events
+﻿using OnlineDoctorSystem.Services.Data.Emails;
+
+namespace OnlineDoctorSystem.Services.Data.Events
 {
     using System;
     using System.Collections.Generic;
@@ -19,20 +21,20 @@
         private readonly IDeletableEntityRepository<Consultation> consultationsRepository;
         private readonly IDoctorsService doctorsService;
         private readonly IPatientsService patientsService;
-        private readonly IEmailSender emailSender;
+        private readonly IEmailsService emailsService;
 
         public EventsService(
             IDeletableEntityRepository<CalendarEvent> eventsRepository,
             IDeletableEntityRepository<Consultation> consultationsRepository,
             IDoctorsService doctorsService,
             IPatientsService patientsService,
-            IEmailSender emailSender)
+            IEmailsService emailsService)
         {
             this.eventsRepository = eventsRepository;
             this.consultationsRepository = consultationsRepository;
             this.doctorsService = doctorsService;
             this.patientsService = patientsService;
-            this.emailSender = emailSender;
+            this.emailsService = emailsService;
         }
 
         public async Task<bool> DeleteEventByIdAsync(int id)
@@ -48,12 +50,9 @@
             await this.eventsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
-            await this.emailSender.SendEmailAsync(
-                 GlobalConstants.SystemAdminEmail,
-                 "Онлайн-ДокторСистема",
-                 patientEmail,
-                 "Едно от предстоящите ве събития беше изтрито!",
-                 $"Събитието ви за {consultation.Date.ToShortDateString()} от {consultation.StartTime} часа беше изтрито. За повече информация, моля свържете се с практикуващия лекар.");
+
+            await this.emailsService.DeleteEventEmailAsync(patientEmail, consultation.Date, consultation.StartTime);
+
             return true;
         }
 
@@ -98,12 +97,8 @@
             await this.eventsRepository.SaveChangesAsync();
 
             var patientEmail = this.patientsService.GetPatientEmailByPatientId(consultation.PatientId);
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemAdminEmail,
-                $"Админ на Онлайн-Доктор Системата",
-                patientEmail,
-                "Датата на вашата заявка беше променена!",
-                $"Вашата консултация от {previousDate.ToShortDateString()} беше преместена на {consultation.Date.ToShortDateString()}.");
+
+            await this.emailsService.MoveEventEmailAsync(patientEmail, previousDate, consultation.Date);
         }
 
         public async Task ChangeEventColor(int eventId, string color)

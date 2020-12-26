@@ -1,12 +1,8 @@
 ﻿namespace OnlineDoctorSystem.Web.Hubs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
-    using AutoMapper.Configuration;
     using Microsoft.AspNetCore.SignalR;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Doctors;
