@@ -12,6 +12,7 @@
             </div>
             <div class="col-sm-8">
                 <div class="d-flex flex-column">
+
                     <h1 class="text-black-50">@Model.Name</h1>
                     <h2 class="lead text-muted">@Model.Specialty.Name</h2>
                     <div class="d-inline-block">
@@ -31,11 +32,22 @@
                         }
                     </div>
                     <h4 class="d-inline">@Model.Town.Name - <small class="text-muted">@Model.YearsOfPractice години стаж</small></h4>
-                    <p>Телефон: @Model.Phone</p>
 
-                    @if (!this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                    @if (!Model.IsFromThirdParty)
                     {
-                        <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                        <p>Телефон: @Model.Phone</p>
+
+                        @if (!this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                        {
+                            <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                        }
+                    }
+                    else
+                    {
+                        <p>Имейл: @Model.ContactEmailFromThirdParty</p>
+                        <p class="text-danger">ВНИМАНИЕ! Този лекар е част от суперДок системата, ще бъдете пренасочени към неговият профил от долния бутон.</p>
+
+                        <a href="@Model.LinkFromThirdParty" class="btn btn-success btn-outline-warning text-white">Запази час</a>
                     }
                 </div>
             </div>
@@ -66,7 +78,7 @@
         </div>
     </div>
 </div>
-<hr/>
+<hr />
 <div class="row">
 
     <div class="col-md-12 col-lg-11">
@@ -88,7 +100,6 @@
 
 
         <section id="reviews" class="doctor-reviews">
-
         </section>
     </div>
 </div>

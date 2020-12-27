@@ -49,6 +49,7 @@
     <ProjectReference Include="..\..\OnlineDoctorSystem.Common\OnlineDoctorSystem.Common.csproj" />
     <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data\OnlineDoctorSystem.Data.csproj" />
+    <ProjectReference Include="..\..\OnlineDoctorSystem.Services\OnlineDoctorSystem.Services.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Data\OnlineDoctorSystem.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Mapping\OnlineDoctorSystem.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Messaging\OnlineDoctorSystem.Services.Messaging.csproj" />

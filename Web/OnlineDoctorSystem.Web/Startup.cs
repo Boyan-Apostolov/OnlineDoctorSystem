@@ -24,6 +24,7 @@ namespace OnlineDoctorSystem.Web
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Data.Seeding;
+    using OnlineDoctorSystem.Services;
     using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.ContactSubmission;
     using OnlineDoctorSystem.Services.Data.Doctors;
@@ -119,6 +120,7 @@ namespace OnlineDoctorSystem.Web
             services.AddTransient<IContactSubmissionService, ContactSubmissionService>();
             services.AddTransient<IPrescriptionsService, PrescriptionsService>();
             services.AddTransient<IEmailsService, EmailsService>();
+            services.AddTransient<IDoctorScraperService, DoctorScraperService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

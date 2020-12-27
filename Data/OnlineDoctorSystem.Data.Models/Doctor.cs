@@ -52,5 +52,11 @@
         public virtual ICollection<Consultation> Consultations { get; set; }
 
         public bool? IsConfirmed { get; set; }
+
+        public bool IsFromThirdParty { get; set; }
+
+        public string ContactEmailFromThirdParty { get; set; }
+
+        public string LinkFromThirdParty { get; set; }
     }
 }

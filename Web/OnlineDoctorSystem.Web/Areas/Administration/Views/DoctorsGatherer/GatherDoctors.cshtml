@@ -1,0 +1,11 @@
+﻿@{
+    this.ViewData["Title"] = "Добавяне на лекари";
+}
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<form method="post">
+    <div class="form-group">
+        <label for="count" class="form-control text-center">Брой лекари</label>
+        <input id="count" name="count" type="number" class="form-control"/>
+        <button class="btn btn-success" type="submit">Добави</button>
+    </div>
+</form>

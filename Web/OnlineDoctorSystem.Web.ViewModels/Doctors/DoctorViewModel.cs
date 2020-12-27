@@ -50,5 +50,11 @@
 
             return 0;
         }
+
+        public bool IsFromThirdParty { get; set; }
+
+        public string ContactEmailFromThirdParty { get; set; }
+
+        public string LinkFromThirdParty { get; set; }
     }
 }
