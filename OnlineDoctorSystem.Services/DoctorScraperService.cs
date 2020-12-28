@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using AngleSharp;
@@ -39,9 +40,9 @@ namespace OnlineDoctorSystem.Services
 
             var addedDoctors = 0;
 
-            for (int i = 0; i < pages; i++)
+            for (int i = 1; i < pages; i++)
             {
-                var url = string.Format(BaseUrl, i);
+                var url = BaseUrl+i;
                 links.AddRange(await this.GetLinks(url));
             }
 
@@ -53,7 +54,7 @@ namespace OnlineDoctorSystem.Services
                     await this.doctorsRepository.AddAsync(doctor);
                     addedDoctors++;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }

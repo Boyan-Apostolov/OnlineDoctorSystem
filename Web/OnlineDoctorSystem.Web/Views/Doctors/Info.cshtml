@@ -3,16 +3,12 @@
 @{
     this.ViewData["Title"] = Model.Name;
 }
-<style>
-    img {
-        height: 253px;
-    }
-</style>
+
 <div class="justify-content-center">
     <div class="col-md-10 col-lg-6">
         <div class="row">
             <div class="col-sm-4">
-                <img src=@Model.ImageUrl alt="Д-р @Model.Name">
+                <img src=@Model.ImageUrl alt="Д-р @Model.Name" class="img-fluid" >
             </div>
             <div class="col-sm-8">
                 <div class="d-flex flex-column">
@@ -101,5 +97,9 @@
                 @Model.Biography
             </p>
         </div>
+
+
+        <section id="reviews" class="doctor-reviews">
+        </section>
     </div>
 </div>
