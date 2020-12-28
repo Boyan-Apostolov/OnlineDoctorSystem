@@ -12,7 +12,7 @@ else
         @foreach (var doctor in @Model.Doctors)
         {
             <div class="card text-center d-inline-block col-xl-3 col-md-2 col-sm-5">
-                <img class="card-img-top mx-auto img-fluid" src="@doctor.ImageUrl" alt="@doctor.Name снимка">
+                <img class="card-img-top mx-auto img-fluid"  style="height: 270px" src="@doctor.ImageUrl" alt="@doctor.Name снимка" >
                 <div class="card-body">
                     @if (@doctor.Name.Length >= 15)
                     {
