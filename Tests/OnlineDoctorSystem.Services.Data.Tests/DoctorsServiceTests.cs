@@ -349,6 +349,7 @@
             };
             await this.DoctorsService.CreateDoctorAsync(user.Id, doctor);
 
+            await this.DoctorsService.AddReview(new AddReviewInputModel() { DoctorId = doctor.Id });
             var reviewsCount = this.DoctorsService.GetReviewsCount();
 
             Assert.Equal(1, reviewsCount);

@@ -156,7 +156,7 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
 
         public int GetReviewsCount()
         {
-            return this.doctorsRepository.All().Include(x => x.Reviews).Select(x => x.Reviews).Count();
+            return this.doctorsRepository.All().Include(x => x.Reviews).ToList().Sum(x => x.Reviews.Count);
         }
 
         public async Task<bool> AddReview(AddReviewInputModel model)
