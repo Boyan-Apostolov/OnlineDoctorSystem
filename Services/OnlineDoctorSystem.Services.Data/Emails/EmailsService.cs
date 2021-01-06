@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Emails
+﻿using OnlineDoctorSystem.Common;
+
+namespace OnlineDoctorSystem.Services.Data.Emails
 {
     using System;
     using System.Threading.Tasks;
