@@ -167,6 +167,7 @@ namespace OnlineDoctorSystem.Web
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("school", ".ПпПОЗ", new { controller = "Home", action = "Index" });
                         endpoints.MapRazorPages();
                         endpoints.MapHub<ChatHub>("/chat");
                     });
