@@ -9,8 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data.Common\OnlineDoctorSystem.Data.Common.csproj" />
-    <ProjectReference Include="..\..\Data\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\Data\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

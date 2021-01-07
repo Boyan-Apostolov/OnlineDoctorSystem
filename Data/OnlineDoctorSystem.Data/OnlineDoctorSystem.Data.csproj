@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\OnlineDoctorSystem.Common\OnlineDoctorSystem.Common.csproj" />
     <ProjectReference Include="..\..\Services\OnlineDoctorSystem.Services.Data\OnlineDoctorSystem.Services.Data.csproj" />
     <ProjectReference Include="..\OnlineDoctorSystem.Data.Common\OnlineDoctorSystem.Data.Common.csproj" />
     <ProjectReference Include="..\OnlineDoctorSystem.Data.Models\OnlineDoctorSystem.Data.Models.csproj" />
