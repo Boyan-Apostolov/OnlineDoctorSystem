@@ -54,7 +54,7 @@ You can check it out on: https://onlinedoc.azurewebsites.net/
 
 ![Doctors near me](https://cdn1.bbcode0.com/uploads/2020/12/13/815364e95433a04c6bf1c3d3d1ab7f18-full.png)
 
-**General Chat**
+**Genral Chat**
 
 ![GenralChat](https://cdn1.bbcode0.com/uploads/2020/12/13/50adfc1873c54e44141f16d7d1cca6e9-full.png)
 
