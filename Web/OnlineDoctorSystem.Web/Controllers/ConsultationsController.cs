@@ -50,7 +50,7 @@
         {
             await this.eventsService.DeleteEventByIdAsync(eventId);
 
-            return this.RedirectToAction("GetUsersConsultations");
+            return this.RedirectToAction(nameof(this.GetUsersConsultations));
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@
 
             if (this.consultationsService.AddConsultation(model, patient.Id).Result)
             {
-                return this.RedirectToAction("SuccessfullyBooked", model);
+                return this.RedirectToAction(nameof(this.SuccessfullyBooked), model);
             }
 
             return this.View("InvalidTimeInput");

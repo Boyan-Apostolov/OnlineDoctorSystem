@@ -1,6 +1,7 @@
 ﻿namespace OnlineDoctorSystem.Data.Models
 {
     using System;
+
     using OnlineDoctorSystem.Data.Common.Models;
 
     public class Prescription : BaseDeletableModel<string>

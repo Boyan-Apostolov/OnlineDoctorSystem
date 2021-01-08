@@ -1,12 +1,12 @@
-﻿using OnlineDoctorSystem.Services.Data.Emails;
-
-namespace OnlineDoctorSystem.Web.Controllers
+﻿namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.ContactSubmission;
+    using OnlineDoctorSystem.Services.Data.Emails;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Contacts;
 
@@ -40,7 +40,7 @@ namespace OnlineDoctorSystem.Web.Controllers
 
             await this.emailsService.AddContactSubmissionEmailAsync(model.Name, model.Email, model.Title, model.Content);
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.ThankYou));
         }
 
         public IActionResult ThankYou()

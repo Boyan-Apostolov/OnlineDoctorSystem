@@ -18,13 +18,13 @@
         public async Task<IActionResult> ApproveDoctor(string doctorId)
         {
             await this.doctorsService.ApproveDoctorAsync(doctorId);
-            return this.RedirectToAction("GetUnconfirmedDoctors");
+            return this.RedirectToAction(nameof(this.GetUnconfirmedDoctors));
         }
 
         public async Task<IActionResult> DeclineDoctor(string doctorId)
         {
             await this.doctorsService.DeclineDoctorAsync(doctorId);
-            return this.RedirectToAction("GetUnconfirmedDoctors");
+            return this.RedirectToAction(nameof(this.GetUnconfirmedDoctors));
         }
 
         public IActionResult GetUnconfirmedDoctors()

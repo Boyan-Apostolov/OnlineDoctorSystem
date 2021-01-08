@@ -3,6 +3,7 @@
     using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.SignalR;
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Services.Data.Doctors;

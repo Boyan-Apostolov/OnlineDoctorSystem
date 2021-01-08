@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
+﻿namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Services;
 
     public class DoctorsGathererController : AdministrationController
@@ -18,7 +17,7 @@ namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
             this.doctorScraperService = doctorScraperService;
         }
 
-        public async Task<IActionResult> GatherDoctors()
+        public IActionResult GatherDoctors()
         {
             return this.View();
         }
@@ -27,7 +26,7 @@ namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
         public async Task<IActionResult> GatherDoctors(int count)
         {
             var addedDoctors = await this.doctorScraperService.Import(count);
-            return this.RedirectToAction("Added","DoctorsGatherer", new {addedDoctors = addedDoctors});
+            return this.RedirectToAction("Added", "DoctorsGatherer", new { addedDoctors = addedDoctors });
         }
 
         public IActionResult Added(int addedDoctors)

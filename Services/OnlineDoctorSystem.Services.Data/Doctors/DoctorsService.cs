@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.Emails;
-
-namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -10,6 +8,7 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
     using OnlineDoctorSystem.Common;
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
+    using OnlineDoctorSystem.Services.Data.Emails;
     using OnlineDoctorSystem.Services.Mapping;
     using OnlineDoctorSystem.Services.Messaging;
     using OnlineDoctorSystem.Web.ViewModels.Doctors;

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using OnlineDoctorSystem.Data.Models;
 
     public class SpecialtiesSeeder : ISeeder

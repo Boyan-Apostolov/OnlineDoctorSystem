@@ -114,7 +114,7 @@
             if (this.doctorsService.AddReview(model).Result)
             {
                 await this.consultationsService.MakeConsultationReviewedToTrue(model.ConsultationId);
-                return this.RedirectToAction("Info", new { id = model.DoctorId });
+                return this.RedirectToAction(nameof(this.Info), new { id = model.DoctorId });
             }
 
             return this.View(model);

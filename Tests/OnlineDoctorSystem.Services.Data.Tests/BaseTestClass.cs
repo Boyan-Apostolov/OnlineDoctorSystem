@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.Emails;
-
-namespace OnlineDoctorSystem.Services.Data.Tests
+﻿namespace OnlineDoctorSystem.Services.Data.Tests
 {
     using System;
 
@@ -10,6 +8,7 @@ namespace OnlineDoctorSystem.Services.Data.Tests
     using OnlineDoctorSystem.Data.Repositories;
     using OnlineDoctorSystem.Services.Data.Consultations;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Emails;
     using OnlineDoctorSystem.Services.Data.Events;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Data.Prescriptions;

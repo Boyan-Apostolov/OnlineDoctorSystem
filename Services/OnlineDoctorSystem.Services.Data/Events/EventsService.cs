@@ -1,6 +1,4 @@
-﻿using OnlineDoctorSystem.Services.Data.Emails;
-
-namespace OnlineDoctorSystem.Services.Data.Events
+﻿namespace OnlineDoctorSystem.Services.Data.Events
 {
     using System;
     using System.Collections.Generic;
@@ -12,6 +10,7 @@ namespace OnlineDoctorSystem.Services.Data.Events
     using OnlineDoctorSystem.Data.Common.Repositories;
     using OnlineDoctorSystem.Data.Models;
     using OnlineDoctorSystem.Services.Data.Doctors;
+    using OnlineDoctorSystem.Services.Data.Emails;
     using OnlineDoctorSystem.Services.Data.Patients;
     using OnlineDoctorSystem.Services.Messaging;
 
