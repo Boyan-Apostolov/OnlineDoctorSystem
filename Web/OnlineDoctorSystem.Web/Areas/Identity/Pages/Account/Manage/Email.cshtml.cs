@@ -18,8 +18,10 @@
         private readonly IEmailSender emailSender;
 
         public EmailModel(
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            UserManager<ApplicationUser> userManager)
         {
+            this.userManager = userManager;
             this.emailSender = emailSender;
         }
 
