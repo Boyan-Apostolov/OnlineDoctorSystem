@@ -39,6 +39,7 @@
                         ImageUrl = doctor.ImageUrl,
                         User = $"{doctor.Name} (Доктор)",
                         IsDoctor = true,
+                        IsAdmin = false,
                     });
             }
             else if (this.Context.User.IsInRole(GlobalConstants.PatientRoleName))
@@ -53,6 +54,21 @@
                         ImageUrl = patient.ImageUrl,
                         User = $"{patient.FirstName} {patient.LastName} (Пациент)",
                         IsDoctor = false,
+                        IsAdmin = false,
+                    });
+            }
+            else if (this.Context.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                await this.Clients.All.SendAsync(
+                    "NewMessage",
+                    new Message()
+                    {
+                        CreatedOn = DateTime.Now.ToShortDateString(),
+                        Text = message,
+                        ImageUrl = @"https://res.cloudinary.com/du3ohgfpc/image/upload/v1606322301/jrtza0zytvwqeqihpg1m.png",
+                        User = "Admin",
+                        IsDoctor = false,
+                        IsAdmin = true,
                     });
             }
             else
@@ -64,8 +80,9 @@
                         CreatedOn = DateTime.Now.ToShortDateString(),
                         Text = message,
                         ImageUrl = @"https://res.cloudinary.com/du3ohgfpc/image/upload/v1606322301/jrtza0zytvwqeqihpg1m.png",
-                        User = "Admin",
+                        User = "(From Facebook)",
                         IsDoctor = false,
+                        IsAdmin = false,
                     });
             }
         }

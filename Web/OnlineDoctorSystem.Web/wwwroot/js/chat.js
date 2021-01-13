@@ -7,12 +7,17 @@
 connection.on("NewMessage",
     function (message) {
         var chatInfo = "";
+
         if (message.isDoctor) {
             chatInfo += "<div class='media bg-success text-white rounded text-wrap' style='margin-bottom: 5px'>";
         }
-        else {
+        if (message.isAdmin && !message.isDoctor) {
+            chatInfo += "<div class='media bg-warning text-white rounded text-wrap' style='margin-bottom: 5px'>";
+        }
+        if (!message.isDoctor && !message.isAdmin) {
             chatInfo += "<div class='media bg-gray-600 text-white rounded text-wrap' style='margin-bottom: 5px'>";
         }
+
         chatInfo += `<img src='${message.imageUrl}' style='height: 90px; width: 90px' class='mr-3' alt='Снимка'>`;
         chatInfo += "<div class='media-body'>";
         chatInfo += `<h3 class='mt-0'>${escapeHtml(message.text)}</h3>`;
@@ -22,7 +27,7 @@ connection.on("NewMessage",
         $("#messagesList").append(chatInfo);
     });
 
-$("#sendButton").click(function() {
+$("#sendButton").click(function () {
     var message = $("#messageInput").val();
     if (message !== "") {
         connection.invoke("Send", message);
