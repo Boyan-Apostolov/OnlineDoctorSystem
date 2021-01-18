@@ -7,6 +7,6 @@ namespace OnlineDoctorSystem.Services
 {
     public interface IDoctorScraperService
     {
-        Task<int> Import(int pages = 1);
+        Task<int> Import(int pages, int townId);
     }
 }

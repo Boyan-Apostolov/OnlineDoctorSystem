@@ -18,7 +18,7 @@ namespace OnlineDoctorSystem.Services
         private readonly IDeletableEntityRepository<Specialty> specialtiesRepository;
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
 
-        private string BaseUrl = "https://superdoc.bg/lekari?sort=&page=";
+        private string BaseUrl = "https://superdoc.bg/lekari?name=&page={0}&region_id={1}&specialty_id=";
         private IBrowsingContext context = new BrowsingContext();
 
         public DoctorScraperService(
@@ -31,7 +31,7 @@ namespace OnlineDoctorSystem.Services
             this.doctorsRepository = doctorsRepository;
         }
 
-        public async Task<int> Import(int pages = 1)
+        public async Task<int> Import(int pages, int townId)
         {
             var config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(config);
@@ -40,9 +40,9 @@ namespace OnlineDoctorSystem.Services
 
             var addedDoctors = 0;
 
-            for (int i = 1; i < pages; i++)
+            for (int i = 1; i <= pages; i++)
             {
-                var url = BaseUrl+i;
+                var url = string.Format(BaseUrl,i, townId);
                 links.AddRange(await this.GetLinks(url));
             }
 
@@ -118,6 +118,7 @@ namespace OnlineDoctorSystem.Services
 
             //Get YearsOfPPractice
             var yearsOfPractice = document.QuerySelectorAll(".doctor-name > small").Select(x => x.TextContent).First().Trim().Substring(3, 2);
+            double.TryParse(yearsOfPractice, out double parsedYears);
 
             //Get SmallInfo
             var smallInfo = document.QuerySelectorAll(".col-lg-10 > p").Select(x => x.TextContent).First().Trim();
@@ -150,14 +151,13 @@ namespace OnlineDoctorSystem.Services
 
             //Is working with NZOK
             var isWorkingWithNZOK = document.QuerySelectorAll(".badge-primary").ToList().Any();
-
             var doctor = new Doctor()
             {
                 IsFromThirdParty = isFromThirdParty,
                 LinkFromThirdParty = originalUrl,
                 Name = doctorName,
                 ImageUrl = imageUrl,
-                YearsOfPractice = double.Parse(yearsOfPractice),
+                YearsOfPractice = parsedYears,
                 SmallInfo = smallInfo,
                 Qualifications = qualifications,
                 Education = education,

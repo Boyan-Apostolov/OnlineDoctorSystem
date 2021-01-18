@@ -23,9 +23,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> GatherDoctors(int count)
+        public async Task<IActionResult> GatherDoctors(int count, int townId)
         {
-            var addedDoctors = await this.doctorScraperService.Import(count);
+            var addedDoctors = await this.doctorScraperService.Import(count, townId);
             return this.RedirectToAction("Added", "DoctorsGatherer", new { addedDoctors = addedDoctors });
         }
 
