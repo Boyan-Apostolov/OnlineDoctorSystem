@@ -1,3 +1,4 @@
+
 # Online Doctor System
 Web application for finding all doctors, seeing closest doctors, making consultations, adding reviews or chatting with the users on the app
 
@@ -29,6 +30,8 @@ You can check it out on: https://onlinedoc.azurewebsites.net/
 |Смяна цвета на консултация |да            |да            |
 |Създаване на ревю          |не            |да            |
 |Достъп до чата             |да            |да            |
+|Добавяне на предписание    |да            |не            |
+|Преглед на предписания     |не            |да            |
 
  **Автоматични потребители**
 | **User with role** |Email                    |Password         |
@@ -40,27 +43,27 @@ You can check it out on: https://onlinedoc.azurewebsites.net/
 # Screenshots:
 **Home page**
 
-![Home Page](https://cdn1.bbcode0.com/uploads/2020/12/12/a74f62376ac1b066b5b70d90ec56d1dd-full.png)
+![Home Page](https://i.ibb.co/WVvRJGh/home-page.png)
 
 **All Doctors**
 
-![All Doctors](https://cdn1.bbcode0.com/uploads/2020/12/13/7c39c1024b5344fe1b7dcbdc1a1d4612-full.png)
+![All Doctors](https://i.ibb.co/dB51wgk/all-doctors.png)
 
 **Info about a doctor**
 
-![Doctor Info](https://cdn1.bbcode0.com/uploads/2020/12/13/873e5a503c253731e911358c4fcd1902-full.png)
+![Doctor Info](https://i.ibb.co/ZmZ7Fdz/doctor-info.png)
 
 **Closest Doctors**
 
-![Doctors near me](https://cdn1.bbcode0.com/uploads/2020/12/13/815364e95433a04c6bf1c3d3d1ab7f18-full.png)
+![Doctors near me](https://i.ibb.co/vd4LRKF/patients-near-me.png)
 
 **General Chat**
 
-![GenralChat](https://cdn1.bbcode0.com/uploads/2020/12/13/50adfc1873c54e44141f16d7d1cca6e9-full.png)
+![GenralChat](https://i.ibb.co/2YgrVq7/general-chat.png)
 
 # Database Diagram:
-![Database Diagram](https://cdn1.bbcode0.com/uploads/2020/12/21/382e82bc79fe018a2c886e791b8bd333-full.png)
+![Database Diagram](https://i.ibb.co/hKmwJGQ/db-doagram.png)
 
 # Code Coverage Results:
-![Code Coverage Results](https://cdn1.bbcode0.com/uploads/2020/12/12/19db8200e005b0cc795c4acc39ed547a-full.png)
+![Code Coverage Results](https://i.ibb.co/87ygg04/code-coverage-results.png)
 
