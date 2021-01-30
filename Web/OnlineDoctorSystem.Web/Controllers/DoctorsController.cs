@@ -14,7 +14,7 @@
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
-    [Authorize]
+    
     public class DoctorsController : Controller
     {
         private const int ItemsPerPage = 4;

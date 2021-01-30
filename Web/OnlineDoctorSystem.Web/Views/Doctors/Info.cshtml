@@ -41,7 +41,10 @@
                         {
                              @if (!Model.Name.Contains("(bot)"))
                              {
-                                 <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                                 @if (this.User.Identity.IsAuthenticated)
+                                 {
+                                     <a asp-controller="Consultations" asp-action="AddConsultation" asp-route-id="@Model.Id" class="btn btn-success btn-outline-warning text-white">Запази час</a>
+                                 }
                              }
                              <p class="text-danger">Това е тестов акаунт, не може да се запази консултация</p>
                         }
