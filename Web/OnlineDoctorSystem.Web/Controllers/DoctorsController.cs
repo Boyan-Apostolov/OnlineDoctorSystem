@@ -44,6 +44,7 @@
 
         public IActionResult All(int id = 1)
         {
+            id = id <= 0 ? 1 : id;
             var viewModel = new AllDoctorViewModel()
             {
                 ItemsPerPage = ItemsPerPage,
