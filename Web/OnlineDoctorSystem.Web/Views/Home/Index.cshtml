@@ -5,7 +5,10 @@
     var specailties = this.Model.Specialties.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
 }
 @model OnlineDoctorSystem.Web.ViewModels.Home.IndexViewModel
-
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Базата са сайта ни беше рестартирана, ако имате профил, трябва да си създадете нов. Извинете за неудобството!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">X</button>
+    </div>
 <div class="row justify-content-center">
     <div class="col-sm-10 col-md-8 col-xl-6" id="home-search">
         <h1>Намерете лекар и резервирайте час за преглед онлайн!</h1>
