@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Emails
+﻿using OnlineDoctorSystem.Web.ViewModels.Contacts;
+
+namespace OnlineDoctorSystem.Services.Data.Emails
 {
     using System;
     using System.Threading.Tasks;
@@ -20,5 +22,7 @@
         public Task MoveEventEmailAsync(string patientEmail, DateTime previousDate, DateTime currentDate);
 
         public Task AddContactSubmissionEmailAsync(string senderName, string senderEmail, string title, string content);
+
+        public Task DoctorToPatientEmail(DoctorEmailViewModel mode);
     }
 }

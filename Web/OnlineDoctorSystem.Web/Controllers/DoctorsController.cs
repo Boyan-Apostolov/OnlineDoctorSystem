@@ -1,4 +1,8 @@
-﻿namespace OnlineDoctorSystem.Web.Controllers
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using OnlineDoctorSystem.Web.ViewModels.Contacts;
+using OnlineDoctorSystem.Web.ViewModels.Pateints;
+
+namespace OnlineDoctorSystem.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -14,7 +18,7 @@
     using OnlineDoctorSystem.Web.ViewModels.Doctors;
     using OnlineDoctorSystem.Web.ViewModels.Home;
 
-    
+
     public class DoctorsController : Controller
     {
         private const int ItemsPerPage = 4;
@@ -38,6 +42,12 @@
 
         [Authorize(Roles = GlobalConstants.DoctorRoleName)]
         public IActionResult ThankYou()
+        {
+            return this.View();
+        }
+
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
+        public IActionResult EmailSent()
         {
             return this.View();
         }
@@ -126,6 +136,32 @@
             var doctorId = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).Id;
             var consultations = await this.consultationsService.GetUnconfirmedConsultations(doctorId);
             return this.View(consultations);
+        }
+
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
+        public IActionResult DoctorSendEmail(string patientId)
+        {
+            var patient = this.patientsService.GetPatient<PatientViewModel>(patientId);
+
+            var viewModel = new DoctorEmailViewModel()
+            {
+                PatientName = $"{patient.FirstName} {patient.LastName}",
+                DoctorId = this.doctorsService.GetDoctorByUserId(this.User.FindFirst(ClaimTypes.NameIdentifier).Value).Id,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.DoctorRoleName)]
+        public async Task<IActionResult> DoctorSendEmail(DoctorEmailViewModel model)
+        {
+            model.DoctorEmail = await this.doctorsService.GetDoctorEmailById(model.DoctorId);
+            model.PatientEmail = this.patientsService.GetPatientEmailByPatientId(model.PatientId);
+
+            await this.doctorsService.DoctorSendEmail(model);
+
+            return this.RedirectToAction(nameof(this.EmailSent));
         }
     }
 }

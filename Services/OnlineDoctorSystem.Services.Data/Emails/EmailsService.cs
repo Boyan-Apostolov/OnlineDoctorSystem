@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Emails
+﻿using OnlineDoctorSystem.Web.ViewModels.Contacts;
+
+namespace OnlineDoctorSystem.Services.Data.Emails
 {
     using System;
     using System.Threading.Tasks;
@@ -93,6 +95,16 @@
                 GlobalConstants.SystemAdminEmail,
                 $"{title} -> {senderEmail}",
                 content);
+        }
+
+        public async Task DoctorToPatientEmail(DoctorEmailViewModel model)
+        {
+            await this.emailSender.SendEmailAsync(
+                GlobalConstants.SystemAdminEmail,
+                model.DoctorEmail,
+                model.PatientEmail,
+                model.Title,
+                $"Съобщение от {model.DoctorEmail}:  {model.Content}");
         }
     }
 }

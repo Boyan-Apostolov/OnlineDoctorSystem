@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Web.ViewModels.Contacts;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -40,5 +42,7 @@
         int GetReviewsCount();
 
         Task<bool> AddReview(AddReviewInputModel model);
+
+        Task DoctorSendEmail(DoctorEmailViewModel model);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Services.Data.Doctors
+﻿using OnlineDoctorSystem.Web.ViewModels.Contacts;
+
+namespace OnlineDoctorSystem.Services.Data.Doctors
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -184,6 +186,11 @@
                 .ToList();
 
             return patients;
+        }
+
+        public async Task DoctorSendEmail(DoctorEmailViewModel model)
+        {
+            await this.emailsService.DoctorToPatientEmail(model);
         }
     }
 }
