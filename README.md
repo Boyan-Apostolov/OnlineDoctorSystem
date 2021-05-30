@@ -2,7 +2,7 @@
 # Online Doctor System
 Web application for finding all doctors, seeing closest doctors, making consultations, adding reviews or chatting with the users on the app
 
-You can check it out on: https://onlinedoc.azurewebsites.net/
+You can check it out on: https://onlinedoctorsystem.azurewebsites.net
 ## Build Status
 [![Build Status](https://dev.azure.com/BobbyApostolov/Bobby_Apostolov/_apis/build/status/Boyan-Apostolov.OnlineDoctorSystem%20(1)?branchName=master)](https://dev.azure.com/BobbyApostolov/Bobby_Apostolov/_build/latest?definitionId=2&branchName=master)
 # 🛠  Built with:
