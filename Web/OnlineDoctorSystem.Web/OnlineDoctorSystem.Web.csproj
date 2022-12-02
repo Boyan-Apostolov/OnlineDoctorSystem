@@ -60,4 +60,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
 </Project>

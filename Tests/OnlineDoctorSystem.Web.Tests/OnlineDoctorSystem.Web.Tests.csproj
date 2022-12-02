@@ -31,4 +31,7 @@
     <ProjectReference Include="..\..\Web\OnlineDoctorSystem.Web\OnlineDoctorSystem.Web.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
 </Project>
