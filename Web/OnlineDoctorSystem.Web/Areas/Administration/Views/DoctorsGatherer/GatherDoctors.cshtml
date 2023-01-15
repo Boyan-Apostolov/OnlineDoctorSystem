@@ -1,6 +1,10 @@
-﻿@{
+﻿@using OnlineDoctorSystem.Services
+@{
     this.ViewData["Title"] = "Добавяне на лекари";
+
+    var towns = this.Model.Towns.Select(x => new SelectListItem(x.Value, x.Key.ToString()));
 }
+@model OnlineDoctorSystem.Web.ViewModels.Home.IndexViewModel
 <h1 class="text-center">@this.ViewData["Title"]</h1>
 <form method="post">
     <div class="form-group">
@@ -8,8 +12,9 @@
         <input id="count" name="count" type="number" class="form-control"/>
     </div>
     <div class="form-group">
-        <label for="townId" class="form-control text-center">ID на град (1-28)</label>
-        <input id="townId" name="townId" type="number" class="form-control"/>
+        <select for="townId" class="form-control" asp-items="towns">
+            <option value="" selected="">Град:</option>
+        </select>
     </div>
     <button class="btn btn-success" type="submit">Добави</button>
 

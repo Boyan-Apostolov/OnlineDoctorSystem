@@ -40,6 +40,7 @@ namespace OnlineDoctorSystem.Services.Data.Doctors
             IQueryable<Doctor> query = this.doctorsRepository.AllAsNoTracking()
                 .Where(x => x.IsConfirmed ?? false)
                 .OrderByDescending(x => x.Consultations.Count)
+                .ThenBy(x => x.IsFromThirdParty)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
             return query.To<T>().ToList();
