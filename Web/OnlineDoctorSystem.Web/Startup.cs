@@ -133,7 +133,7 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                this.SeedHangfireJobs(recurringJobManager, dbContext, serviceProvider);
+                //this.SeedHangfireJobs(recurringJobManager, dbContext, serviceProvider); TODO: Enable When DB is paid
             }
 
             if (env.IsDevelopment())
