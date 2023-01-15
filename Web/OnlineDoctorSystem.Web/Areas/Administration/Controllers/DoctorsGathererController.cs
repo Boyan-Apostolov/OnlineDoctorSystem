@@ -1,4 +1,6 @@
-﻿namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
+﻿using OnlineDoctorSystem.Web.ViewModels.Home;
+
+namespace OnlineDoctorSystem.Web.Areas.Administration.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -7,19 +9,27 @@
 
     using Microsoft.AspNetCore.Mvc;
     using OnlineDoctorSystem.Services;
+    using OnlineDoctorSystem.Services.Data.Towns;
 
     public class DoctorsGathererController : AdministrationController
     {
         private readonly IDoctorScraperService doctorScraperService;
+        private readonly ITownsService townsService;
 
-        public DoctorsGathererController(IDoctorScraperService doctorScraperService)
+        public DoctorsGathererController(IDoctorScraperService doctorScraperService, ITownsService townsService)
         {
             this.doctorScraperService = doctorScraperService;
+            this.townsService = townsService;
         }
 
         public IActionResult GatherDoctors()
         {
-            return this.View();
+            var model = new IndexViewModel
+            {
+                Towns = this.townsService.GetAllAsKeyValuePairs(),
+            };
+
+            return this.View(model);
         }
 
         [HttpPost]

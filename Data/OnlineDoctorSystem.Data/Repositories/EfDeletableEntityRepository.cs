@@ -1,6 +1,9 @@
-﻿namespace OnlineDoctorSystem.Data.Repositories
+﻿using System.Collections;
+
+namespace OnlineDoctorSystem.Data.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -37,6 +40,14 @@
             entity.IsDeleted = false;
             entity.DeletedOn = null;
             this.Update(entity);
+        }
+
+        public async Task AddRangeAsync(ICollection<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                await this.AddAsync(entity);
+            }
         }
 
         public override void Delete(TEntity entity)

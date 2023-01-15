@@ -3,10 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using AngleSharp;
+using AngleSharp.Attributes;
 using OnlineDoctorSystem.Data.Common.Repositories;
 using OnlineDoctorSystem.Data.Models;
 
@@ -18,7 +20,7 @@ namespace OnlineDoctorSystem.Services
         private readonly IDeletableEntityRepository<Specialty> specialtiesRepository;
         private readonly IDeletableEntityRepository<Doctor> doctorsRepository;
 
-        private string BaseUrl = "https://superdoc.bg/lekari?name=&page={0}&region_id={1}&specialty_id=";
+        private string BaseUrl = "https://superdoc.bg/lekari?page={0}&region_id={1}";
         private IBrowsingContext context = new BrowsingContext();
 
         public DoctorScraperService(
@@ -31,40 +33,46 @@ namespace OnlineDoctorSystem.Services
             this.doctorsRepository = doctorsRepository;
         }
 
-        public async Task<int> Import(int pages, int townId)
+        public async Task<int> Import(int doctorsCount, int townId)
         {
             var config = Configuration.Default.WithDefaultLoader();
             this.context = BrowsingContext.New(config);
 
             var links = new List<string>();
 
-            var addedDoctors = 0;
+            var pages = Math.Ceiling((doctorsCount / 20m)); //20 doctors per page
 
-            for (int i = 1; i <= pages; i++)
+            for (int i = 0; i < pages; i++)
             {
-                var url = string.Format(BaseUrl,i, townId);
-                links.AddRange(await this.GetLinks(url));
+                var pageNum = i == 0 // Първата страница НЕ трябва да има сложен номер
+                    ? (int?) null 
+                    : i;
+                
+                var url = string.Format(BaseUrl, pageNum, townId);
+                var doctorsToAdd = doctorsCount - links.Count;
+
+                links.AddRange(await this.GetLinks(url, doctorsToAdd));
             }
 
-            for (int j = 0; j < pages; j++)
+            var addedDoctors = new List<Doctor>();
+            for (int j = 0; j < doctorsCount; j++)
             {
                 try
                 {
                     var doctor = await this.GetDoctor(links[j]);
-                    await this.doctorsRepository.AddAsync(doctor);
-                    addedDoctors++;
+                    addedDoctors.Add(doctor);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
-
+            await this.doctorsRepository.AddRangeAsync(addedDoctors);
             await this.doctorsRepository.SaveChangesAsync();
-            return addedDoctors;
+            return addedDoctors.Count;
         }
 
-        private async Task<List<string>> GetLinks(string url)
+        private async Task<List<string>> GetLinks(string url, int doctorsCount)
         {
             var document = await this.context
                 .OpenAsync(url);
@@ -75,17 +83,12 @@ namespace OnlineDoctorSystem.Services
                 throw new InvalidOperationException();
             }
 
-            var indexElements = document.QuerySelectorAll(".search-results-holder > .search-result > .search-result-link")
-                .ToArray();
+            var indexLinks = document.QuerySelectorAll(".search-result .search-result-link")
+                .Take(doctorsCount)
+                .Select(x=>x.GetAttribute("href"))
+                .ToList();
 
-
-            var links = new List<string>();
-            foreach (var link in indexElements)
-            {
-                links.Add(link.GetAttribute("href"));
-            }
-
-            return links;
+            return indexLinks;
         }
 
         private async Task<Doctor> GetDoctor(string url)
@@ -105,40 +108,40 @@ namespace OnlineDoctorSystem.Services
             var originalUrl = url;
 
             //Get DoctorName
-            var doctorName = document.QuerySelectorAll(".doctor-name > h1").Select(x => x.TextContent).First();
+            var doctorName = document.QuerySelectorAll(".doctor-name h1").Select(x => x.TextContent).First();
 
             //Get DoctorImage
-            var imageUrl = document.QuerySelectorAll(".doctor-images > .gallery").First().GetAttribute("href");
+            var imageUrl = document.QuerySelectorAll(".doctor-images .gallery").First().GetAttribute("href");
 
             //Get DoctorSpecialty
-            var specialty = document.QuerySelectorAll(".doctor-name > h2").Select(x => x.TextContent).First();
+            var specialty = document.QuerySelectorAll(".doctor-name h2").Select(x => x.TextContent).First();
 
             //Get DoctorTown
-            var town = document.QuerySelectorAll(".doctor-name > h3").Select(x => x.TextContent).First().Trim();
+            var town = document.QuerySelectorAll(".doctor-name h3").Select(x => x.TextContent).First().Trim();
 
             //Get YearsOfPPractice
-            var yearsOfPractice = document.QuerySelectorAll(".doctor-name > small").Select(x => x.TextContent).First().Trim().Substring(3, 2);
+            var yearsOfPractice = document.QuerySelectorAll(".doctor-name .text-small").Select(x => x.TextContent).First().Trim().Substring(3, 2);
             double.TryParse(yearsOfPractice, out double parsedYears);
 
             //Get SmallInfo
-            var smallInfo = document.QuerySelectorAll(".col-lg-10 > p").Select(x => x.TextContent).First().Trim();
+            var smallInfo = document.QuerySelectorAll(".col-lg-10 p").Select(x => x.TextContent).First().Trim();
 
-            var doctorPersonalInfo = document.QuerySelectorAll(".doctor-description > p").Select(x => x.TextContent).ToList();
+            var doctorPersonalInfo = document.QuerySelectorAll(".doctor-description p").Select(x => x.TextContent).ToList();
 
             //Get Education
             var education = doctorPersonalInfo[0];
 
-            //Get Qualifications
-            var qualifications = doctorPersonalInfo[1];
-
             //Get PreviousWork
-            var previousWork = doctorPersonalInfo[2];
+            var previousWork = doctorPersonalInfo[1];
+
+            //Get Qualifications
+            var qualifications = document.QuerySelectorAll(".doctor-description ul li").Select(x => x.TextContent).ToList();
 
             //Get Email
             var doctorEmail = string.Empty;
             try
             {
-                doctorEmail = document.QuerySelectorAll(".doctor-description > a").Select(x => x.TextContent).First()
+                doctorEmail = document.QuerySelectorAll(".doctor-description a").Select(x => x.TextContent).First()
                     .Trim();
             }
             catch (Exception e)
@@ -159,7 +162,7 @@ namespace OnlineDoctorSystem.Services
                 ImageUrl = imageUrl,
                 YearsOfPractice = parsedYears,
                 SmallInfo = smallInfo,
-                Qualifications = qualifications,
+                Qualifications = string.Join(", ", qualifications),
                 Education = education,
                 Biography = previousWork,
                 ContactEmailFromThirdParty = doctorEmail,

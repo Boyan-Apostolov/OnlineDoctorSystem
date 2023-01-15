@@ -14,8 +14,8 @@ else
     <div class="row text-center justify-content-center">
         @foreach (var doctor in @Model.Doctors)
         {
-            <div class="card text-center d-inline-block col-xl-3 col-md-2 col-sm-5">
-                <img class="card-img-top mx-auto img-fluid"  style="height: 270px" src="@doctor.ImageUrl" alt="@doctor.Name снимка" >
+            <div class="card text-center d-inline-block col-xl-3 col-md-3 col-sm-4">
+                <img class="card-img-top mx-auto img-fluid"  style="height: 270px; object-fit: contain;" src="@doctor.ImageUrl" alt="@doctor.Name снимка" >
                 <div class="card-body">
                     @if (@doctor.Name.Length >= 15)
                     {

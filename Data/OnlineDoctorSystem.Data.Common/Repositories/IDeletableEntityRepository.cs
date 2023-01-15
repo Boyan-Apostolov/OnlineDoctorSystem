@@ -1,5 +1,8 @@
-﻿namespace OnlineDoctorSystem.Data.Common.Repositories
+﻿using System.Collections;
+
+namespace OnlineDoctorSystem.Data.Common.Repositories
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -17,5 +20,6 @@
         void HardDelete(TEntity entity);
 
         void Undelete(TEntity entity);
+        Task AddRangeAsync(ICollection<TEntity> addedDoctors);
     }
 }
